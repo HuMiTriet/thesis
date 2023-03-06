@@ -1,6 +1,6 @@
 import pytest
 
-from prototype import create_app
+from server import create_app
 
 
 @pytest.fixture
