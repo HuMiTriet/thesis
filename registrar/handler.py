@@ -28,7 +28,10 @@ def broadcast():
     approvals: int = 0
 
     for url in subscribers_url:
-        if url is not requester_url:
+        if url != requester_url:
+            # print(
+            #     f"current itr url: {url} and the requester_url {requester_url}"
+            # )
             r = requests.post(
                 f"{url}/resource_status",
                 json={"resource_id": resource_id},
@@ -36,7 +39,7 @@ def broadcast():
             if r.status_code == 200:
                 approvals += 1
 
-    if approvals == 1 or approvals == 2:
+    if approvals == len(subscribers_url) - 1:
         return "resource free", 200
     else:
         return "resource locked", 423

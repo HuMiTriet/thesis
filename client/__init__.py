@@ -1,4 +1,4 @@
-from flask import Flask, json, request
+from flask import Flask
 import requests
 
 SERVER_URL = "http://127.0.0.1:5000/"
@@ -7,9 +7,8 @@ REGISTRAR_URL = "http://127.0.0.1:5001/"
 resource_currently_using = []
 
 
-def lock_resource(id: str) -> requests.models.Response:
-    r = requests.put(f"{SERVER_URL}{id}/lock")
-    resource_currently_using.append(id)
+def lock_resource(id: str, requester_url: str) -> requests.models.Response:
+    r = requests.put(f"{SERVER_URL}{id}/lock", json={"origin": requester_url})
     return r
 
 

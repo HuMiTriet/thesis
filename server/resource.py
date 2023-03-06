@@ -3,6 +3,8 @@ import os
 import time
 import multiprocessing
 
+import requests
+
 TIMEOUT_SEC: int = 3
 
 bp = Blueprint("resouce", __name__)
@@ -21,7 +23,7 @@ def get(id: str):
     return "Resource not found", 404
 
 
-def expire_lock(id: str, duration: int) -> None:
+def expire_lock(id: str, duration: int, origin: str) -> None:
     with open(os.path.join("dummy_data.json"), "r") as f:
         import json
 
@@ -36,11 +38,14 @@ def expire_lock(id: str, duration: int) -> None:
                     "w",
                 ) as f:
                     json.dump(data, f)
+                    requests.delete(f"{origin}{id}/lock")
 
 
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:id>/lock", methods=["PUT"])
 def lock(id: str):
+    data = request.get_json()
+    origin = data["origin"]
     with open(os.path.join("dummy_data.json"), "r") as f:
         import json
 
@@ -57,7 +62,7 @@ def lock(id: str):
                     ) as f:
                         json.dump(data, f)
                         process = multiprocessing.Process(
-                            target=expire_lock, args=(id, TIMEOUT_SEC)
+                            target=expire_lock, args=(id, TIMEOUT_SEC, origin)
                         )
                         process.start()
                         return "Success", 200
