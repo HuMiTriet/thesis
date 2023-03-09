@@ -1,12 +1,61 @@
 from flask.testing import FlaskCliRunner, FlaskClient
 from multiprocessing import Process
 import pytest
+import requests
 
 from flask import Flask
-import requests
 from server import create_app as create_server
 from registrar import create_app as create_registrar
 from client import create_app as create_client
+
+from psutil import process_iter, AccessDenied
+from signal import SIGTERM  # or SIGKILL
+
+
+def kill_process(ports: list[int]) -> None:
+
+    for proc in process_iter():
+        try:
+            for conns in proc.connections(kind="inet"):
+                if conns.laddr.port in ports:
+                    proc.send_signal(SIGTERM)
+        except AccessDenied:
+            pass
+
+
+@pytest.fixture
+def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
+
+    # kill any process at port 5000 5001 5002 and 5003
+    kill_process([5000, 5001, 5002, 5003])
+
+    server_process = Process(target=server_app.run, kwargs={"port": 5000})
+    registrar_process = Process(
+        target=registrar_app.run, kwargs={"port": 5001}
+    )
+    client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
+    client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
+
+    server_process.start()
+    registrar_process.start()
+    client_1_process.start()
+    client_2_process.start()
+
+    yield
+
+    server_process.terminate()
+    registrar_process.terminate()
+    client_1_process.terminate()
+    client_2_process.terminate()
+
+
+@pytest.fixture
+def register_client(setup):
+    response = requests.post("http://127.0.0.1:5002/register")
+    assert response.status_code == 200
+
+    response = requests.post("http://127.0.0.1:5003/register")
+    assert response.status_code == 200
 
 
 @pytest.fixture
@@ -52,26 +101,3 @@ def registrar_cli_runner(registrar_app: Flask) -> FlaskCliRunner:
 @pytest.fixture
 def client_cli_runner(client_app: Flask) -> FlaskCliRunner:
     return client_app.test_cli_runner()
-
-
-@pytest.fixture
-def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
-
-    server_process = Process(target=server_app.run, kwargs={"port": 5000})
-    registrar_process = Process(
-        target=registrar_app.run, kwargs={"port": 5001}
-    )
-    client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
-    client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
-
-    server_process.start()
-    registrar_process.start()
-    client_1_process.start()
-    client_2_process.start()
-
-    yield
-
-    server_process.terminate()
-    registrar_process.terminate()
-    client_1_process.terminate()
-    client_2_process.terminate()

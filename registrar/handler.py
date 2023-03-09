@@ -7,9 +7,6 @@ bp = Blueprint("handler", __name__)
 
 subscribers_url: list[str] = []
 
-# subscribers_url.append("http://127.0.0.1:5002/")
-# subscribers_url.append("http://127.0.0.1:5003/")
-
 
 @bp.route("/register", methods=["POST"])
 def register():
@@ -19,22 +16,17 @@ def register():
     return "subscribed", 200
 
 
-@bp.route("/broadcast", methods=["POST"])
-def broadcast():
+@bp.route("/<string:resource_id>/broadcast", methods=["POST"])
+def broadcast(resource_id: str):
     data = request.get_json()
     requester_url: str = data["url"]
-    resource_id: str = data["requested_id"]
 
     approvals: int = 0
 
     for url in subscribers_url:
         if url != requester_url:
-            # print(
-            #     f"current itr url: {url} and the requester_url {requester_url}"
-            # )
             r = requests.post(
-                f"{url}/resource_status",
-                json={"resource_id": resource_id},
+                f"{url}/{resource_id}/resource_status",
             )
             if r.status_code == 200:
                 approvals += 1
@@ -42,4 +34,4 @@ def broadcast():
     if approvals == len(subscribers_url) - 1:
         return "resource free", 200
     else:
-        return "resource locked", 423
+        return "Someone reject the broadcast request", 417

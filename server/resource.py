@@ -88,7 +88,7 @@ def unlock(id: str):
                         json.dump(data, f)
                         return "Success", 200
                 else:
-                    return "Resource not locked", 400
+                    return "Resource not locked", 418
 
     return "Resource not found", 404
 
