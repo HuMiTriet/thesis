@@ -1,1 +1,1 @@
-[{"id": "A", "is_locked": false}, {"id": "B", "is_locked": false}]
+[{"id": "A", "is_locked": true}, {"id": "B", "is_locked": false}]

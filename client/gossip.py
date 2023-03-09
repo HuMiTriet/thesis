@@ -16,7 +16,6 @@ def register():
         f"{REGISTRAR_URL}/register",
         json={"url": request.host_url},
     )
-    host_url = request.host_url
     return r.text, r.status_code
 
 
@@ -34,7 +33,7 @@ def lock(id: str):
         resource_currently_using.append(id)
         return f"resource {id} is being locked by {request.host_url}", 200
     else:
-        return "can't lock", 403
+        return r.text, 403
 
 
 @bp.route("/<string:id>/lock", methods=["DELETE"])

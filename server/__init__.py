@@ -1,4 +1,5 @@
 from flask import Flask
+import click
 
 
 def create_app(test_config=None):
@@ -13,3 +14,9 @@ def create_app(test_config=None):
     app.register_blueprint(resource.bp)
 
     return app
+
+
+@click.command("run_server")
+@click.option("--port", default=5000)
+def run_client(app: Flask, port):
+    app.run(port=port)

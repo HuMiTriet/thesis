@@ -1,10 +1,19 @@
-from flask import Flask
+from flask import Flask, request
 import requests
+import click
 
 SERVER_URL = "http://127.0.0.1:5000/"
 REGISTRAR_URL = "http://127.0.0.1:5001/"
 
 resource_currently_using = []
+
+
+def register():
+    r = requests.post(
+        f"{REGISTRAR_URL}/register",
+        json={"url": request.host_url},
+    )
+    return r.text, r.status_code
 
 
 def lock_resource(id: str, requester_url: str) -> requests.models.Response:
@@ -34,7 +43,7 @@ def update_resource(
     return r
 
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     from . import gossip
@@ -42,3 +51,9 @@ def create_app():
     app.register_blueprint(gossip.bp)
 
     return app
+
+
+@click.command("run_client")
+@click.option("--port", default=5001)
+def run_client(app: Flask, port):
+    app.run(port=port)
