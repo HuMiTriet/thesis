@@ -2,6 +2,8 @@ from flask import Flask, request
 import requests
 import click
 
+from ..proxy import proxies
+
 SERVER_URL = "http://127.0.0.1:5000/"
 REGISTRAR_URL = "http://127.0.0.1:5001/"
 

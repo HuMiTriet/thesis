@@ -3,6 +3,7 @@ from . import resource_currently_using, lock_resource
 from flask import Blueprint, request
 import requests
 
+SERVER_URL = "http://127.0.0.1:5000/"
 REGISTRAR_URL = "http://127.0.0.1:5001/"
 
 
@@ -21,6 +22,7 @@ def register():
 
 @bp.route("/<string:id>/lock", methods=["POST"])
 def lock(id: str):
+    resource_currently_using.append(id)
     r = requests.post(
         f"{REGISTRAR_URL}/{id}/broadcast",
         json={
@@ -29,7 +31,6 @@ def lock(id: str):
     )
     if r.status_code == 200:
         lock_resource(id, request.host_url)
-        resource_currently_using.append(id)
         return f"resource {id} is being locked by {request.host_url}", 200
     else:
         return "Unauthorized to lock that resource", 401
@@ -39,6 +40,7 @@ def lock(id: str):
 def revoke_lock(id: str):
     try:
         resource_currently_using.remove(id)
+        requests.delete(f"{SERVER_URL}/id/lock")
         return f"resource {id} is being unlocked by {request.host_url}", 200
     except ValueError:
         return "resource not locked", 412

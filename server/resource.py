@@ -5,7 +5,7 @@ import multiprocessing
 
 import requests
 
-TIMEOUT_SEC: int = 3
+TIMEOUT_SEC: int = 1
 
 bp = Blueprint("resouce", __name__)
 

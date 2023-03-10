@@ -1,4 +1,5 @@
 from hypothesis import HealthCheck, given, settings, strategies as st
+import time
 import requests
 
 
@@ -19,10 +20,10 @@ def test_get_resource_from_server(setup, resource_id: str) -> None:
 def test_one_client_lock(
     setup, register_client, resource_id: str, client_port: int
 ):
-    requests.delete(f"http://127.0.0.1:{client_port}/{resource_id}/lock")
 
+    requests.delete(f"http://127.0.0.1:{client_port}/{resource_id}/lock")
     response = requests.post(
         f"http://127.0.0.1:{client_port}/{resource_id}/lock"
     )
 
-    assert response.status_code == 200 or response.status_code == 403
+    assert response.status_code == 200 or response.status_code == 401
