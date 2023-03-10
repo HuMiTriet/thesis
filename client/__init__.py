@@ -1,3 +1,5 @@
+from proxy import proxies
+
 from flask import Flask, request
 import requests
 import click

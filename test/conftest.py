@@ -11,64 +11,20 @@ from client import create_app as create_client
 from psutil import process_iter, AccessDenied
 from signal import SIGTERM  # or SIGKILL
 
-
-def kill_process(ports: list[int]) -> None:
-
-    for proc in process_iter():
-        try:
-            for conns in proc.connections(kind="inet"):
-                if conns.laddr.port in ports:
-                    proc.send_signal(SIGTERM)
-        except AccessDenied:
-            pass
+SCOPE = "session"
 
 
-@pytest.fixture(autouse=True)
-def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
-
-    # kill any process at port 5000 5001 5002 and 5003
-    kill_process([5000, 5001, 5002, 5003])
-
-    server_process = Process(target=server_app.run, kwargs={"port": 5000})
-    registrar_process = Process(
-        target=registrar_app.run, kwargs={"port": 5001}
-    )
-    client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
-    client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
-
-    server_process.start()
-    registrar_process.start()
-    client_1_process.start()
-    client_2_process.start()
-
-    yield
-
-    server_process.terminate()
-    registrar_process.terminate()
-    client_1_process.terminate()
-    client_2_process.terminate()
-
-
-@pytest.fixture(autouse=True)
-def register_client(setup):
-    response = requests.post("http://127.0.0.1:5002/register")
-    assert response.status_code == 200
-
-    response = requests.post("http://127.0.0.1:5003/register")
-    assert response.status_code == 200
-
-
-@pytest.fixture
+@pytest.fixture(scope=SCOPE)
 def server_app() -> Flask:
     return create_server()
 
 
-@pytest.fixture
+@pytest.fixture(scope=SCOPE)
 def registrar_app() -> Flask:
     return create_registrar()
 
 
-@pytest.fixture
+@pytest.fixture(scope=SCOPE)
 def client_app() -> Flask:
     return create_client()
 
@@ -101,3 +57,53 @@ def registrar_cli_runner(registrar_app: Flask) -> FlaskCliRunner:
 @pytest.fixture
 def client_cli_runner(client_app: Flask) -> FlaskCliRunner:
     return client_app.test_cli_runner()
+
+
+def kill_process(ports: list[int]) -> None:
+
+    for proc in process_iter():
+        try:
+            for conns in proc.connections(kind="inet"):
+                if conns.laddr.port in ports:
+                    proc.send_signal(SIGTERM)
+        except AccessDenied:
+            pass
+
+
+@pytest.fixture(autouse=True, scope=SCOPE)
+def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
+
+    # kill any process at port 5000 5001 5002 and 5003
+    print("STARTING SERVER...")
+
+    server_process = Process(target=server_app.run, kwargs={"port": 5000})
+    registrar_process = Process(
+        target=registrar_app.run, kwargs={"port": 5001}
+    )
+    client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
+    client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
+
+    server_process.start()
+    registrar_process.start()
+    client_1_process.start()
+    client_2_process.start()
+
+    yield
+
+    print("KILLING SERVER")
+
+    server_process.terminate()
+    registrar_process.terminate()
+    client_1_process.terminate()
+    client_2_process.terminate()
+
+    kill_process([5000, 5001, 5002, 5003])
+
+
+@pytest.fixture(autouse=True, scope=SCOPE)
+def register_client(setup, autouse=True):
+    response = requests.post("http://127.0.0.1:5002/register")
+    assert response.status_code == 200
+
+    response = requests.post("http://127.0.0.1:5003/register")
+    assert response.status_code == 200
