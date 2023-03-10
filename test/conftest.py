@@ -101,7 +101,7 @@ def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
 
 
 @pytest.fixture(autouse=True, scope=SCOPE)
-def register_client(setup, autouse=True):
+def register_client(setup):
     response = requests.post("http://127.0.0.1:5002/register")
     assert response.status_code == 200
 
