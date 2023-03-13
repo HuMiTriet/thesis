@@ -70,7 +70,7 @@ def kill_process(ports: list[int]) -> None:
             pass
 
 
-@pytest.fixture(autouse=True, scope=SCOPE)
+@pytest.fixture(scope=SCOPE)
 def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
 
     # kill any process at port 5000 5001 5002 and 5003
@@ -100,7 +100,7 @@ def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
     kill_process([5000, 5001, 5002, 5003])
 
 
-@pytest.fixture(autouse=True, scope=SCOPE)
+@pytest.fixture(scope=SCOPE)
 def register_client(setup):
     response = requests.post("http://127.0.0.1:5002/register")
     assert response.status_code == 200

@@ -1,9 +1,13 @@
 import unittest
 from hypothesis import strategies as st
-from hypothesis.stateful import RuleBasedStateMachine, initialize, rule
+from hypothesis.stateful import RuleBasedStateMachine, rule
+import pytest
 
 
 import requests
+
+pytest.mark.usefixtures("setup")
+pytest.mark.usefixtures("register_client")
 
 
 # the class should receive a setup fixture defined in the conftest.py file
@@ -27,6 +31,10 @@ class LockingTest(RuleBasedStateMachine):
         response = requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/lock"
         )
+        # print(
+        #     f"client {client_port} lock resource {resource_id}, status code:
+        # {response.status_code}"
+        # )
 
         assert response.status_code == 200 or response.status_code == 401
 
