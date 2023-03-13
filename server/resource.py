@@ -32,13 +32,7 @@ def expire_lock(id: str, duration: int, origin: str) -> None:
         data = json.load(f)
         for item in data:
             if item["id"] == id:
-                item["is_locked"] = False
-                with open(
-                    os.path.join("dummy_data.json"),
-                    "w",
-                ) as f:
-                    json.dump(data, f)
-                    requests.delete(f"{origin}{id}/lock")
+                requests.delete(f"{origin}{id}/lock")
 
 
 # accquire a temporary lock on a resource that will expirce after 2s
@@ -55,7 +49,7 @@ def lock(id: str):
                 if item["is_locked"] is True:
                     return "Resource currently locked", 423
                 else:
-                    item["is_locked"] = True
+                    item["is_locked"] = False
                     with open(
                         os.path.join("dummy_data.json"),
                         "w",
