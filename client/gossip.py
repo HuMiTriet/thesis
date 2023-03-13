@@ -30,6 +30,8 @@ def lock(id: str):
         },
     )
     if r.status_code == 200:
+        # old incorrect implementation
+        # resource_currently_using.append(id)
         lock_resource(id, request.host_url)
         return f"resource {id} is being locked by {request.host_url}", 200
     else:

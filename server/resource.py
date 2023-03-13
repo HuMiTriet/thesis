@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 import os
 import time
-import multiprocessing
+import threading
 
 import requests
 
@@ -24,15 +24,8 @@ def get(id: str):
 
 
 def expire_lock(id: str, duration: int, origin: str) -> None:
-    with open(os.path.join("dummy_data.json"), "r") as f:
-        import json
-
-        time.sleep(duration)
-
-        data = json.load(f)
-        for item in data:
-            if item["id"] == id:
-                requests.delete(f"{origin}{id}/lock")
+    time.sleep(duration)
+    requests.delete(f"{origin}{id}/lock")
 
 
 # accquire a temporary lock on a resource that will expirce after 2s
@@ -55,10 +48,10 @@ def lock(id: str):
                         "w",
                     ) as f:
                         json.dump(data, f)
-                        process = multiprocessing.Process(
+                        expire_thread = threading.Thread(
                             target=expire_lock, args=(id, TIMEOUT_SEC, origin)
                         )
-                        process.start()
+                        expire_thread.start()
                         return "Success", 200
 
     return "Resource not found", 404
@@ -104,10 +97,10 @@ def update(id: str):
                     locking_status = request_data["is_locked"]
                     if locking_status is True:
                         item["is_locked"] = True
-                        process = multiprocessing.Process(
+                        update_thread = threading.Thread(
                             target=expire_lock, args=(id, TIMEOUT_SEC)
                         )
-                        process.start()
+                        update_thread.start()
                     with open(
                         os.path.join("dummy_data.json"),
                         "w",

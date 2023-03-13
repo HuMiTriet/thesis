@@ -19,14 +19,13 @@ class LockingTest(RuleBasedStateMachine):
     @rule(resource_id=st.sampled_from(["A", "B"]))
     def get_resource_from_server(self, resource_id):
         response = requests.get(f"http://127.0.0.1:5000/{resource_id}")
-        assert response.status_code == 200 or response.status_code == 401
+        assert response.status_code == 200
 
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
         client_port=st.integers(min_value=5002, max_value=5003),
     )
     def client_lock(self, resource_id: str, client_port: int):
-        # requests.delete(f"http://127.0.0.1:{client_port}/{resource_id}/lock")
 
         response = requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/lock"
