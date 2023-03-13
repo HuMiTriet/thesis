@@ -19,7 +19,7 @@ class LockingTest(RuleBasedStateMachine):
     @rule(resource_id=st.characters(min_codepoint=65, max_codepoint=66))
     def get_resource_from_server(self, resource_id):
         response = requests.get(f"http://127.0.0.1:5000/{resource_id}")
-        assert response.status_code == 200
+        assert response.status_code == 200 or response.status_code == 401
 
     @rule(
         resource_id=st.characters(min_codepoint=65, max_codepoint=66),

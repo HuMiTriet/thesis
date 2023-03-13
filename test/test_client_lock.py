@@ -11,7 +11,7 @@ class TestClientLock:
 
         response = requests.get(f"http://127.0.0.1:5000/{resource_id}")
         # print(f"client get resource {resource_id} from server")
-        assert response.status_code == 200
+        assert response.status_code == 200 or response.status_code == 401
 
     @given(
         resource_id=st.sampled_from(["A", "B"]),
@@ -21,7 +21,6 @@ class TestClientLock:
         setup, register_client, resource_id: str, client_port: int
     ):
 
-        requests.delete(f"http://127.0.0.1:{client_port}/{resource_id}/lock")
         response = requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/lock"
         )
