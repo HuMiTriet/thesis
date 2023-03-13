@@ -1,10 +1,7 @@
-from proxy import proxies
-
 from flask import Flask, request
 import requests
 import click
 
-from proxy import proxies
 
 SERVER_URL = "http://127.0.0.1:5000/"
 REGISTRAR_URL = "http://127.0.0.1:5001/"
@@ -55,9 +52,3 @@ def create_app(test_config=None):
     app.register_blueprint(gossip.bp)
 
     return app
-
-
-@click.command("run_client")
-@click.option("--port", default=5001)
-def run_client(app: Flask, port):
-    app.run(port=port)
