@@ -6,8 +6,8 @@ import pytest
 
 import requests
 
-pytest.mark.usefixtures("setup")
-pytest.mark.usefixtures("register_client")
+pytestmark = pytest.mark.usefixtures("setup")
+pytestmark = pytest.mark.usefixtures("register_client")
 
 
 # the class should receive a setup fixture defined in the conftest.py file

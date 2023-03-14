@@ -7,6 +7,7 @@ from flask import Flask
 from server import create_app as create_server
 from registrar import create_app as create_registrar
 from client import create_app as create_client
+from proxy import create_app as create_proxy
 
 from psutil import process_iter, AccessDenied
 from signal import SIGTERM  # or SIGKILL
@@ -27,6 +28,11 @@ def registrar_app() -> Flask:
 @pytest.fixture(scope=SCOPE)
 def client_app() -> Flask:
     return create_client()
+
+
+@pytest.fixture(scope=SCOPE)
+def proxy_app() -> Flask:
+    return create_proxy()
 
 
 @pytest.fixture
@@ -71,11 +77,17 @@ def kill_process(ports: list[int]) -> None:
 
 
 @pytest.fixture(scope=SCOPE)
-def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
+def setup(
+    server_app: Flask,
+    registrar_app: Flask,
+    client_app: Flask,
+    proxy_app: Flask,
+):
 
     # kill any process at port 5000 5001 5002 and 5003
     print("STARTING SERVER...")
 
+    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
     registrar_process = Process(
         target=registrar_app.run, kwargs={"port": 5001}
@@ -83,6 +95,7 @@ def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
     client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
     client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
 
+    proxy_process.start()
     server_process.start()
     registrar_process.start()
     client_1_process.start()
@@ -92,12 +105,13 @@ def setup(server_app: Flask, registrar_app: Flask, client_app: Flask):
 
     print("KILLING SERVER")
 
+    proxy_process.terminate()
     server_process.terminate()
     registrar_process.terminate()
     client_1_process.terminate()
     client_2_process.terminate()
 
-    kill_process([5000, 5001, 5002, 5003])
+    kill_process([5000, 5001, 5002, 5003, 5004])
 
 
 @pytest.fixture(scope=SCOPE)

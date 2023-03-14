@@ -1,3 +1,4 @@
+from proxy import proxies
 from flask import Blueprint, request
 import os
 import time
@@ -25,7 +26,10 @@ def get(id: str):
 
 def expire_lock(id: str, duration: int, origin: str) -> None:
     time.sleep(duration)
-    requests.delete(f"{origin}{id}/lock")
+    requests.delete(
+        f"{origin}{id}/lock",
+        proxies=proxies,
+    )
 
 
 # accquire a temporary lock on a resource that will expirce after 2s
