@@ -19,7 +19,7 @@ def create_app():
 
     @app.route(
         "/<path:url>",
-        methods=["GET", "POST", "PUT", "DELETE", "PATCH", "UPDATE"],
+        methods=["GET", "POST", "PUT", "DELETE"],
     )
     def handler(url):
         response: Response = Response()

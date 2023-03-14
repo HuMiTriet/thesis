@@ -12,9 +12,9 @@ subscribers_url: set[str] = set()
 @bp.route("/register", methods=["POST"])
 def register():
     request_data = request.get_json()
-    print(request_data)
+#    print(request_data)
     subscribers_url.add(request_data["url"])
-    print(f"full set of subs {subscribers_url}")
+#    print(f"full set of subs {subscribers_url}")
     return "subscribed", 200
 
 
@@ -32,10 +32,10 @@ def broadcast(resource_id: str):
                 json={},
                 proxies=proxies,
             )
-            print(f"after broadcast {r.text}, {r.status_code}")
+#            print(f"after broadcast {r.text}, {r.status_code}")
             if r.status_code == 200:
                 approvals += 1
-                print(f"Registrar: received approval {resource_id} from {url}")
+#                print(f"Registrar: received approval {resource_id} from {url}")
 
     if approvals == len(subscribers_url) - 1:
         return "resource free", 200

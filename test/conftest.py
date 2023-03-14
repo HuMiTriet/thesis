@@ -85,7 +85,7 @@ def setup(
 ):
 
     # kill any process at port 5000 5001 5002 and 5003
-    print("STARTING SERVER...")
+#    print("STARTING SERVER...")
 
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
@@ -103,7 +103,7 @@ def setup(
 
     yield
 
-    print("KILLING SERVER")
+#    print("KILLING SERVER")
 
     proxy_process.terminate()
     server_process.terminate()
