@@ -85,7 +85,7 @@ def setup(
 ):
 
     # kill any process at port 5000 5001 5002 and 5003
-#    print("STARTING SERVER...")
+    # print("STARTING SERVER...")
 
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
@@ -103,7 +103,7 @@ def setup(
 
     yield
 
-#    print("KILLING SERVER")
+    #    print("KILLING SERVER")
 
     proxy_process.terminate()
     server_process.terminate()
@@ -112,6 +112,35 @@ def setup(
     client_2_process.terminate()
 
     kill_process([5000, 5001, 5002, 5003, 5004])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_no_registrar(
+    server_app: Flask,
+    client_app: Flask,
+    proxy_app: Flask,
+):
+
+    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
+    server_process = Process(target=server_app.run, kwargs={"port": 5000})
+    client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
+    client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
+
+    proxy_process.start()
+    server_process.start()
+    client_1_process.start()
+    client_2_process.start()
+
+    yield
+
+    #    print("KILLING SERVER")
+
+    proxy_process.terminate()
+    server_process.terminate()
+    client_1_process.terminate()
+    client_2_process.terminate()
+
+    kill_process([5000, 5002, 5003, 5004])
 
 
 @pytest.fixture(scope=SCOPE)

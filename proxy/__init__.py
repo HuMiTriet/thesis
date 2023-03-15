@@ -2,6 +2,8 @@ import os
 from flask import Flask, request
 import requests
 from requests import Response
+from time import sleep
+from random import randint
 
 
 proxies = {
@@ -23,6 +25,8 @@ def create_app():
     )
     def handler(url):
         response: Response = Response()
+
+        # sleep(randint(10, 1000) / 100)
 
         match request.method:
             case "GET":

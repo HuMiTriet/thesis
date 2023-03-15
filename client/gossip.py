@@ -23,7 +23,7 @@ def register():
 
 
 @bp.route("/<string:id>/lock", methods=["POST"])
-def lock(id: str):
+def lock(id: str) -> tuple[str, int]:
     resource_currently_using.add(id)
     r = requests.post(
         f"{REGISTRAR_URL}/{id}/broadcast",
@@ -40,6 +40,21 @@ def lock(id: str):
     else:
         resource_currently_using.remove(id)
         return "Unauthorized to lock that resource", 401
+
+
+@bp.route("/<string:id>/lock/no_registrar", methods=["POST"])
+def lock_no_registrar(id: str) -> tuple[str, int]:
+    r = requests.put(
+        f"{SERVER_URL}{id}/lock",
+        json={
+            "origin": request.host_url,
+        },
+        proxies=proxies,
+    )
+    if r.status_code == 200:
+        return f"resource {id} is being locked by {request.host_url}", 200
+    else:
+        return r.text, r.status_code
 
 
 @bp.route("/<string:id>/lock", methods=["DELETE"])
