@@ -1,9 +1,9 @@
-import os
 from flask import Flask, request
 import requests
 from requests import Response
-from time import sleep
-from random import randint
+import random
+
+from .manager import faults
 
 
 proxies = {
@@ -16,17 +16,18 @@ def create_app():
 
     app = Flask(__name__)
 
-    # session = requests.Session()
-    # session.proxies.update(proxies)
-
     @app.route(
         "/<path:url>",
         methods=["GET", "POST", "PUT", "DELETE"],
     )
-    def handler(url):
+    def handler(url: str):
         response: Response = Response()
 
-        # sleep(randint(10, 1000) / 100)
+        # randomly chooses a fault and runs it
+        if len(faults) != 0:
+            random.choice(list(faults.values())).execute(
+                request=request, url=url
+            )
 
         match request.method:
             case "GET":
@@ -39,5 +40,9 @@ def create_app():
                 response = requests.delete(f"{request.url}")
 
         return response.text, response.status_code
+
+    from . import manager
+
+    app.register_blueprint(manager.bp)
 
     return app
