@@ -21,24 +21,26 @@ def fault_factory(name: str):
             delayFault = DelayFault(
                 condition=condition,
                 duration=data["metadata"],
+                name=data["name"],
             )
 
             faults[name] = delayFault
 
             return 'fault type "Delay" added', 200
         case "error":
-            response = Response()
-            response.status_code = data["metadata"]["status_code"]
-            response.reason = data["metadata"]["text"]
-            # print(response.reason)
+            status_code = data["metadata"]["status_code"]
+            text = data["metadata"]["text"]
 
             errorFault = ErrorFault(
-                response=response,
                 condition=condition,
+                name=data["name"],
+                text=text,
+                status_code=status_code,
             )
 
             faults[name] = errorFault
 
+            print(errorFault)
             return 'fault type "Error" added', 200
         case _:
             return f'fault type {data["type"]} unknown', 406

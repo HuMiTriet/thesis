@@ -1,10 +1,11 @@
+import typing
 from flask import Flask, request
 import requests
 from requests import Response
 import random
 
 from .manager import faults
-
+from .fault import ErrorFault
 
 proxies = {
     "http": "http://127.0.0.1:5004",
@@ -21,13 +22,20 @@ def create_app():
         methods=["GET", "POST", "PUT", "DELETE"],
     )
     def handler(url: str):
+
         response: Response = Response()
 
         # randomly chooses a fault and runs it
         if len(faults) != 0:
-            random.choice(list(faults.values())).execute(
-                request=request, url=url
-            )
+            choosen_fault = random.choice(list(faults.values()))
+            print(f"Choose fault {choosen_fault.name}")
+            if isinstance(choosen_fault, ErrorFault):
+                # typing.cast(ErrorFault, choosen_fault)
+                res = choosen_fault.execute(request=request, url=url)
+                if res is not None:
+                    return res
+            else:
+                choosen_fault.execute(request=request, url=url)
 
         match request.method:
             case "GET":
