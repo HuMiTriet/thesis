@@ -4,8 +4,9 @@ import requests
 from requests import Response
 import random
 
-from .manager import faults
 from .fault import ErrorFault
+
+from .manager import managerState
 
 proxies = {
     "http": "http://127.0.0.1:5004",
@@ -26,16 +27,19 @@ def create_app():
         response: Response = Response()
 
         # randomly chooses a fault and runs it
-        if len(faults) != 0:
-            choosen_fault = random.choice(list(faults.values()))
-            print(f"Choose fault {choosen_fault.name}")
-            if isinstance(choosen_fault, ErrorFault):
-                # typing.cast(ErrorFault, choosen_fault)
-                res = choosen_fault.execute(request=request, url=url)
-                if res is not None:
-                    return res
-            else:
-                choosen_fault.execute(request=request, url=url)
+        # print(f"FAULT LEN {len(faults)}")
+        if len(managerState.faults) != 0:
+            # print(managerState.faults_currently_injected)
+            for fault in managerState.faults_currently_injected:
+                choosen_fault = managerState.faults[fault]
+                # print(f"Fault that will be executed {choosen_fault}")
+                if isinstance(choosen_fault, ErrorFault):
+                    # typing.cast(ErrorFault, choosen_fault)
+                    res = choosen_fault.execute(request=request, url=url)
+                    if res is not None:
+                        return res
+                else:
+                    choosen_fault.execute(request=request, url=url)
 
         match request.method:
             case "GET":

@@ -34,5 +34,3 @@ class ErrorFault(Fault):
     def execute(self, request: Request, url: str):
         if eval(self.condition):
             return self.text, self.status_code
-        else:
-            pass
