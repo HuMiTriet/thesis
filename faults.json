@@ -1,0 +1,11 @@
+[
+  {
+    "type": "error",
+    "name": "error 420",
+    "condition": "True",
+    "metadata": {
+      "text": "bruh",
+      "status_code": 420
+    }
+  }
+]

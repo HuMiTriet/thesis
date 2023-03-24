@@ -20,10 +20,11 @@ class ManagerState:
 managerState = ManagerState()
 
 
-@bp.route("/fault/<string:name>", methods=["POST"])
-def fault_factory(name: str):
+@bp.route("/fault", methods=["POST"])
+def fault_factory():
     data = request.get_json()
     condition = data["condition"]
+    name = data["name"]
 
     match data["type"]:
         case "delay":
@@ -70,10 +71,6 @@ def update_injections():
         data = request.get_json()
 
         managerState.faults_currently_injected = json.loads(data)
-
-        # print(
-        #     f"NEW manager injections {managerState.faults_currently_injected}"
-        # )
 
         return "New injects loaded", 200
     except Exception as e:

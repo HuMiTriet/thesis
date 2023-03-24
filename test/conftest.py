@@ -11,6 +11,7 @@ from proxy import create_app as create_proxy
 
 from psutil import process_iter, AccessDenied
 from signal import SIGTERM  # or SIGKILL
+import os
 
 SCOPE = "session"
 
@@ -150,3 +151,14 @@ def register_client(setup):
 
     response = requests.post("http://127.0.0.1:5003/register")
     assert response.status_code == 200
+
+
+@pytest.fixture(autouse=True, scope="session")
+def load_faults_into_proxy(setup):
+    with open(os.path.join("faults.json"), "r") as f:
+        import json
+
+        all_faults = json.load(f)
+
+        for fault in all_faults:
+            requests.post("http://127.0.0.1:5004/fault", json=fault)
