@@ -13,7 +13,7 @@ resource_currently_using: set[str] = set()
 def register():
     r = requests.post(
         f"{REGISTRAR_URL}/register",
-        json={"url": request.host_url},
+        json={"origin": request.host_url},
         proxies=proxies,
     )
     return r.text, r.status_code

@@ -64,6 +64,8 @@ def test_two_client_lock(setup, register_client, resource_id: str):
     r_1: Response = client_1_thread.join()
     r_2: Response = client_2_thread.join()
 
+    print(f" 5002 resp {r_1.text} and code {r_1.status_code}")
+    print(f" 5003 resp {r_2.text} and code {r_2.status_code}")
     assert not (r_1.status_code == 200 and r_2.status_code == 200)
 
     requests.delete(f"http://127.0.0.1:5002/{resource_id}/lock")

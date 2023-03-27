@@ -3,6 +3,7 @@ from flask import Flask, request
 import requests
 from requests import Response
 import random
+import re
 
 from .fault import ErrorFault
 
@@ -26,15 +27,11 @@ def create_app():
 
         response: Response = Response()
 
-        # randomly chooses a fault and runs it
-        # print(f"FAULT LEN {len(faults)}")
         if len(managerState.faults) != 0:
-            # print(managerState.faults_currently_injected)
             for fault in managerState.faults_currently_injected:
                 choosen_fault = managerState.faults[fault]
-                # print(f"Fault that will be executed {choosen_fault}")
+                print(f"1 choosen_fault: {choosen_fault}")
                 if isinstance(choosen_fault, ErrorFault):
-                    # typing.cast(ErrorFault, choosen_fault)
                     res = choosen_fault.execute(request=request, url=url)
                     if res is not None:
                         return res

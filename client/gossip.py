@@ -16,7 +16,7 @@ bp = Blueprint("gossip", __name__)
 def register():
     r = requests.post(
         f"{REGISTRAR_URL}/register",
-        json={"url": request.host_url},
+        json={"origin": request.host_url},
         proxies=proxies,
     )
     return r.text, r.status_code
@@ -25,21 +25,21 @@ def register():
 @bp.route("/<string:id>/lock", methods=["POST"])
 def lock(id: str) -> tuple[str, int]:
     resource_currently_using.add(id)
+
     r = requests.post(
         f"{REGISTRAR_URL}/{id}/broadcast",
         json={
-            "url": request.host_url,
+            "origin": request.host_url,
         },
         proxies=proxies,
     )
+    # how to do sth async here
     if r.status_code == 200:
-        # old incorrect implementation
-        # resource_currently_using.append(id)
         lock_resource(id, request.host_url)
         return f"resource {id} is being locked by {request.host_url}", 200
     else:
         resource_currently_using.remove(id)
-        return "Unauthorized to lock that resource", 401
+        return r.text, 401
 
 
 @bp.route("/<string:id>/lock/no_registrar", methods=["POST"])
@@ -75,6 +75,10 @@ def revoke_lock(id: str):
 #
 @bp.route("/<string:id>/resource_status", methods=["GET"])
 def resource_status(id: str):
+    print(
+        f"""client {request.host_url} being ask {id} and
+        current using {resource_currently_using}"""
+    )
     if id not in resource_currently_using:
         return "resource free", 200
     else:
