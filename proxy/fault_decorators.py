@@ -17,15 +17,17 @@ def fault_injection(fault_names: list[str]):
 
             # print("DECOR BEING CALLED")
 
-            requests.patch(
+            requests.post(
                 "http://127.0.0.1:5004/inject",
                 json=json.dumps(fault_names),
             )
 
+            # try construct here
             func(*args, **kwargs)
 
             # print("DECOR STOP BEING CALLED")
 
+            # Put clean up in final clause
             """Remove the faults once done"""
             # managerState.faults_currently_injected.clear()
             requests.delete(

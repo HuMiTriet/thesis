@@ -25,11 +25,14 @@ class DelayFault(Fault):
     def execute(self, request: Request, url: str):
         print(
             f"""
-            2 (actual) method {request.method}, url  {url}, origin {request.get_json()['origin']}
+            2 (actual) method {request.method}, url  {url}, origin
+            {request.get_json()['origin']}
             """
         )
         print(
-            f" 3 (cond) EVAL FOR DELAY {self.condition} and result is {eval(self.condition)}"
+            f""" 3 (cond) EVAL FOR DELAY {self.condition}
+            and result is {eval(self.condition)}"
+            """
         )
         if eval(self.condition):
             sleep(self.duration)

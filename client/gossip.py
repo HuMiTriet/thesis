@@ -1,3 +1,4 @@
+from hypothesis.strategies import tuples
 from proxy import proxies
 from . import resource_currently_using, lock_resource
 
@@ -34,6 +35,7 @@ def lock(id: str) -> tuple[str, int]:
         proxies=proxies,
     )
     # how to do sth async here
+
     if r.status_code == 200:
         lock_resource(id, request.host_url)
         return f"resource {id} is being locked by {request.host_url}", 200
@@ -72,13 +74,13 @@ def revoke_lock(id: str):
 
 # also send along with a priority
 # implement stateful client
-#
 @bp.route("/<string:id>/resource_status", methods=["GET"])
 def resource_status(id: str):
     print(
         f"""client {request.host_url} being ask {id} and
         current using {resource_currently_using}"""
     )
+
     if id not in resource_currently_using:
         return "resource free", 200
     else:

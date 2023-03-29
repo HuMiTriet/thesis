@@ -68,16 +68,30 @@ def delete_fault(name: str):
         return e.__repr__(), 416
 
 
-@bp.route("/inject", methods=["PATCH"])
+@bp.route("/inject", methods=["POST"])
 def update_injections():
     try:
         data = request.get_json()
 
         managerState.faults_currently_injected = json.loads(data)
+        print(f"ADDING {data}")
 
-        return "New injects loaded", 200
+        return f"New injects {data} loaded", 200
     except Exception as e:
         return e.__repr__(), 504
+
+
+# @bp.route("/inject", methods=["POST"])
+# def append_injections():
+#     try:
+#         data = request.get_json()
+
+#         print(f"appending {data}")
+#         managerState.faults_currently_injected.append(data["fault_name"])
+
+#         return f"New injects {data} loaded", 200
+#     except Exception as e:
+#         return e.__repr__(), 504
 
 
 @bp.route("/inject", methods=["DELETE"])
