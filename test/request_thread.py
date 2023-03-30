@@ -4,7 +4,7 @@ from requests import Response
 
 
 class RequestsThread(Thread):
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         group=None,
         target: Callable[..., object] | None = ...,
@@ -27,4 +27,4 @@ class RequestsThread(Thread):
 
     def join(self, *args) -> Response:
         Thread.join(self, *args)
-        return self._response
+        return self._response  # pyright: ignore

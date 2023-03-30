@@ -1,17 +1,21 @@
-from flask.testing import FlaskCliRunner, FlaskClient
+import os
+import json
 from multiprocessing import Process
+from signal import SIGTERM  # or SIGKILL
+from dotenv import load_dotenv
+
+from flask import Flask
+from flask.testing import FlaskCliRunner, FlaskClient
 import pytest
 import requests
 
-from flask import Flask
+from psutil import process_iter, AccessDenied
+
 from server import create_app as create_server
 from registrar import create_app as create_registrar
 from client import create_app as create_client
 from proxy import create_app as create_proxy
 
-from psutil import process_iter, AccessDenied
-from signal import SIGTERM  # or SIGKILL
-import os
 
 SCOPE = "session"
 
@@ -37,32 +41,44 @@ def proxy_app() -> Flask:
 
 
 @pytest.fixture
-def server_client(server_app: Flask) -> FlaskClient:
+def server_client(
+    server_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskClient:
     return server_app.test_client()
 
 
 @pytest.fixture
-def registrar_client(registrar_app: Flask) -> FlaskClient:
+def registrar_client(
+    registrar_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskClient:
     return registrar_app.test_client()
 
 
 @pytest.fixture
-def client_client(client_app: Flask) -> FlaskClient:
+def client_client(
+    client_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskClient:
     return client_app.test_client()
 
 
 @pytest.fixture
-def server_cli_runner(server_app: Flask) -> FlaskCliRunner:
+def server_cli_runner(
+    server_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskCliRunner:
     return server_app.test_cli_runner()
 
 
 @pytest.fixture
-def registrar_cli_runner(registrar_app: Flask) -> FlaskCliRunner:
+def registrar_cli_runner(
+    registrar_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskCliRunner:
     return registrar_app.test_cli_runner()
 
 
 @pytest.fixture
-def client_cli_runner(client_app: Flask) -> FlaskCliRunner:
+def client_cli_runner(
+    client_app: Flask,  # pylint: disable=redefined-outer-name
+) -> FlaskCliRunner:
     return client_app.test_cli_runner()
 
 
@@ -79,11 +95,12 @@ def kill_process(ports: list[int]) -> None:
 
 @pytest.fixture(scope=SCOPE)
 def setup(
-    server_app: Flask,
-    registrar_app: Flask,
-    client_app: Flask,
-    proxy_app: Flask,
+    server_app: Flask,  # pylint: disable=redefined-outer-name
+    registrar_app: Flask,  # pylint: disable=redefined-outer-name
+    client_app: Flask,  # pylint: disable=redefined-outer-name
+    proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
+    load_dotenv()
 
     # kill any process at port 5000 5001 5002 and 5003
     # print("STARTING SERVER...")
@@ -117,10 +134,11 @@ def setup(
 
 @pytest.fixture(scope=SCOPE)
 def setup_no_registrar(
-    server_app: Flask,
-    client_app: Flask,
-    proxy_app: Flask,
+    server_app: Flask,  # pylint: disable=redefined-outer-name
+    client_app: Flask,  # pylint: disable=redefined-outer-name
+    proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
+    load_dotenv()
 
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
@@ -145,20 +163,37 @@ def setup_no_registrar(
 
 
 @pytest.fixture(scope=SCOPE)
-def register_client(setup):
-    response = requests.post("http://127.0.0.1:5002/register")
+def register_client(
+    setup,  # pyright: ignore # pylint: disable=unused-argument,redefined-outer-name
+):
+    response = requests.post(
+        "http://127.0.0.1:5002/register",
+        timeout=5,
+    )
     assert response.status_code == 200
 
-    response = requests.post("http://127.0.0.1:5003/register")
+    response = requests.post(
+        "http://127.0.0.1:5003/register",
+        timeout=5,
+    )
     assert response.status_code == 200
 
 
 @pytest.fixture(autouse=True, scope="session")
-def load_faults_into_proxy(setup):
-    with open(os.path.join("faults.json"), "r") as f:
-        import json
+def load_faults_into_proxy(
+    setup,  # pyright: ignore # pylint: disable=unused-argument,redefined-outer-name
+):
+    with open(
+        os.path.join("faults.json"),
+        "r",
+        encoding="utf-8",
+    ) as file:
 
-        all_faults = json.load(f)
+        all_faults = json.load(file)
 
         for fault in all_faults:
-            requests.post("http://127.0.0.1:5004/fault", json=fault)
+            requests.post(
+                "http://127.0.0.1:5004/fault",
+                json=fault,
+                timeout=5,
+            )

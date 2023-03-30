@@ -1,5 +1,6 @@
+import os
+from dataclasses import dataclass, field
 from flask import Blueprint, json
-from requests import Response
 from flask import request
 from proxy.fault import ErrorFault, Fault
 
@@ -8,13 +9,17 @@ from proxy.fault import DelayFault
 
 bp = Blueprint("manager", __name__)
 
-# faults: dict[str, Fault] = {}
-# faults_currently_injected: list[str] = []
+TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 
 
+@dataclass
 class ManagerState:
-    faults: dict[str, Fault] = {}  # all posible faults
-    faults_currently_injected: list[str] = []  # the fault we r currently using
+    faults: dict[str, Fault] = field(
+        default_factory=dict[str, Fault]
+    )  # all of the possible faults
+    faults_currently_injected: list[str] = field(
+        default_factory=list[str]
+    )  # the fault we r currently using
 
 
 managerState = ManagerState()
@@ -28,31 +33,31 @@ def fault_factory():
 
     match data["type"]:
         case "delay":
-            delayFault = DelayFault(
+            delay_fault = DelayFault(
                 condition=condition,
                 duration=data["metadata"],
                 name=data["name"],
             )
 
-            managerState.faults[name] = delayFault
+            managerState.faults[name] = delay_fault
 
-            print(f"delay fault {delayFault} added")
+            #            print(f"delay fault {delayFault} added")
 
             return 'fault type "Delay" added', 200
         case "error":
             status_code = data["metadata"]["status_code"]
             text = data["metadata"]["text"]
 
-            errorFault = ErrorFault(
+            error_fault = ErrorFault(
                 condition=condition,
                 name=data["name"],
                 text=text,
                 status_code=status_code,
             )
 
-            managerState.faults[name] = errorFault
+            managerState.faults[name] = error_fault
 
-            print(f"error fault {errorFault} added")
+            #            print(f"error fault {errorFault} added")
 
             return 'fault type "Error" added', 200
         case _:
@@ -64,8 +69,8 @@ def delete_fault(name: str):
     try:
         managerState.faults.pop(name)
         return "OK", 200
-    except ValueError as e:
-        return e.__repr__(), 416
+    except ValueError as error:
+        return str(error.__repr__), 416
 
 
 @bp.route("/inject", methods=["POST"])
@@ -74,11 +79,11 @@ def update_injections():
         data = request.get_json()
 
         managerState.faults_currently_injected = json.loads(data)
-        print(f"ADDING {data}")
+        #        print(f"ADDING {data}")
 
         return f"New injects {data} loaded", 200
-    except Exception as e:
-        return e.__repr__(), 504
+    except Exception as error:  # pylint: disable=broad-exception-caught
+        return (error.__repr__()), 504
 
 
 # @bp.route("/inject", methods=["POST"])

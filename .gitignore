@@ -15,3 +15,5 @@ build/
 *.vim
 .hypothesis
 setup.sh
+test.py
+.pylintrc

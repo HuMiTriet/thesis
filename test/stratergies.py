@@ -1,11 +1,12 @@
 import os
 import json
 
+from dataclasses import dataclass, field
+
 from hypothesis.strategies import SearchStrategy, lists, composite
 from hypothesis import strategies as st
 
 from proxy.injectable_fault import InjectibleFault
-import random
 
 
 @composite
@@ -20,23 +21,43 @@ def resource(draw, size: int, min_codepoint: int = 65) -> SearchStrategy[str]:
         )
     )
 
-    with open(os.path.join("dummy_data.json"), "w") as f:
+    with open(os.path.join("dummy_data.json"), "w", encoding="utf-8") as file:
         # format [{"id": key, "is_locked": false},]
         json.dump(
-            [{"id": key, "is_locked": False} for key in keys], f, indent=4
+            [{"id": key, "is_locked": False} for key in keys], file, indent=4
         )
 
     return keys
 
 
 @composite
-def fault_injection(
-    draw, fault_keys: list[str], max_element: int = 1
-) -> InjectibleFault:
+def fault_strategy(draw) -> InjectibleFault:
     choosen: list[str] = []
 
-    for _ in range(draw(st.integers(min_value=1, max_value=max_element))):
-        choosen.append(draw(st.sampled_from(fault_keys)))
+    fault_key_singleton = FaultKeySingleton()
 
-    # print(f"chosen {choosen}")
+    choosen = draw(
+        st.lists(st.sampled_from(fault_key_singleton.get_fault_keys()))
+    )
+
     return InjectibleFault(fault_names=choosen)
+
+
+@dataclass(slots=True)
+class FaultKeySingleton:
+
+    _fault_keys: list[str] = field(default_factory=list[str], init=False)
+
+    def get_fault_keys(self) -> list[str]:
+        if len(self._fault_keys) == 0:
+            with open(
+                os.path.join("faults.json"),
+                "r",
+                encoding="utf-8",
+            ) as file:
+
+                data = json.load(file)
+                for i in data:
+                    self._fault_keys.append(i["name"])
+
+        return self._fault_keys

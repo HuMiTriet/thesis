@@ -1,8 +1,7 @@
 from abc import abstractmethod
 from dataclasses import dataclass
 from time import sleep
-from requests import Response
-import re
+import re  # pyright: ignore # pylint: disable=unused-import # noqa
 
 from flask.wrappers import Request
 
@@ -22,18 +21,8 @@ class Fault:
 class DelayFault(Fault):
     duration: float
 
-    def execute(self, request: Request, url: str):
-        print(
-            f"""
-            2 (actual) method {request.method}, url  {url}, origin
-            {request.get_json()['origin']}
-            """
-        )
-        print(
-            f""" 3 (cond) EVAL FOR DELAY {self.condition}
-            and result is {eval(self.condition)}"
-            """
-        )
+    def execute(self, request: Request, url: str):  # pyright: ignore
+        # pylint: disable=eval-used
         if eval(self.condition):
             sleep(self.duration)
 
@@ -43,6 +32,12 @@ class ErrorFault(Fault):
     text: str = "Intentional error"
     status_code: int = 420
 
-    def execute(self, request: Request, url: str):
+    # pylint: disable=inconsistent-return-statements
+    def execute(
+        self,
+        request: Request,  # pyright: ignore
+        url: str,  # pyright: ignore
+    ):
+        # pylint: disable=eval-used
         if eval(self.condition):
             return self.text, self.status_code
