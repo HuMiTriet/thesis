@@ -29,7 +29,10 @@ def register():
     response = requests.post(
         f"{REGISTRAR_URL}/register",
         json={"origin": request.host_url},
-        proxies={"http": PROXY_URL},
+        proxies={
+            "http": PROXY_URL,
+            "https": PROXY_URL,
+        },
         timeout=TIMEOUT,
     )
 
@@ -53,13 +56,14 @@ async def lock(resource_id: str) -> tuple[str, int]:
                 timeout=TIMEOUT,
             )
 
-        if response.status == 200:
-            lock_resource(resource_id, request.host_url)
-            return (
-                f"""resource {resource_id} is being
-                locked by {request.host_url}""",
-                200,
-            )
+            if response.status == 200:
+                lock_resource(resource_id, request.host_url)
+                return (
+                    f"""resource {resource_id} is being
+                    locked by {request.host_url}""",
+                    200,
+                )
+
     except asyncio.exceptions.TimeoutError as error:
         return str(error.__repr__), 403
 
@@ -74,7 +78,10 @@ def lock_no_registrar(resource_id: str) -> tuple[str, int]:
         json={
             "origin": request.host_url,
         },
-        proxies={"http": PROXY_URL},
+        proxies={
+            "http": PROXY_URL,
+            "https": PROXY_URL,
+        },
         timeout=TIMEOUT,
     )
     if response.status_code == 200:
@@ -90,9 +97,13 @@ def lock_no_registrar(resource_id: str) -> tuple[str, int]:
 def revoke_lock(resource_id: str):
     try:
         resource_currently_using.remove(resource_id)
+
         requests.delete(
             f"{SERVER_URL}/{resource_id}/lock",
-            proxies={"http": PROXY_URL},
+            proxies={
+                "http": PROXY_URL,
+                "https": PROXY_URL,
+            },
             timeout=TIMEOUT,
         )
         return (
@@ -124,7 +135,10 @@ def lock_resource(
     response = requests.put(
         f"{SERVER_URL}{resource_id}/lock",
         json={"origin": requester_url},
-        proxies={"http": PROXY_URL},
+        proxies={
+            "http": PROXY_URL,
+            "https": PROXY_URL,
+        },
         timeout=TIMEOUT,
     )
     return response

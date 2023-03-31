@@ -78,11 +78,10 @@ def update_injections():
     try:
         data = request.get_json()
 
-        # print(f'Injected data {data["fault"]}')
-
+        print(f"fault to be replaced {data['fault']}")
         managerState.faults_currently_injected = data["fault"]
-        # print(f"fault currently {managerState.faults_currently_injected}")
-        #        print(f"ADDING {data}")
+
+        print(f"currently now using {managerState.faults_currently_injected}")
 
         return f"New injects {data} loaded", 200
 

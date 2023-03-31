@@ -32,7 +32,10 @@ def expire_lock(resource_id: str, duration: int, origin: str) -> None:
     time.sleep(duration)
     requests.delete(
         f"{origin}{resource_id}/lock",
-        proxies={"http": PROXY_URL},
+        proxies={
+            "http": PROXY_URL,
+            "https": PROXY_URL,
+        },
         timeout=REQUEST_TIMEOUT,
     )
 

@@ -36,7 +36,10 @@ def broadcast(resource_id: str):
                 json={
                     "origin": requester_url,
                 },
-                proxies={"http": PROXY_URL},
+                proxies={
+                    "http": PROXY_URL,
+                    "https": PROXY_URL,
+                },
                 timeout=TIMEOUT,
             )
 
@@ -49,12 +52,12 @@ def broadcast(resource_id: str):
         return "resource free", 200
 
     print(
-        f"""Does not obtain enough approval
+        f"""host {requester_url} Does not obtain enough approval
         {approvals}/{len(subscribers_url) - 1}""",
     )
 
     return (
-        f"""Does not obtain enough approval
+        f"""host {requester_url} Does not obtain enough approval
         {approvals}/{len(subscribers_url) - 1}""",
         417,
     )

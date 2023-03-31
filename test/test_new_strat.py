@@ -24,6 +24,7 @@ def test_one_client_lock(
     fault: InjectibleFault,
 ):
 
+    print(f"BRUH {fault.__repr__}")
     with fault:
         response = requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/lock",

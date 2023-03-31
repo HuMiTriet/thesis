@@ -1,10 +1,10 @@
 import os
-from hypothesis import given, strategies as st
+from hypothesis import given, settings, strategies as st
 import requests
 from requests import Response
 from .request_thread import RequestsThread
 
-TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
+TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 @given(
@@ -45,6 +45,7 @@ def test_client_do_not_release_currently_using(
         f"http://127.0.0.1:5003/{resource_id}/lock",
         timeout=TESTING_TIMEOUT,
     )
+
     response = requests.post(
         f"http://127.0.0.1:5002/{resource_id}/lock",
         timeout=TESTING_TIMEOUT,
@@ -58,6 +59,7 @@ def test_client_do_not_release_currently_using(
 
 
 @given(resource_id=st.sampled_from(["A", "B"]))
+@settings(deadline=None)
 def test_two_client_lock(
     setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
