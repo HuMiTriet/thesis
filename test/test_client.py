@@ -9,7 +9,6 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
 
 @given(
     resource_id=st.sampled_from(["A", "B"]),
-    # resource_id=resource(size=3),
     client_port=st.integers(min_value=5002, max_value=5003),
 )
 def test_one_client_lock(
@@ -23,7 +22,6 @@ def test_one_client_lock(
         f"http://127.0.0.1:{client_port}/{resource_id}/lock",
         timeout=TESTING_TIMEOUT,
     )
-    # print(f"client {client_port} lock resource {resource_id}")
 
     assert response.status_code == 200
 
@@ -68,12 +66,18 @@ def test_two_client_lock(
 
     client_1_thread = RequestsThread(
         target=requests.post,
-        kwargs={"url": f"http://127.0.0.1:5002/{resource_id}/lock"},
+        kwargs={
+            "url": f"http://127.0.0.1:5002/{resource_id}/lock",
+            "timeout": TESTING_TIMEOUT,
+        },
     )
 
     client_2_thread = RequestsThread(
         target=requests.post,
-        kwargs={"url": f"http://127.0.0.1:5003/{resource_id}/lock"},
+        kwargs={
+            "url": f"http://127.0.0.1:5003/{resource_id}/lock",
+            "timeout": TESTING_TIMEOUT,
+        },
     )
 
     client_1_thread.start()
@@ -89,6 +93,6 @@ def test_two_client_lock(
         timeout=TESTING_TIMEOUT,
     )
     requests.delete(
-        f"http://127.0.0.1:5003/{resource_id}/lock",
+        url=f"http://127.0.0.1:5003/{resource_id}/lock",
         timeout=TESTING_TIMEOUT,
     )

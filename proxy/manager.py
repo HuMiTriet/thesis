@@ -41,7 +41,7 @@ def fault_factory():
 
             managerState.faults[name] = delay_fault
 
-            #            print(f"delay fault {delayFault} added")
+            print(f"delay fault {delay_fault} added")
 
             return 'fault type "Delay" added', 200
         case "error":
@@ -78,12 +78,16 @@ def update_injections():
     try:
         data = request.get_json()
 
-        managerState.faults_currently_injected = json.loads(data)
+        # print(f'Injected data {data["fault"]}')
+
+        managerState.faults_currently_injected = data["fault"]
+        # print(f"fault currently {managerState.faults_currently_injected}")
         #        print(f"ADDING {data}")
 
         return f"New injects {data} loaded", 200
+
     except Exception as error:  # pylint: disable=broad-exception-caught
-        return (error.__repr__()), 504
+        return str(error.__repr__), 504
 
 
 # @bp.route("/inject", methods=["POST"])

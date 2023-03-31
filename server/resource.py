@@ -6,11 +6,12 @@ import json
 import requests
 
 from flask import Blueprint, request
-from proxy import proxies
 
 TIMEOUT_SEC: int = 1
 
 REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
+
+PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
 
 bp = Blueprint("resouce", __name__)
 
@@ -31,7 +32,7 @@ def expire_lock(resource_id: str, duration: int, origin: str) -> None:
     time.sleep(duration)
     requests.delete(
         f"{origin}{resource_id}/lock",
-        proxies=proxies,
+        proxies={"http": PROXY_URL},
         timeout=REQUEST_TIMEOUT,
     )
 

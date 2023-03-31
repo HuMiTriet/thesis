@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask, request
 import requests
 from requests import Response
@@ -12,13 +13,10 @@ from .manager import managerState
 
 TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 
-proxies = {
-    "http": "http://127.0.0.1:5004",
-    "https": "http://127.0.0.1:5004",
-}
-
 
 def create_app():
+
+    load_dotenv()
 
     app = Flask(__name__)
 
@@ -31,9 +29,17 @@ def create_app():
         response: Response = Response()
 
         if len(managerState.faults) != 0:
+            # print(f"all possible fault {managerState.faults}")
+
+            print(
+                f"fault currently (proxy init file) {managerState.faults_currently_injected}"
+            )
             for fault in managerState.faults_currently_injected:
+
                 choosen_fault = managerState.faults[fault]
-                #                print(f"1 choosen_fault: {choosen_fault}")
+
+                print(f"1 url {url} choosen_fault: {choosen_fault}")
+
                 if isinstance(choosen_fault, ErrorFault):
                     res = choosen_fault.execute(request=request, url=url)
                     if res is not None:

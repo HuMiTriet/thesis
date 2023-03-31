@@ -12,13 +12,13 @@ TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 class InjectibleFault:
     fault_names: list[str] = field(default_factory=list[str])
 
-    # def __init__(self, fault_names: list[str]) -> None:
-    #     self.fault_names = fault_names
-
     def __enter__(self):
-        requests.post(
+        print(
+            f"fault to be inject (InjectibleFault) {json.dumps(self.fault_names)}"
+        )
+        resp = requests.post(
             "http://127.0.0.1:5004/inject",
-            json=json.dumps(self.fault_names),
+            json={"fault": json.dumps(self.fault_names)},
             timeout=TIMEOUT,
         )
 

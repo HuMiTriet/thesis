@@ -1,8 +1,8 @@
 import os
 import json
 from multiprocessing import Process
-from signal import SIGTERM  # or SIGKILL
-from dotenv import load_dotenv
+from signal import SIGTERM
+from dotenv import load_dotenv  # or SIGKILL
 
 from flask import Flask
 from flask.testing import FlaskCliRunner, FlaskClient
@@ -18,6 +18,8 @@ from proxy import create_app as create_proxy
 
 
 SCOPE = "session"
+
+load_dotenv()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -100,7 +102,6 @@ def setup(
     client_app: Flask,  # pylint: disable=redefined-outer-name
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
-    load_dotenv()
 
     # kill any process at port 5000 5001 5002 and 5003
     # print("STARTING SERVER...")
@@ -138,7 +139,6 @@ def setup_no_registrar(
     client_app: Flask,  # pylint: disable=redefined-outer-name
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
-    load_dotenv()
 
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})

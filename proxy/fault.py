@@ -22,6 +22,18 @@ class DelayFault(Fault):
     duration: float
 
     def execute(self, request: Request, url: str):  # pyright: ignore
+        print(
+            f"""
+            2 (actual) method {request.method}, url  {url}, origin
+            {request.get_json()['origin']}
+            """
+        )
+
+        print(
+            f""" 3 (cond) EVAL FOR DELAY {self.condition}
+            and result is {eval(self.condition)}"
+            """
+        )
         # pylint: disable=eval-used
         if eval(self.condition):
             sleep(self.duration)
