@@ -14,7 +14,6 @@ def create_app():
 
     @app.errorhandler(InternalServerError)
     def custom_error_msg(error: InternalServerError):  # pyright: ignore
-        print(error.response.__repr__())
         return f"SERVER Err {str(error.__repr__)}", 500
 
     from . import resource  # pylint: disable=import-outside-toplevel

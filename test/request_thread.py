@@ -1,6 +1,6 @@
 from threading import Thread
 from typing import Callable, Iterable, Mapping, Any
-from requests import Response
+from flask.wrappers import Response
 
 
 class RequestsThread(Thread):

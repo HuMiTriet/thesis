@@ -29,11 +29,6 @@ def create_app():
         response: Response = Response()
 
         if len(managerState.faults) != 0:
-            # print(f"all possible fault {managerState.faults}")
-
-            print(
-                f"fault currently (proxy init file) {managerState.faults_currently_injected}"
-            )
             for fault in managerState.faults_currently_injected:
 
                 choosen_fault = managerState.faults[fault]

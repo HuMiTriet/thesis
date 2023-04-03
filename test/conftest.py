@@ -18,7 +18,6 @@ from proxy import create_app as create_proxy
 
 
 SCOPE = "session"
-
 load_dotenv()
 
 
@@ -140,6 +139,8 @@ def setup_no_registrar(
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
 
+    kill_process([5000, 5001, 5002, 5003, 5004])
+
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
     client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
@@ -179,10 +180,8 @@ def register_client(
     assert response.status_code == 200
 
 
-@pytest.fixture(autouse=True, scope="session")
-def load_faults_into_proxy(
-    setup,  # pyright: ignore # pylint: disable=unused-argument,redefined-outer-name
-):
+@pytest.fixture(autouse=False, scope="session")
+def load_faults_into_proxy():
     with open(
         os.path.join("faults.json"),
         "r",

@@ -1,6 +1,6 @@
 import os
 import unittest
-from requests import Response
+from flask.wrappers import Response
 from hypothesis import strategies as st, settings
 from hypothesis.stateful import RuleBasedStateMachine, rule
 import pytest

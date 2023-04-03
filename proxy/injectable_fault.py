@@ -16,7 +16,7 @@ class InjectibleFault:
         print(
             f"fault to be inject (InjectibleFault) {json.dumps(self.fault_names)}"
         )
-        resp = requests.post(
+        requests.post(
             "http://127.0.0.1:5004/inject",
             json={"fault": json.dumps(self.fault_names)},
             timeout=TIMEOUT,

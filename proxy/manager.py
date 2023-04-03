@@ -1,6 +1,7 @@
 import os
+from flask import json
 from dataclasses import dataclass, field
-from flask import Blueprint, json
+from flask import Blueprint
 from flask import request
 from proxy.fault import ErrorFault, Fault
 

@@ -1,7 +1,9 @@
 import os
 from hypothesis import given, settings, strategies as st
 import requests
-from requests import Response
+
+# from requests import Response
+from flask.wrappers import Response
 from .request_thread import RequestsThread
 
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
@@ -70,7 +72,7 @@ def test_two_client_lock(
         target=requests.post,
         kwargs={
             "url": f"http://127.0.0.1:5002/{resource_id}/lock",
-            "timeout": TESTING_TIMEOUT,
+            # "timeout": TESTING_TIMEOUT,
         },
     )
 
@@ -78,7 +80,7 @@ def test_two_client_lock(
         target=requests.post,
         kwargs={
             "url": f"http://127.0.0.1:5003/{resource_id}/lock",
-            "timeout": TESTING_TIMEOUT,
+            # "timeout": TESTING_TIMEOUT,
         },
     )
 

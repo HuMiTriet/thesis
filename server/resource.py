@@ -7,7 +7,7 @@ import requests
 
 from flask import Blueprint, request
 
-TIMEOUT_SEC: int = 1
+TIMEOUT_SEC: int = 10
 
 REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 

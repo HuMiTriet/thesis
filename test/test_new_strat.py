@@ -1,9 +1,9 @@
 import os
 from hypothesis import given, settings, strategies as st
 import requests
+from flask.wrappers import Response
 from proxy.injectable_fault import InjectibleFault
 from .stratergies import fault_strategy
-from requests import Response
 from .request_thread import RequestsThread
 
 

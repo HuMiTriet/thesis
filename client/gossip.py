@@ -45,7 +45,6 @@ async def lock(resource_id: str) -> tuple[str, int]:
     resource_currently_using.add(resource_id)
 
     try:
-
         async with aiohttp.ClientSession() as session:
             response = await session.post(
                 f"{REGISTRAR_URL}/{resource_id}/broadcast",
@@ -56,13 +55,13 @@ async def lock(resource_id: str) -> tuple[str, int]:
                 timeout=TIMEOUT,
             )
 
-            if response.status == 200:
-                lock_resource(resource_id, request.host_url)
-                return (
-                    f"""resource {resource_id} is being
-                    locked by {request.host_url}""",
-                    200,
-                )
+        if response.status == 200:
+            lock_resource(resource_id, request.host_url)
+            return (
+                f"""resource {resource_id} is being
+                locked by {request.host_url}""",
+                200,
+            )
 
     except asyncio.exceptions.TimeoutError as error:
         return str(error.__repr__), 403

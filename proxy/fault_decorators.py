@@ -19,7 +19,7 @@ def fault_injection(fault_names: list[str]):
 
             requests.post(
                 "http://127.0.0.1:5004/inject",
-                json={"fault": json.dumps(fault_names)},
+                json={"fault": fault_names},
                 timeout=TIMEOUT,
             )
 

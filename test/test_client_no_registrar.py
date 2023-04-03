@@ -1,7 +1,7 @@
 import os
 from hypothesis import given, strategies as st
 import requests
-from requests import Response
+from flask.wrappers import Response
 from .request_thread import RequestsThread
 
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
@@ -30,7 +30,10 @@ def test_one_client_lock(
 
 
 @given(resource_id=st.sampled_from(["A", "B"]))
-def test_two_client_lock(resource_id: str):
+def test_two_client_lock(
+    setup_no_registrar,  # pyright: ignore # pylint: disable=unused-argument
+    resource_id: str,
+):
 
     client_1_thread = RequestsThread(
         target=requests.post,
@@ -52,9 +55,8 @@ def test_two_client_lock(resource_id: str):
     r_1: Response = client_1_thread.join()
     r_2: Response = client_2_thread.join()
 
-    #    print(f"r_1 {r_1.status_code} and r_2 {r_2.status_code}")
-    # assert not (r_1.status_code == 200 and r_2.status_code == 200)
-    assert r_1.status_code == 200 or r_2.status_code == 200
+    # print(f"r_1 {r_1.status_code} and r_2 {r_2.status_code}")
+    assert not (r_1.status_code == 200 and r_2.status_code == 200)
 
     requests.delete(
         f"http://127.0.0.1:5002/{resource_id}/lock",

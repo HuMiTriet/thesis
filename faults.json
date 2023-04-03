@@ -1,9 +1,15 @@
 [
   {
     "type": "delay",
+    "name": "delay_all_small",
+    "condition": "True",
+    "metadata": 0.02
+  },
+  {
+    "type": "delay",
     "name": "delay_5002_small",
     "condition": "request.method == \"POST\" and re.match(\".+/broadcast\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5002/\"",
-    "metadata": 0.2
+    "metadata": 0.02
   },
   {
     "type": "delay",
