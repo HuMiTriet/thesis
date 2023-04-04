@@ -11,14 +11,13 @@ from .request_thread import RequestsThread
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
 
 
-@fault_injection(["delay_all_small", "delay_5002_small"])
+@fault_injection(["error_420"])
 @given(
     resource_id=st.sampled_from(["A", "B"]),
     client_port=st.integers(min_value=5002, max_value=5003),
 )
 @settings(deadline=None)
 def test_one_client_lock(
-    setup,  # pyright: ignore # pylint: disable=unused-argument
     register_client,  # pyright: ignore # pylint: disable=unused-argument
     load_faults_into_proxy,  # pyright: ignore # pylint: disable=unused-argument
     resource_id: str,
@@ -30,7 +29,7 @@ def test_one_client_lock(
         timeout=TESTING_TIMEOUT,
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 401
 
     requests.delete(
         f"http://127.0.0.1:{client_port}/{resource_id}/lock",
@@ -38,11 +37,10 @@ def test_one_client_lock(
     )
 
 
-@fault_injection(["delay_5002_no_reg"])
+@fault_injection(["error_420"])
 @given(resource_id=st.sampled_from(["A", "B"]))
 def test_5002_no_registrar(
-    setup,  # pyright: ignore # pylint: disable=unused-argument
-    register_client,  # pyright: ignore # pylint: disable=unused-argument
+    setup_no_registrar,  # pyright: ignore # pylint: disable=unused-argument
     load_faults_into_proxy,  # pyright: ignore # pylint: disable=unused-argument
     resource_id: str,
 ):
@@ -52,7 +50,7 @@ def test_5002_no_registrar(
         timeout=TESTING_TIMEOUT,
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 420
 
     requests.delete(
         f"http://127.0.0.1:5002/{resource_id}/lock",
@@ -60,12 +58,11 @@ def test_5002_no_registrar(
     )
 
 
-@fault_injection(["delay_5002_no_reg", "delay_5003_no_reg"])
+@fault_injection(["delay_5002_no_reg", "error_420_5003_no_reg"])
 @given(resource_id=st.sampled_from(["A", "B"]))
 @settings(deadline=None)
 def test_two_client_lock_no_reg(
-    setup,  # pyright: ignore # pylint: disable=unused-argument
-    register_client,  # pyright: ignore # pylint: disable=unused-argument
+    setup_no_registrar,  # pyright: ignore # pylint: disable=unused-argument
     load_faults_into_proxy,  # pyright: ignore # pylint: disable=unused-argument
     resource_id: str,
 ):
@@ -106,11 +103,10 @@ def test_two_client_lock_no_reg(
     )
 
 
-@fault_injection(["delay_5002_small"])
+@fault_injection(["delay_5002_small", "error_420_5003"])
 @given(resource_id=st.sampled_from(["A", "B"]))
 @settings(deadline=None)
 def test_two_client_lock_pure(
-    setup,  # pyright: ignore # pylint: disable=unused-argument
     register_client,  # pyright: ignore # pylint: disable=unused-argument
     load_faults_into_proxy,  # pyright: ignore # pylint: disable=unused-argument
     resource_id: str,

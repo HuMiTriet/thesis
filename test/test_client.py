@@ -14,7 +14,6 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
     client_port=st.integers(min_value=5002, max_value=5003),
 )
 def test_one_client_lock(
-    setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
     resource_id: str,
     client_port: int,
@@ -35,7 +34,6 @@ def test_one_client_lock(
 
 @given(resource_id=st.sampled_from(["A", "B"]))
 def test_client_do_not_release_currently_using(
-    setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
     resource_id: str,
 ):
@@ -63,7 +61,6 @@ def test_client_do_not_release_currently_using(
 @given(resource_id=st.sampled_from(["A", "B"]))
 @settings(deadline=None)
 def test_two_client_lock(
-    setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
     resource_id: str,
 ):

@@ -102,6 +102,7 @@ def setup(
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
 
+    kill_process([5000, 5001, 5002, 5003, 5004])
     # kill any process at port 5000 5001 5002 and 5003
     # print("STARTING SERVER...")
 

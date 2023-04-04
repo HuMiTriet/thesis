@@ -56,6 +56,7 @@ async def lock(resource_id: str) -> tuple[str, int]:
             )
 
         if response.status == 200:
+
             lock_resource(resource_id, request.host_url)
             return (
                 f"""resource {resource_id} is being

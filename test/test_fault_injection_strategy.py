@@ -13,18 +13,17 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
 @given(
     resource_id=st.sampled_from(["A", "B"]),
     client_port=st.integers(min_value=5002, max_value=5003),
-    fault=fault_strategy(max_element=5),
+    fault=fault_strategy(),
 )
 @settings(deadline=None)
 def test_one_client_lock(
-    setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
+    load_faults_into_proxy,  # pylint: disable=unused-argument # pyright: ignore
     resource_id: str,
     client_port: int,
     fault: InjectibleFault,
 ):
 
-    print(f"BRUH {fault.__repr__}")
     with fault:
         response = requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/lock",
@@ -46,8 +45,8 @@ def test_one_client_lock(
 )
 @settings(deadline=None)
 def test_two_client_lock(
-    setup,  # pylint: disable=unused-argument # pyright: ignore
     register_client,  # pylint: disable=unused-argument # pyright: ignore
+    load_faults_into_proxy,  # pylint: disable=unused-argument # pyright: ignore
     resource_id: str,
     fault: InjectibleFault,
 ):

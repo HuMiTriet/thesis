@@ -1,5 +1,32 @@
 [
   {
+    "type": "error",
+    "name": "error_420",
+    "condition": "True",
+    "metadata": {
+      "text": "dummy error",
+      "status_code": 420
+    }
+  },
+  {
+    "type": "error",
+    "name": "error_420_5003_no_reg",
+    "condition": "request.method == \"PUT\" and re.match(\".+/lock\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5003/\"",
+    "metadata": {
+      "text": "dummy error",
+      "status_code": 420
+    }
+  },
+  {
+    "type": "error",
+    "name": "error_420_5003",
+    "condition": "request.method == \"POST\" and re.match(\".+/broadcast\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5002/\"",
+    "metadata": {
+      "text": "dummy error",
+      "status_code": 420
+    }
+  },
+  {
     "type": "delay",
     "name": "delay_all_small",
     "condition": "True",
@@ -15,7 +42,7 @@
     "type": "delay",
     "name": "delay_5003_small",
     "condition": "request.method == \"POST\" and re.match(\".+/broadcast\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5002/\"",
-    "metadata": 0.2
+    "metadata": 0.07
   },
   {
     "type": "delay",

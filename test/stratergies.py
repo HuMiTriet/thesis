@@ -31,12 +31,10 @@ def resource(draw, size: int, min_codepoint: int = 65) -> SearchStrategy[str]:
 
 
 @composite
-def fault_strategy(draw, max_element: int = 1) -> InjectibleFault:
+def fault_strategy(draw) -> InjectibleFault:
     choosen: list[str] = []
 
     fault_key_singleton = FaultKeySingleton()
-
-    print(f"fault keys {fault_key_singleton.get_fault_keys()}")
 
     choosen = draw(
         st.lists(
@@ -44,9 +42,10 @@ def fault_strategy(draw, max_element: int = 1) -> InjectibleFault:
                 fault_key_singleton.get_fault_keys(),
             ),
             min_size=1,
-            max_size=max_element,
         )
     )
+
+    print(f"fault choosen {choosen}")
 
     return InjectibleFault(fault_names=choosen)
 

@@ -10,8 +10,9 @@ from .request_thread import RequestsThread
 from .stratergies import fault_strategy
 
 
-pytestmark = pytest.mark.usefixtures("setup")
+# pytestmark = pytest.mark.usefixtures("setup")
 pytestmark = pytest.mark.usefixtures("register_client")
+pytestmark_2 = pytest.mark.usefixtures("load_faults_into_proxy")
 
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "2"))
 
@@ -40,7 +41,7 @@ class LockingTest(RuleBasedStateMachine):
         client_port=st.integers(min_value=5002, max_value=5003),
         fault=fault_strategy(),
     )
-    def client_lock(
+    def test_client_lock(
         self,
         resource_id: str,
         client_port: int,
@@ -102,5 +103,9 @@ class LockingTest(RuleBasedStateMachine):
             )
 
 
-LockingTest.TestCase.settings = settings(max_examples=2, stateful_step_count=2)
+LockingTest.TestCase.settings = settings(
+    max_examples=10,
+    stateful_step_count=4,
+    deadline=None,
+)
 LockingTestCase: unittest.TestCase = LockingTest.TestCase

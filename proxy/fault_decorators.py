@@ -2,7 +2,6 @@ import os
 from collections.abc import Callable
 from functools import wraps
 from typing import Any
-from flask import json
 
 import requests
 
