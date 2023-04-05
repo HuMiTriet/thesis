@@ -7,7 +7,6 @@ import requests
 
 from flask import Blueprint, request
 
-from . import lamportClock
 
 TIMEOUT_SEC: int = 10
 
@@ -44,12 +43,9 @@ def expire_lock(resource_id: str, duration: int, origin: str) -> None:
 
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:resource_id>/lock", methods=["PUT"])
-async def lock(resource_id: str):
+def lock(resource_id: str):
     data = request.get_json()
-    origin = data["origin"]
-    # timestamp = data["timestamp"]
-
-    # lamportClock.update(timestamp)
+    # origin = data["origin"]
 
     with open(os.path.join("dummy_data.json"), "r", encoding="utf-8") as file:
 
@@ -59,18 +55,18 @@ async def lock(resource_id: str):
                 if item["is_locked"] is True:
                     return "Resource currently locked", 423
 
-                item["is_locked"] = False
+                item["is_locked"] = True
                 with open(
                     os.path.join("dummy_data.json"),
                     "w",
                     encoding="utf-8",
                 ) as file:
                     json.dump(data, file)
-                    expire_thread = threading.Thread(
-                        target=expire_lock,
-                        args=(resource_id, TIMEOUT_SEC, origin),
-                    )
-                    expire_thread.start()
+                    # expire_thread = threading.Thread(
+                    #     target=expire_lock,
+                    #     args=(resource_id, TIMEOUT_SEC, origin),
+                    # )
+                    # expire_thread.start()
                     return "Success", 200
 
     return "Resource not found", 404
