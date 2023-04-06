@@ -12,8 +12,10 @@ import requests
 from psutil import process_iter, AccessDenied
 
 from server import create_app as create_server
+from server_lamport import create_app as create_server_lamport
 from registrar import create_app as create_registrar
 from client import create_app as create_client
+from client_lamport import create_app as create_client_lamport
 from proxy import create_app as create_proxy
 
 
@@ -22,8 +24,13 @@ load_dotenv()
 
 
 @pytest.fixture(scope=SCOPE)
-def server_app() -> Flask:
+def server_lamport_app() -> Flask:
     return create_server()
+
+
+@pytest.fixture(scope=SCOPE)
+def server_lamport_app() -> Flask:
+    return create_server_lamport()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -32,8 +39,13 @@ def registrar_app() -> Flask:
 
 
 @pytest.fixture(scope=SCOPE)
-def client_app() -> Flask:
+def client_lamport_app() -> Flask:
     return create_client()
+
+
+@pytest.fixture(scope=SCOPE)
+def client_lamport_app() -> Flask:
+    return create_client_lamport()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -140,12 +152,48 @@ def setup_no_registrar(
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
 
-    kill_process([5000, 5001, 5002, 5003, 5004])
+    kill_process([5000, 5002, 5003, 5004])
 
-    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
     server_process = Process(target=server_app.run, kwargs={"port": 5000})
     client_1_process = Process(target=client_app.run, kwargs={"port": 5002})
     client_2_process = Process(target=client_app.run, kwargs={"port": 5003})
+    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
+
+    proxy_process.start()
+    server_process.start()
+    client_1_process.start()
+    client_2_process.start()
+
+    yield
+
+    #    print("KILLING SERVER")
+
+    proxy_process.terminate()
+    server_process.terminate()
+    client_1_process.terminate()
+    client_2_process.terminate()
+
+    kill_process([5000, 5002, 5003, 5004])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_lamport(
+    server_lamport_app: Flask,  # pylint: disable=redefined-outer-name
+    client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
+    proxy_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    kill_process([5000, 5002, 5003, 5004])
+
+    server_process = Process(
+        target=server_lamport_app.run, kwargs={"port": 5000}
+    )
+    client_1_process = Process(
+        target=client_lamport_app.run, kwargs={"port": 5002}
+    )
+    client_2_process = Process(
+        target=client_lamport_app.run, kwargs={"port": 5003}
+    )
+    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5004})
 
     proxy_process.start()
     server_process.start()

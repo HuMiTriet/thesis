@@ -53,6 +53,7 @@ def lock(resource_id: str):
         for item in data:
             if item["id"] == resource_id:
                 if item["is_locked"] is True:
+
                     return "Resource currently locked", 423
 
                 item["is_locked"] = True
@@ -108,6 +109,7 @@ def update(resource_id: str):
         for item in data:
             if item["id"] == resource_id:
                 if item["is_locked"] is True:
+                    RACE_CONDITION = True
                     return "Resource currently locked", 423
 
                 request_data = request.get_json()

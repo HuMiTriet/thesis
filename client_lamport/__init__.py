@@ -13,6 +13,7 @@ class ClientState(Enum):
     EXECUTING = 2
 
 
+# Before doing this write test case to exploit this
 @dataclass
 class State:
     lamport_clock: LamportClock = LamportClock()
@@ -23,6 +24,11 @@ class State:
     deffered_replies: list[dict[str, str]] = field(
         default_factory=list[dict[str, str]]
     )
+
+
+# class ResourceState:
+#     currentstate
+#     approvals
 
 
 state = State()

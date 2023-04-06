@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-# register its url with the registrar
 @bp.route("/register", methods=["POST"])
 def register():
     """
@@ -89,12 +88,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         if request.host_url == target_url:
             target_url = "http://127.0.0.1:5003/"
 
-        state.current_state = ClientState.REQUESTING
-        state.requesting_resource.add(resource_id)
-        state.approvals[resource_id] = 0
-        state.lamport_clock.increment()
-
-        async with session.get(
+        async with session.post(
             f"{target_url}{resource_id}/resource_status",
             json={
                 "origin": request.host_url,
@@ -103,8 +97,59 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             proxy=PROXY_URL,
             # timeout=TIMEOUT,
         ):
-            pass
+            state.current_state = ClientState.REQUESTING
+            state.requesting_resource.add(resource_id)
+            state.approvals[resource_id] = 0
+            state.lamport_clock.increment()
         return f"client {request.host_url} is requesting {resource_id}", 200
+
+
+@bp.route("/<string:resource_id>/resource_status", methods=["POST"])
+async def resource_status(resource_id: str):
+    async with aiohttp.ClientSession() as session:
+
+        data = request.get_json()
+        timestamp = data["timestamp"]
+        origin = data["origin"]
+
+        state.lamport_clock.update(timestamp)
+
+        if (
+            state.current_state == ClientState.REQUESTING
+            and resource_id in state.requesting_resource
+        ):
+            if state.lamport_clock.get_time() < timestamp:
+                async with session.post(
+                    f"{origin}/{resource_id}/reply",
+                    json={
+                        "origin": request.host_url,
+                        "timestamp": state.lamport_clock.get_time(),
+                    },
+                ) as response:
+                    return await response.text(), response.status
+
+            state.deffered_replies.append(
+                {"url": origin, "resource_id": resource_id}
+            )
+            return "request deffered", 420
+
+        if (
+            state.current_state == ClientState.EXECUTING
+            and resource_id in state.executing_resource
+        ):
+            state.deffered_replies.append(
+                {"url": origin, "resource_id": resource_id}
+            )
+            return "request deffered", 420
+
+        async with session.post(
+            f"{origin}/{resource_id}/reply",
+            json={
+                "origin": request.host_url,
+                "timestamp": state.lamport_clock.get_time(),
+            },
+        ) as response:
+            return await response.text(), response.status
 
 
 @bp.route("/<string:resource_id>/reply", methods=["POST"])
@@ -153,6 +198,8 @@ async def receive_reply(resource_id: str):
 async def revoke_lock(resource_id: str):
     async with aiohttp.ClientSession() as session:
 
+        # increment
+
         async with session.delete(
             f"{SERVER_URL}{resource_id}/lock",
             json={
@@ -185,53 +232,3 @@ async def revoke_lock(resource_id: str):
                     return await response.text(), response.status
 
     return f"revoked resource {resource_id}", 200
-
-
-# also send along with a priority
-# implement stateful client
-@bp.route("/<string:resource_id>/resource_status", methods=["GET"])
-async def resource_status(resource_id: str):
-    async with aiohttp.ClientSession() as session:
-
-        data = request.get_json()
-        timestamp = data["timestamp"]
-        origin = data["origin"]
-
-        state.lamport_clock.update(timestamp)
-
-        if (
-            state.current_state == ClientState.REQUESTING
-            and resource_id in state.requesting_resource
-        ):
-            if state.lamport_clock.get_time() < timestamp:
-                async with session.post(
-                    f"{origin}/{resource_id}/reply",
-                    json={
-                        "origin": request.host_url,
-                        "timestamp": state.lamport_clock.get_time(),
-                    },
-                ) as response:
-                    return await response.text(), response.status
-
-            state.deffered_replies.append(
-                {"url": origin, "resource_id": resource_id}
-            )
-            return "request deffered", 420
-
-        if (
-            state.current_state == ClientState.EXECUTING
-            and resource_id in state.executing_resource
-        ):
-            state.deffered_replies.append(
-                {"url": origin, "resource_id": resource_id}
-            )
-            return "request deffered", 420
-
-        async with session.post(
-            f"{origin}/{resource_id}/reply",
-            json={
-                "origin": request.host_url,
-                "timestamp": state.lamport_clock.get_time(),
-            },
-        ) as response:
-            return await response.text(), response.status
