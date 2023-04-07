@@ -5,7 +5,7 @@ from flask import Blueprint, request
 import requests
 import aiohttp
 
-from . import ClientState, state
+from . import ClientState, client_state
 
 
 TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
@@ -28,7 +28,7 @@ def register():
     This is used in the registrar version. Each client register to the
     registrar
     """
-    state.lamport_clock.increment()
+    client_state.lamport_clock.increment()
 
     response = requests.post(
         f"{REGISTRAR_URL}/register",
@@ -82,6 +82,13 @@ def register():
 
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
+
+    if resource_id in client_state.executing_resource:
+        return (
+            f"resource {resource_id} is already executing by {request.host_url}",
+            200,
+        )
+
     async with aiohttp.ClientSession() as session:
 
         target_url = "http://127.0.0.1:5002/"
@@ -92,15 +99,18 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             f"{target_url}{resource_id}/resource_status",
             json={
                 "origin": request.host_url,
-                "timestamp": state.lamport_clock.get_time(),
+                "timestamp": client_state.lamport_clock.get_time(),
             },
             proxy=PROXY_URL,
             # timeout=TIMEOUT,
         ):
-            state.current_state = ClientState.REQUESTING
-            state.requesting_resource.add(resource_id)
-            state.approvals[resource_id] = 0
-            state.lamport_clock.increment()
+            client_state.current_state = ClientState.REQUESTING
+            client_state.requesting_resource.add(resource_id)
+            print(
+                f"requesting resource after adding {resource_id} is {client_state.requesting_resource}"
+            )
+            client_state.approvals[resource_id] = 0
+            client_state.lamport_clock.increment()
         return f"client {request.host_url} is requesting {resource_id}", 200
 
 
@@ -112,32 +122,32 @@ async def resource_status(resource_id: str):
         timestamp = data["timestamp"]
         origin = data["origin"]
 
-        state.lamport_clock.update(timestamp)
+        client_state.lamport_clock.update(timestamp)
 
         if (
-            state.current_state == ClientState.REQUESTING
-            and resource_id in state.requesting_resource
+            client_state.current_state == ClientState.REQUESTING
+            and resource_id in client_state.requesting_resource
         ):
-            if state.lamport_clock.get_time() < timestamp:
+            if client_state.lamport_clock.get_time() < timestamp:
                 async with session.post(
                     f"{origin}/{resource_id}/reply",
                     json={
                         "origin": request.host_url,
-                        "timestamp": state.lamport_clock.get_time(),
+                        "timestamp": client_state.lamport_clock.get_time(),
                     },
                 ) as response:
                     return await response.text(), response.status
 
-            state.deffered_replies.append(
+            client_state.deffered_replies.append(
                 {"url": origin, "resource_id": resource_id}
             )
             return "request deffered", 420
 
         if (
-            state.current_state == ClientState.EXECUTING
-            and resource_id in state.executing_resource
+            client_state.current_state == ClientState.EXECUTING
+            and resource_id in client_state.executing_resource
         ):
-            state.deffered_replies.append(
+            client_state.deffered_replies.append(
                 {"url": origin, "resource_id": resource_id}
             )
             return "request deffered", 420
@@ -146,7 +156,7 @@ async def resource_status(resource_id: str):
             f"{origin}/{resource_id}/reply",
             json={
                 "origin": request.host_url,
-                "timestamp": state.lamport_clock.get_time(),
+                "timestamp": client_state.lamport_clock.get_time(),
             },
         ) as response:
             return await response.text(), response.status
@@ -156,40 +166,46 @@ async def resource_status(resource_id: str):
 async def receive_reply(resource_id: str):
     async with aiohttp.ClientSession() as session:
 
-        state.approvals[resource_id] = state.approvals.get(resource_id, 0) + 1
+        print(
+            f"{request.host_url} getting a reply from {request.get_json()['origin']} for {resource_id}"
+        )
+        client_state.approvals[resource_id] = (
+            client_state.approvals.get(resource_id, 0) + 1
+        )
 
         data = request.get_json()
 
         timestamp = data["timestamp"]
-        state.lamport_clock.update(timestamp)
+        client_state.lamport_clock.update(timestamp)
 
         await asyncio.sleep(0.1)
-        print(
-            f"HERE client {request.host_url} has state approvals {state.approvals[resource_id]}"
-        )
 
-        if state.approvals[resource_id] == 1:
-            state.approvals[resource_id] = 0
-            state.current_state = ClientState.EXECUTING
+        if (
+            client_state.approvals[resource_id] == 1
+            and resource_id in client_state.requesting_resource
+        ):
+            client_state.approvals[resource_id] = 0
+            client_state.current_state = ClientState.EXECUTING
             print(
-                f"client {request.host_url} trying to remove {state.requesting_resource}"
+                f"client {request.host_url} trying to remove {client_state.requesting_resource}"
             )
-            state.requesting_resource.discard(resource_id)
-            state.executing_resource.add(resource_id)
+            client_state.requesting_resource.discard(resource_id)
+            client_state.executing_resource.add(resource_id)
 
+            print(f"client {request.host_url} put lock on {resource_id}")
             async with session.put(
                 f"{SERVER_URL}{resource_id}/lock",
                 json={
                     "origin": request.host_url,
-                    "timestamp": state.lamport_clock.get_time(),
+                    "timestamp": client_state.lamport_clock.get_time(),
                 },
                 proxy=PROXY_URL,
             ) as response:
-                state.lamport_clock.increment()
+                client_state.lamport_clock.increment()
                 return await response.text(), response.status
 
         return (
-            f"couldn't lock {resource_id} bc replies {state.approvals[resource_id]}",
+            f"couldn't lock {resource_id} bc replies {client_state.approvals[resource_id]}",
             420,
         )
 
@@ -198,26 +214,24 @@ async def receive_reply(resource_id: str):
 async def revoke_lock(resource_id: str):
     async with aiohttp.ClientSession() as session:
 
-        # increment
-
         async with session.delete(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
-                "timestamp": state.lamport_clock.get_time(),
+                "timestamp": client_state.lamport_clock.get_time(),
             },
             proxy=PROXY_URL,
         ) as response:
-            state.lamport_clock.increment()
+            client_state.lamport_clock.increment()
 
-            state.current_state = ClientState.DEFAULT
-            state.executing_resource.discard(resource_id)
-            state.requesting_resource.discard(resource_id)
-            state.approvals[resource_id] = 0
+            client_state.current_state = ClientState.DEFAULT
+            client_state.executing_resource.discard(resource_id)
+            client_state.requesting_resource.discard(resource_id)
+            client_state.approvals[resource_id] = 0
 
             # send reply to all deffered_replies
 
-            for deffered in state.deffered_replies:
+            for deffered in client_state.deffered_replies:
                 url = deffered["url"]
                 deffered_resource_id = deffered["resource_id"]
 
@@ -225,7 +239,7 @@ async def revoke_lock(resource_id: str):
                     f"{url}{deffered_resource_id}/reply",
                     json={
                         "origin": request.host_url,
-                        "timestamp": state.lamport_clock.get_time(),
+                        "timestamp": client_state.lamport_clock.get_time(),
                     },
                     proxy=PROXY_URL,
                 ) as response:

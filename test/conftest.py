@@ -24,7 +24,7 @@ load_dotenv()
 
 
 @pytest.fixture(scope=SCOPE)
-def server_lamport_app() -> Flask:
+def server_app() -> Flask:
     return create_server()
 
 
@@ -39,7 +39,7 @@ def registrar_app() -> Flask:
 
 
 @pytest.fixture(scope=SCOPE)
-def client_lamport_app() -> Flask:
+def client_app() -> Flask:
     return create_client()
 
 
@@ -106,6 +106,18 @@ def kill_process(ports: list[int]) -> None:
             pass
 
 
+def reset_dummy_data() -> None:
+    with open(os.path.join("dummy_data.json"), "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    for item in data:
+        if item["is_locked"]:
+            item["is_locked"] = False
+
+    with open(os.path.join("dummy_data.json"), "w", encoding="utf-8") as file:
+        json.dump(data, file)
+
+
 @pytest.fixture(scope=SCOPE)
 def setup(
     server_app: Flask,  # pylint: disable=redefined-outer-name
@@ -143,6 +155,7 @@ def setup(
     client_2_process.terminate()
 
     kill_process([5000, 5001, 5002, 5003, 5004])
+    reset_dummy_data()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -174,6 +187,7 @@ def setup_no_registrar(
     client_2_process.terminate()
 
     kill_process([5000, 5002, 5003, 5004])
+    reset_dummy_data()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -210,6 +224,7 @@ def setup_lamport(
     client_2_process.terminate()
 
     kill_process([5000, 5002, 5003, 5004])
+    reset_dummy_data()
 
 
 @pytest.fixture(scope=SCOPE)

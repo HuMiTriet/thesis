@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import os
 import time
 import threading
@@ -15,6 +16,23 @@ REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
 
 bp = Blueprint("resouce", __name__)
+
+
+@dataclass
+class ServerState:
+    race_condition: bool = False
+
+
+server_state = ServerState()
+
+
+@bp.route("/race", methods=["GET"])
+def check_race():
+
+    if server_state.race_condition:
+        return "race condition has occured", 423
+
+    return "alles gut", 200
 
 
 @bp.route("/<string:resource_id>", methods=["GET"])
@@ -44,7 +62,7 @@ def expire_lock(resource_id: str, duration: int, origin: str) -> None:
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:resource_id>/lock", methods=["PUT"])
 def lock(resource_id: str):
-    data = request.get_json()
+    # data = request.get_json()
     # origin = data["origin"]
 
     with open(os.path.join("dummy_data.json"), "r", encoding="utf-8") as file:
@@ -54,7 +72,11 @@ def lock(resource_id: str):
             if item["id"] == resource_id:
                 if item["is_locked"] is True:
 
-                    return "Resource currently locked", 423
+                    server_state.race_condition = True
+                    return (
+                        f"Race condition: {resource_id} currently locked",
+                        423,
+                    )
 
                 item["is_locked"] = True
                 with open(
@@ -81,17 +103,17 @@ def unlock(resource_id: str):
         data = json.load(file)
         for item in data:
             if item["id"] == resource_id:
-                if item["is_locked"] is True:
-                    item["is_locked"] = False
-                    with open(
-                        os.path.join("dummy_data.json"),
-                        "w",
-                        encoding="utf-8",
-                    ) as file:
-                        json.dump(data, file)
-                        return "Success", 200
-                else:
-                    return "Resource not locked", 418
+                # if item["is_locked"] is True:
+                item["is_locked"] = False
+                with open(
+                    os.path.join("dummy_data.json"),
+                    "w",
+                    encoding="utf-8",
+                ) as file:
+                    json.dump(data, file)
+                    return "Success", 200
+                # else:
+                # return "Resource not locked", 418
 
     return "Resource not found", 404
 

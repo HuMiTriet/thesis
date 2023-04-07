@@ -13,6 +13,18 @@ class ClientState(Enum):
     EXECUTING = 2
 
 
+# class State(Enum):
+#     REQUESTING = 1
+#     EXECUTING = 2
+
+
+# @dataclass
+# class ResourceState:
+#     resource_id: str
+#     currentstate: State
+#     approvals: int
+
+
 # Before doing this write test case to exploit this
 @dataclass
 class State:
@@ -31,7 +43,7 @@ class State:
 #     approvals
 
 
-state = State()
+client_state = State()
 
 
 def create_app():

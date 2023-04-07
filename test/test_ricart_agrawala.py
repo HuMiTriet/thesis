@@ -1,13 +1,16 @@
+import os
+import json
 import unittest
-import aiohttp
-from flask.wrappers import Response
 from hypothesis import strategies as st, settings
 from hypothesis.stateful import RuleBasedStateMachine, invariant, rule
 import pytest
 import requests
-from .stratergies import fault_strategy
+
 
 pytestmark = pytest.mark.usefixtures("setup_lamport")
+
+SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
+TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 class MutexLocking(RuleBasedStateMachine):
@@ -41,12 +44,33 @@ class MutexLocking(RuleBasedStateMachine):
 
     @invariant()
     def test_no_race_server(self):
-        pass
+        response = requests.get(
+            f"{SERVER_URL}race",
+            timeout=TESTING_TIMEOUT,
+        )
+
+        assert response.status_code == 200
+
+    def teardown(self):
+        with open(
+            os.path.join("dummy_data.json"), "r", encoding="utf-8"
+        ) as file:
+            data = json.load(file)
+
+        for item in data:
+            if item["is_locked"]:
+                item["is_locked"] = False
+
+        with open(
+            os.path.join("dummy_data.json"), "w", encoding="utf-8"
+        ) as file:
+            json.dump(data, file)
+        return super().teardown()
 
 
-MutexLocking.TestCase.settings = settings(
-    max_examples=10,
-    stateful_step_count=4,
-    deadline=None,
-)
+# MutexLocking.TestCase.settings = settings(
+#     max_examples=10,
+#     stateful_step_count=4,
+#     deadline=None,
+# )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase
