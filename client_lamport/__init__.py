@@ -7,43 +7,29 @@ from werkzeug.exceptions import InternalServerError
 from lamport_clock import LamportClock
 
 
-class ClientState(Enum):
-    DEFAULT = 0
-    REQUESTING = 1
-    EXECUTING = 2
+class State(Enum):
+    REQUESTING = 0
+    EXECUTING = 1
 
 
-# class State(Enum):
-#     REQUESTING = 1
-#     EXECUTING = 2
+@dataclass(slots=True, kw_only=True)
+class ResourceState:
+    current_state: State = field(default=State.REQUESTING)
+    approvals: int = field(default=0)
 
 
-# @dataclass
-# class ResourceState:
-#     resource_id: str
-#     currentstate: State
-#     approvals: int
-
-
-# Before doing this write test case to exploit this
 @dataclass
-class State:
+class ClientState:
     lamport_clock: LamportClock = LamportClock()
-    current_state: ClientState = ClientState.DEFAULT
-    requesting_resource: set[str] = field(default_factory=set[str])
-    approvals: dict[str, int] = field(default_factory=dict[str, int])
-    executing_resource: set[str] = field(default_factory=set[str])
     deffered_replies: list[dict[str, str]] = field(
         default_factory=list[dict[str, str]]
     )
+    resource_states: dict[str, ResourceState] = field(
+        default_factory=dict[str, ResourceState]
+    )
 
 
-# class ResourceState:
-#     currentstate
-#     approvals
-
-
-client_state = State()
+client_state = ClientState()
 
 
 def create_app():

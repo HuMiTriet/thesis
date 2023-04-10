@@ -5,7 +5,7 @@ from flask import Blueprint, request
 import requests
 import aiohttp
 
-from . import ClientState, client_state
+from . import ResourceState, State, client_state
 
 
 TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
@@ -83,7 +83,7 @@ def register():
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
 
-    if resource_id in client_state.executing_resource:
+    if resource_id in client_state.resource_states.keys():
         return (
             f"resource {resource_id} is already executing by {request.host_url}",
             200,
@@ -95,6 +95,11 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         if request.host_url == target_url:
             target_url = "http://127.0.0.1:5003/"
 
+        client_state.resource_states[resource_id] = ResourceState(
+            current_state=State.REQUESTING,
+            approvals=0,
+        )
+
         async with session.post(
             f"{target_url}{resource_id}/resource_status",
             json={
@@ -102,15 +107,10 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                 "timestamp": client_state.lamport_clock.get_time(),
             },
             proxy=PROXY_URL,
-            # timeout=TIMEOUT,
         ):
-            client_state.current_state = ClientState.REQUESTING
-            client_state.requesting_resource.add(resource_id)
-            print(
-                f"requesting resource after adding {resource_id} is {client_state.requesting_resource}"
-            )
-            client_state.approvals[resource_id] = 0
+
             client_state.lamport_clock.increment()
+
         return f"client {request.host_url} is requesting {resource_id}", 200
 
 
@@ -124,10 +124,28 @@ async def resource_status(resource_id: str):
 
         client_state.lamport_clock.update(timestamp)
 
-        if (
-            client_state.current_state == ClientState.REQUESTING
-            and resource_id in client_state.requesting_resource
-        ):
+        try:
+            interested_resource: ResourceState = client_state.resource_states[
+                resource_id
+            ]
+        except KeyError:
+            async with session.post(
+                f"{origin}/{resource_id}/reply",
+                json={
+                    "origin": request.host_url,
+                    "timestamp": client_state.lamport_clock.get_time(),
+                },
+            ) as response:
+                return (
+                    f"client {request.host_url} is not req or exe {resource_id}",
+                    200,
+                )
+
+        # if (
+        #     client_state.current_state == ClientState.REQUESTING
+        #     and resource_id in client_state.requesting_resource
+        # ):
+        if interested_resource.current_state == State.REQUESTING:
             if client_state.lamport_clock.get_time() < timestamp:
                 async with session.post(
                     f"{origin}/{resource_id}/reply",
@@ -143,10 +161,11 @@ async def resource_status(resource_id: str):
             )
             return "request deffered", 420
 
-        if (
-            client_state.current_state == ClientState.EXECUTING
-            and resource_id in client_state.executing_resource
-        ):
+        # if (
+        #     client_state.current_state == ClientState.EXECUTING
+        #     and resource_id in client_state.executing_resource
+        # ):
+        if interested_resource.current_state == State.EXECUTING:
             client_state.deffered_replies.append(
                 {"url": origin, "resource_id": resource_id}
             )
@@ -169,9 +188,21 @@ async def receive_reply(resource_id: str):
         print(
             f"{request.host_url} getting a reply from {request.get_json()['origin']} for {resource_id}"
         )
-        client_state.approvals[resource_id] = (
-            client_state.approvals.get(resource_id, 0) + 1
-        )
+
+        try:
+            interested_resource: ResourceState = client_state.resource_states[
+                resource_id
+            ]
+        except KeyError as error:
+            print(
+                f"client {request.host_url} does not have {resource_id} {client_state.resource_states}"
+            )
+            return (
+                f"client does not have {resource_id} in resource_states {repr(error)}",
+                412,
+            )
+
+        interested_resource.approvals += 1
 
         data = request.get_json()
 
@@ -180,17 +211,14 @@ async def receive_reply(resource_id: str):
 
         await asyncio.sleep(0.1)
 
-        if (
-            client_state.approvals[resource_id] == 1
-            and resource_id in client_state.requesting_resource
-        ):
-            client_state.approvals[resource_id] = 0
-            client_state.current_state = ClientState.EXECUTING
-            print(
-                f"client {request.host_url} trying to remove {client_state.requesting_resource}"
-            )
-            client_state.requesting_resource.discard(resource_id)
-            client_state.executing_resource.add(resource_id)
+        # if (
+        #     interested_resource.approvals[resource_id] == 1
+        #     and resource_id in client_state.requesting_resource
+        # ):
+        if interested_resource.approvals == 1:
+
+            interested_resource.approvals = 0
+            interested_resource.current_state = State.EXECUTING
 
             print(f"client {request.host_url} put lock on {resource_id}")
             async with session.put(
@@ -205,7 +233,8 @@ async def receive_reply(resource_id: str):
                 return await response.text(), response.status
 
         return (
-            f"couldn't lock {resource_id} bc replies {client_state.approvals[resource_id]}",
+            f"""couldn't lock {resource_id} bc approvals of {request.host_url}:
+            {interested_resource.approvals}""",
             420,
         )
 
@@ -224,10 +253,12 @@ async def revoke_lock(resource_id: str):
         ) as response:
             client_state.lamport_clock.increment()
 
-            client_state.current_state = ClientState.DEFAULT
-            client_state.executing_resource.discard(resource_id)
-            client_state.requesting_resource.discard(resource_id)
-            client_state.approvals[resource_id] = 0
+            # client_state.current_state = ClientState.DEFAULT
+            # client_state.executing_resource.discard(resource_id)
+            # client_state.requesting_resource.discard(resource_id)
+            # client_state.approvals[resource_id] = 0
+
+            client_state.resource_states.pop(resource_id)
 
             # send reply to all deffered_replies
 
