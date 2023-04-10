@@ -30,7 +30,7 @@ server_state = ServerState()
 def check_race():
 
     if server_state.race_condition:
-        return "race condition has occured", 423
+        return "race condition has occured", 418
 
     return "alles gut", 200
 
@@ -85,11 +85,6 @@ def lock(resource_id: str):
                     encoding="utf-8",
                 ) as file:
                     json.dump(data, file)
-                    # expire_thread = threading.Thread(
-                    #     target=expire_lock,
-                    #     args=(resource_id, TIMEOUT_SEC, origin),
-                    # )
-                    # expire_thread.start()
                     return "Success", 200
 
     return "Resource not found", 404
@@ -103,7 +98,6 @@ def unlock(resource_id: str):
         data = json.load(file)
         for item in data:
             if item["id"] == resource_id:
-                # if item["is_locked"] is True:
                 item["is_locked"] = False
                 with open(
                     os.path.join("dummy_data.json"),
@@ -112,8 +106,6 @@ def unlock(resource_id: str):
                 ) as file:
                     json.dump(data, file)
                     return "Success", 200
-                # else:
-                # return "Resource not locked", 418
 
     return "Resource not found", 404
 
@@ -131,7 +123,6 @@ def update(resource_id: str):
         for item in data:
             if item["id"] == resource_id:
                 if item["is_locked"] is True:
-                    RACE_CONDITION = True
                     return "Resource currently locked", 423
 
                 request_data = request.get_json()

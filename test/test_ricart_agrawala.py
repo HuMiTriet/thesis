@@ -7,7 +7,7 @@ import pytest
 import requests
 
 
-pytestmark = pytest.mark.usefixtures("setup_lamport")
+# pytestmark = pytest.mark.usefixtures("setup_lamport")
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
@@ -68,9 +68,4 @@ class MutexLocking(RuleBasedStateMachine):
         return super().teardown()
 
 
-# MutexLocking.TestCase.settings = settings(
-#     max_examples=10,
-#     stateful_step_count=4,
-#     deadline=None,
-# )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase
