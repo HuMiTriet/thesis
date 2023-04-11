@@ -1,13 +1,12 @@
 import os
-import json
 import unittest
-from hypothesis import strategies as st, settings
+from hypothesis import strategies as st
 from hypothesis.stateful import RuleBasedStateMachine, invariant, rule
-import pytest
 import requests
+import pytest
 
 
-# pytestmark = pytest.mark.usefixtures("setup_lamport")
+pytestmark = pytest.mark.usefixtures("setup_lamport")
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
@@ -50,22 +49,6 @@ class MutexLocking(RuleBasedStateMachine):
         )
 
         assert response.status_code == 200
-
-    def teardown(self):
-        with open(
-            os.path.join("dummy_data.json"), "r", encoding="utf-8"
-        ) as file:
-            data = json.load(file)
-
-        for item in data:
-            if item["is_locked"]:
-                item["is_locked"] = False
-
-        with open(
-            os.path.join("dummy_data.json"), "w", encoding="utf-8"
-        ) as file:
-            json.dump(data, file)
-        return super().teardown()
 
 
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

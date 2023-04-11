@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import os
 from flask import Blueprint, request
@@ -177,7 +176,7 @@ async def resource_status(resource_id: str):
 async def receive_reply(resource_id: str):
 
     print(
-        f"""{request.host_url} getting a reply from {request.get_json()['origin']} 
+        f"""{request.host_url} getting a reply from {request.get_json()['origin']}
         for {resource_id}
         """
     )
@@ -204,16 +203,13 @@ async def receive_reply(resource_id: str):
 
     # await asyncio.sleep(0.1)
 
-    if interested_resource.approvals >= 1:
+    if interested_resource.approvals == 1:
 
         interested_resource.approvals = 0
         interested_resource.current_state = State.EXECUTING
 
         text, code = await lock_resource(resource_id)
 
-        print(
-            f"client {request.host_url} lock {resource_id} came back with {text} and {code} from server"
-        )
         return text, code
 
     return (
@@ -244,7 +240,6 @@ async def revoke_lock(resource_id: str):
     if client_state.resource_states.get(resource_id) is None:
         return "resource not held", 200
 
-    # only delete resource that are executing
     if (
         client_state.resource_states[resource_id].current_state
         != State.EXECUTING

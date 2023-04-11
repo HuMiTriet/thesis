@@ -45,8 +45,6 @@ def fault_strategy(draw) -> InjectibleFault:
         )
     )
 
-    print(f"fault choosen {choosen}")
-
     return InjectibleFault(fault_names=choosen)
 
 
