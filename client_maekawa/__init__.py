@@ -1,6 +1,6 @@
 import os
 
-from asyncio import Queue
+from queue import Queue
 from dataclasses import dataclass, field
 from enum import Enum
 from dotenv import load_dotenv
@@ -13,13 +13,13 @@ from werkzeug.exceptions import InternalServerError
 class ClientRequest:
     url: str = ""
     resource_id: str = ""
+    approvals: int = 0
 
 
 @dataclass
 class ClientState:
-    queued_request: Queue = field(default_factory=Queue)
+    queued_request: Queue[ClientRequest] = field(default_factory=Queue)
     quorum_urls: list[str] = field(default_factory=list)
-    currently_using_resource_id: set[str] = field(default_factory=set)
 
     def get_quorum_urls(self, url: str) -> list[str]:
         if len(self.quorum_urls) == 0:

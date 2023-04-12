@@ -151,7 +151,7 @@ async def receive_reply(resource_id: str):
     timestamp = data["timestamp"]
     client_state.lamport_clock.update(timestamp)
 
-    # await asyncio.sleep(0.1)
+    # await asyncio.sleep(0.01)
 
     if interested_resource.approvals == int(TOTAL_CLIENT) - 1:
 
