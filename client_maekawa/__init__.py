@@ -1,32 +1,59 @@
+import os
+
+from asyncio import Queue
 from dataclasses import dataclass, field
 from enum import Enum
 from dotenv import load_dotenv
 from flask import Flask
+import requests
 from werkzeug.exceptions import InternalServerError
 
-from lamport_clock import LamportClock
 
-
-class State(Enum):
-    REQUESTING = 0
-    EXECUTING = 1
-
-
-@dataclass(slots=True, kw_only=True)
-class ResourceState:
-    current_state: State = field(default=State.REQUESTING)
-    approvals: int = field(default=0)
+@dataclass
+class ClientRequest:
+    url: str = ""
+    resource_id: str = ""
 
 
 @dataclass
 class ClientState:
-    lamport_clock: LamportClock = LamportClock()
-    deffered_replies: list[dict[str, str]] = field(
-        default_factory=list[dict[str, str]]
-    )
-    resource_states: dict[str, ResourceState] = field(
-        default_factory=dict[str, ResourceState]
-    )
+    queued_request: Queue = field(default_factory=Queue)
+    quorum_urls: list[str] = field(default_factory=list)
+    currently_using_resource_id: set[str] = field(default_factory=set)
+
+    def get_quorum_urls(self, url: str) -> list[str]:
+        if len(self.quorum_urls) == 0:
+            env_vars = os.environ
+
+            # Filter out environment variables that start with 'QUORUM_'
+            quorum_vars = {
+                key: value
+                for key, value in env_vars.items()
+                if key.startswith("QUORUM_")
+            }
+
+            # Split the quorum values into lists of strings
+            quorums = [value.split(" ") for value in quorum_vars.values()]
+
+            # Initialize an empty list to accumulate URLs from all quorums
+            all_quorum_urls = []
+
+            # Check if the url is in each of the list[str]
+            for quorum in quorums:
+                if url in quorum:
+                    # Extend the all_quorum_urls list with URLs from the quorum,
+                    # excluding the provided URL
+                    all_quorum_urls.extend(
+                        [
+                            quorum_url
+                            for quorum_url in quorum
+                            if quorum_url != url
+                        ]
+                    )
+
+            self.quorum_urls = all_quorum_urls
+
+        return self.quorum_urls
 
 
 client_state = ClientState()

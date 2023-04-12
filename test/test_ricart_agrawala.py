@@ -8,7 +8,7 @@ import pytest
 from .request_thread import RequestsThread
 
 
-pytestmark = pytest.mark.usefixtures("setup_lamport")
+pytestmark = pytest.mark.usefixtures("setup_four_client")
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
