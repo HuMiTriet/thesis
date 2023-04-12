@@ -15,15 +15,19 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 class MutexLocking(RuleBasedStateMachine):
+    def injecting_faults(self):
+        pass
+
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
-        client_port=st.integers(min_value=5002, max_value=5004),
+        client_port=st.integers(min_value=5002, max_value=5005),
     )
     def test_request(
         self,
         resource_id: str,
         client_port: int,
     ):
+
         requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/request",
             timeout=10,
@@ -31,7 +35,7 @@ class MutexLocking(RuleBasedStateMachine):
 
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
-        client_port=st.integers(min_value=5002, max_value=5004),
+        client_port=st.integers(min_value=5002, max_value=5005),
     )
     def test_unlock(
         self,
@@ -87,6 +91,12 @@ class MutexLocking(RuleBasedStateMachine):
         )
 
         assert response.status_code == 200
+
+    def teardown(self):
+        requests.post(
+            f"{SERVER_URL}reset",
+            timeout=TESTING_TIMEOUT,
+        )
 
 
 MutexLocking.TestCase.settings = settings(

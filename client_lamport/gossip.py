@@ -1,7 +1,6 @@
 import logging
 import os
 from flask import Blueprint, request
-import requests
 import aiohttp
 import asyncio
 

@@ -196,15 +196,18 @@ def setup_lamport(
     client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
-    kill_process([5000, 5002, 5003, 5004])
+    kill_process([5000, 5001, 5002, 5003, 5004, 5005])
 
     server_process = Process(
         target=server_lamport_app.run, kwargs={"port": 5000}
     )
+
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5001})
+
     client_1_process = Process(
         target=client_lamport_app.run, kwargs={"port": 5002}
     )
+
     client_2_process = Process(
         target=client_lamport_app.run, kwargs={"port": 5003}
     )
@@ -213,11 +216,16 @@ def setup_lamport(
         target=client_lamport_app.run, kwargs={"port": 5004}
     )
 
+    client_4_process = Process(
+        target=client_lamport_app.run, kwargs={"port": 5005}
+    )
+
     proxy_process.start()
     server_process.start()
     client_1_process.start()
     client_2_process.start()
     client_3_process.start()
+    client_4_process.start()
 
     yield
 
@@ -228,8 +236,9 @@ def setup_lamport(
     client_1_process.terminate()
     client_2_process.terminate()
     client_3_process.terminate()
+    client_4_process.terminate()
 
-    kill_process([5000, 5001, 5002, 5003, 5004])
+    kill_process([5000, 5001, 5002, 5003, 5004, 5005])
 
 
 @pytest.fixture(scope=SCOPE)

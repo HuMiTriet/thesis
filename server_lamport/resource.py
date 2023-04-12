@@ -70,3 +70,10 @@ def unlock(resource_id: str):
         return f"sucessfully unlocked {resource_id}", 200
     except KeyError:
         return "Resource not found", 404
+
+
+@bp.route("/reset", methods=["POST"])
+def reset_resource():
+    for resource in server_state.resource.keys():
+        server_state.resource[resource] = False
+    return "finish resetting", 200
