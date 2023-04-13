@@ -1,28 +1,42 @@
 import os
 
-from queue import Queue
+
 from dataclasses import dataclass, field
-from enum import Enum
+from datetime import datetime, timedelta
+
 from dotenv import load_dotenv
 from flask import Flask
-import requests
 from werkzeug.exceptions import InternalServerError
 
 
 @dataclass
 class ClientRequest:
     url: str = ""
-    resource_id: str = ""
     approvals: int = 0
+    already_given_approvals: set[str] = field(default_factory=set[str])
+    timeout: int = 10
+    expiration_time: datetime = field(init=False)
+
+    def __post_init__(self):
+        self.expiration_time = datetime.now() + timedelta(seconds=self.timeout)
 
 
 @dataclass
 class ClientState:
-    queued_request: Queue[ClientRequest] = field(default_factory=Queue)
-    quorum_urls: list[str] = field(default_factory=list)
+    # queued_request: Queue[ClientRequest] = field(default_factory=Queue)
+    _queued_request: dict[str, list[ClientRequest]] = field(
+        default_factory=dict[str, list[ClientRequest]]
+    )
+    _quorum_urls: list[str] = field(default_factory=list)
 
-    def get_quorum_urls(self, url: str) -> list[str]:
-        if len(self.quorum_urls) == 0:
+    def get_resource_queue(self, resource_id: str) -> list[ClientRequest]:
+        if self._queued_request.get(resource_id) is None:
+            self._queued_request[resource_id] = []
+
+        return self._queued_request[resource_id]
+
+    def get_broadcast_urls(self, url: str) -> list[str]:
+        if len(self._quorum_urls) == 0:
             env_vars = os.environ
 
             # Filter out environment variables that start with 'QUORUM_'
@@ -51,9 +65,9 @@ class ClientState:
                         ]
                     )
 
-            self.quorum_urls = all_quorum_urls
+            self._quorum_urls = all_quorum_urls
 
-        return self.quorum_urls
+        return self._quorum_urls
 
 
 client_state = ClientState()
