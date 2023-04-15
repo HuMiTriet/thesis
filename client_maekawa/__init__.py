@@ -2,7 +2,8 @@ import os
 
 
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+
+# from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
 from flask import Flask
@@ -14,11 +15,11 @@ class ClientRequest:
     url: str = ""
     approvals: int = 0
     already_given_approvals: set[str] = field(default_factory=set[str])
-    timeout: int = 10
-    expiration_time: datetime = field(init=False)
+    # timeout: int = 10
+    # expiration_time: datetime = field(init=False)
 
-    def __post_init__(self):
-        self.expiration_time = datetime.now() + timedelta(seconds=self.timeout)
+    # def __post_init__(self):
+    #     self.expiration_time = datetime.now() + timedelta(seconds=self.timeout)
 
 
 @dataclass
@@ -27,13 +28,20 @@ class ClientState:
     _queued_request: dict[str, list[ClientRequest]] = field(
         default_factory=dict[str, list[ClientRequest]]
     )
+
     _quorum_urls: list[str] = field(default_factory=list)
 
-    def get_resource_queue(self, resource_id: str) -> list[ClientRequest]:
+    def get_request_queue(self, resource_id: str) -> list[ClientRequest]:
         if self._queued_request.get(resource_id) is None:
             self._queued_request[resource_id] = []
 
         return self._queued_request[resource_id]
+
+    # def add_to_request_queue(self, resource_id, new_request):
+    #     request_queue = self.get_request_queue(resource_id)
+
+    #     for request in request_queue:
+    #         if request = new_class
 
     def get_broadcast_urls(self, url: str) -> list[str]:
         if len(self._quorum_urls) == 0:
