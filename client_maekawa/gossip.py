@@ -44,11 +44,13 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             )
         )
 
-    print(
-        f"we are going to compare {resource_queue[0].url} and {request.host_url}"
-    )
+    # print(
+    #     f"we are going to compare {resource_queue[0].url} and {request.host_url}"
+    # )
 
-    print(f"client current queue {resource_queue}")
+    print(
+        f"client current queue {[resource.url for resource in resource_queue]}"
+    )
 
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
 
@@ -122,8 +124,9 @@ async def receive_reply(resource_id: str):
 
     approve_url = data["approve_url"]
     approver_url = data["origin"]
+    resource_queue = client_state.get_request_queue(resource_id)
 
-    for i in range(len(client_state.get_request_queue(resource_id))):
+    for i in range(len(resource_queue)):
         current_request: ClientRequest = client_state.get_request_queue(
             resource_id
         )[i]
@@ -137,11 +140,13 @@ async def receive_reply(resource_id: str):
             current_request.approvals += 1
             current_request.already_given_approvals.add(approver_url)
 
-            if current_request.approvals == (
-                len(client_state.get_broadcast_urls(request.host_url))
+            if (
+                current_request.approvals
+                == (len(client_state.get_broadcast_urls(request.host_url)))
+                and resource_queue[0].url == request.host_url
             ):
-                # current_request.approvals = 0
-                # current_request.already_given_approvals.clear()
+
+                print(f"HERE CLIENT locking {resource_id}")
                 await lock_resource(resource_id)
                 return f"Client locked {resource_id}", 200
 
@@ -152,7 +157,9 @@ async def lock_resource(resource_id: str) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         async with session.put(
             f"{SERVER_URL}{resource_id}/lock",
-            json={},
+            json={
+                "origin": request.host_url,
+            },
             proxy=PROXY_URL,
         ) as response:
             return await response.text(), response.status
@@ -163,7 +170,7 @@ async def delete_request(resource_id: str):
 
     resource_queue = client_state.get_request_queue(resource_id)
 
-    if len(resource_queue) != 0:
+    if len(resource_queue) != 0 and resource_queue[0].url == request.host_url:
         current_request = resource_queue[0]
         resource_queue.pop(0)
 

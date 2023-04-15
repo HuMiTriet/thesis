@@ -4,6 +4,7 @@ from flask import Flask, request
 import requests
 from requests import Response
 from werkzeug.exceptions import InternalServerError
+import re
 
 
 from .fault import ErrorFault
@@ -56,6 +57,12 @@ def create_app():
                     timeout=TIMEOUT,
                 )
             case "PUT":
+                # match = re.findall("http://127.0.0.1:5000/./lock", url)
+                # if len(match) != 0:
+                print(
+                    f"client {request.get_json()['origin']} is locking {url}"
+                )
+
                 response = requests.put(
                     f"{request.url}",
                     json=request.json,

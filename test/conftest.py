@@ -191,7 +191,7 @@ def setup_no_registrar(
 
 
 @pytest.fixture(scope=SCOPE)
-def setup_four_client(
+def setup_ricart_agrawala_four_client(
     server_lamport_app: Flask,  # pylint: disable=redefined-outer-name
     client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
