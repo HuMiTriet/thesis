@@ -48,9 +48,9 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
     #     f"we are going to compare {resource_queue[0].url} and {request.host_url}"
     # )
 
-    print(
-        f"client current queue {[resource.url for resource in resource_queue]}"
-    )
+    # print(
+    #     f"client current queue {[resource.url for resource in resource_queue]}"
+    # )
 
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
 
@@ -146,7 +146,7 @@ async def receive_reply(resource_id: str):
                 and resource_queue[0].url == request.host_url
             ):
 
-                print(f"HERE CLIENT locking {resource_id}")
+                # print(f"HERE CLIENT locking {resource_id}")
                 await lock_resource(resource_id)
                 return f"Client locked {resource_id}", 200
 
@@ -238,7 +238,7 @@ async def release_resource(resource_id: str):
             if resource_queue[0].approvals == len(
                 client_state.get_broadcast_urls(request.host_url)
             ):
-                print(f"HERE CLIENT locking {resource_id}")
+                # print(f"HERE CLIENT locking {resource_id}")
                 resp, status = await lock_resource(resource_id)
                 return resp, status
 

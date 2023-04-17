@@ -16,6 +16,7 @@ from server_lamport import create_app as create_server_lamport
 from registrar import create_app as create_registrar
 from client import create_app as create_client
 from client_lamport import create_app as create_client_lamport
+from client_maekawa import create_app as create_client_maekawa
 from proxy import create_app as create_proxy
 
 
@@ -46,6 +47,11 @@ def client_app() -> Flask:
 @pytest.fixture(scope=SCOPE)
 def client_lamport_app() -> Flask:
     return create_client_lamport()
+
+
+@pytest.fixture(scope=SCOPE)
+def client_maekawa_app() -> Flask:
+    return create_client_maekawa()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -191,18 +197,35 @@ def setup_no_registrar(
 
 
 @pytest.fixture(scope=SCOPE)
-def setup_ricart_agrawala_four_client(
+def setup_server_and_proxy(
     server_lamport_app: Flask,  # pylint: disable=redefined-outer-name
-    client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
     proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
-    kill_process([5000, 5001, 5002, 5003, 5004, 5005])
+    kill_process([5000, 5001])
 
     server_process = Process(
         target=server_lamport_app.run, kwargs={"port": 5000}
     )
 
     proxy_process = Process(target=proxy_app.run, kwargs={"port": 5001})
+
+    server_process.start()
+    proxy_process.start()
+
+    yield
+
+    server_process.terminate()
+    proxy_process.terminate()
+
+    kill_process([5000, 5001])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_ricart_agrawala_four_client(
+    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    kill_process([5002, 5003, 5004, 5005])
 
     client_1_process = Process(
         target=client_lamport_app.run, kwargs={"port": 5002}
@@ -220,8 +243,6 @@ def setup_ricart_agrawala_four_client(
         target=client_lamport_app.run, kwargs={"port": 5005}
     )
 
-    proxy_process.start()
-    server_process.start()
     client_1_process.start()
     client_2_process.start()
     client_3_process.start()
@@ -231,14 +252,50 @@ def setup_ricart_agrawala_four_client(
 
     #    print("KILLING SERVER")
 
-    proxy_process.terminate()
-    server_process.terminate()
     client_1_process.terminate()
     client_2_process.terminate()
     client_3_process.terminate()
     client_4_process.terminate()
 
-    kill_process([5000, 5001, 5002, 5003, 5004, 5005])
+    kill_process([5002, 5003, 5004, 5005])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_four_client(
+    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    kill_process([5002, 5003, 5004, 5005])
+
+    client_1_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5002}
+    )
+
+    client_2_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5003}
+    )
+
+    client_3_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5004}
+    )
+
+    client_4_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5005}
+    )
+
+    client_1_process.start()
+    client_2_process.start()
+    client_3_process.start()
+    client_4_process.start()
+
+    yield
+
+    client_1_process.terminate()
+    client_2_process.terminate()
+    client_3_process.terminate()
+    client_4_process.terminate()
+
+    kill_process([5002, 5003, 5004, 5005])
 
 
 @pytest.fixture(scope=SCOPE)
