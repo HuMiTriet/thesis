@@ -1,4 +1,5 @@
 import os
+from math import sqrt, ceil
 
 
 from dataclasses import dataclass, field
@@ -37,43 +38,60 @@ class ClientState:
 
         return self._queued_request[resource_id]
 
-    # def add_to_request_queue(self, resource_id, new_request):
-    #     request_queue = self.get_request_queue(resource_id)
+    def _get_url_matrix(self) -> list[list[None]]:
+        all_urls_str = os.getenv(
+            "CLIENT_URL",
+            """http://127.0.0.1:5002/ http://127.0.0.1:5003/
+                   http://127.0.0.1:5004/ http://127.0.0.1:5005/
+                   """,
+        )
 
-    #     for request in request_queue:
-    #         if request = new_class
+        # Split the string into a list of URLs
+        all_urls = all_urls_str.split()
+
+        # Calculate k and create a 2D list of size k x k
+        k = ceil(sqrt(len(all_urls)))
+        url_matrix = [[None] * k for _ in range(k)]
+
+        # Fill the 2D list with URLs
+        for idx, url_item in enumerate(all_urls):
+            row_idx = idx // k
+            col_idx = idx % k
+            url_matrix[row_idx][col_idx] = url_item  # pyright: ignore
+
+        return url_matrix
 
     def get_broadcast_urls(self, url: str) -> list[str]:
         if len(self._quorum_urls) == 0:
-            env_vars = os.environ
+            matrix = self._get_url_matrix()
 
-            # Filter out environment variables that start with 'QUORUM_'
-            quorum_vars = {
-                key: value
-                for key, value in env_vars.items()
-                if key.startswith("QUORUM_")
-            }
+            target_element = url
 
-            # Split the quorum values into lists of strings
-            quorums = [value.split(" ") for value in quorum_vars.values()]
+            # Find the row and column indices of the target element
+            row_idx, col_idx = None, None
+            for i, row in enumerate(matrix):
+                if target_element in row:
+                    row_idx = i
+                    col_idx = row.index(target_element)
+                    break
 
-            # Initialize an empty list to accumulate URLs from all quorums
-            all_quorum_urls = []
+            if row_idx is not None and col_idx is not None:
+                # Get all the elements in the same row, excluding the target element and None values
+                row_elements: list[str] = [
+                    element
+                    for i, element in enumerate(matrix[row_idx])
+                    if i != col_idx and element is not None
+                ]
 
-            # Check if the url is in each of the list[str]
-            for quorum in quorums:
-                if url in quorum:
-                    # Extend the all_quorum_urls list with URLs from the quorum,
-                    # excluding the provided URL
-                    all_quorum_urls.extend(
-                        [
-                            quorum_url
-                            for quorum_url in quorum
-                            if quorum_url != url
-                        ]
-                    )
+                # Get all the elements in the same column, excluding the target
+                # element and None values
+                col_elements: list[str] = [  # pyright: ignore
+                    row[col_idx]
+                    for i, row in enumerate(matrix)
+                    if i != row_idx and row[col_idx] is not None
+                ]
 
-            self._quorum_urls = all_quorum_urls
+                self._quorum_urls = row_elements + col_elements
 
         return self._quorum_urls
 
