@@ -61,18 +61,16 @@ class ClientState:
 
         return url_matrix
 
-    def get_broadcast_urls(self, url: str) -> list[str]:
+    def get_broadcast_urls(self, target_url: str) -> list[str]:
         if len(self._quorum_urls) == 0:
             matrix = self._get_url_matrix()
-
-            target_element = url
 
             # Find the row and column indices of the target element
             row_idx, col_idx = None, None
             for i, row in enumerate(matrix):
-                if target_element in row:
+                if target_url in row:
                     row_idx = i
-                    col_idx = row.index(target_element)
+                    col_idx = row.index(target_url)
                     break
 
             if row_idx is not None and col_idx is not None:
