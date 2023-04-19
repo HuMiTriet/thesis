@@ -1,6 +1,7 @@
 from collections import defaultdict
 from enum import Enum
 import os
+import aiohttp
 
 
 from dataclasses import dataclass, field
@@ -23,7 +24,6 @@ class ClientState:
     current_state: defaultdict[str, State] = field(
         default_factory=lambda: defaultdict(lambda: State.DEFAULT)
     )
-    # tokens: set[str] = field(default_factory=set)
 
     def get_next_client_url(self, host_url: str) -> str | None:
         all_urls = os.getenv(
@@ -41,12 +41,6 @@ class ClientState:
 
 
 client_state = ClientState()
-
-
-# def get_session():
-#     if "session" not in g:
-#         g.session = aiohttp.ClientSession()
-#     return g.session
 
 
 def create_app():

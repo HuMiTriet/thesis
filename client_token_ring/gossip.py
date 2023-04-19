@@ -1,4 +1,6 @@
 import os
+import logging
+import threading
 
 # from datetime import datetime
 from flask import Blueprint, request
@@ -25,13 +27,12 @@ bp = Blueprint("gossip", __name__)
 
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
-    resource_cur_state = client_state.current_state[resource_id]
 
-    if resource_cur_state == State.EXECUTING:
+    if client_state.current_state[resource_id] == State.EXECUTING:
         return f"client is already executing resource {resource_id}", 200
 
-    if resource_cur_state == State.DEFAULT:
-        resource_cur_state = State.REQUESTING
+    if client_state.current_state[resource_id] == State.DEFAULT:
+        client_state.current_state[resource_id] = State.REQUESTING
 
     return f"client has requested {resource_id}", 200
 
@@ -39,17 +40,15 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def delete_request(resource_id: str) -> tuple[str, int]:
 
-    resource_cur_state = client_state.current_state[resource_id]
-
-    if resource_cur_state == State.DEFAULT:
+    if client_state.current_state[resource_id] == State.DEFAULT:
         return (
             f"client cannot delete {resource_id} lock because has not yet hold it",
             401,
         )
 
-    resource_cur_state = State.DEFAULT
+    client_state.current_state[resource_id] = State.DEFAULT
 
-    if resource_cur_state == State.EXECUTING:
+    if client_state.current_state[resource_id] == State.EXECUTING:
         _, code = await release_lock(resource_id)
         return f"client EXECUTING {resource_id} to DEFAULT)", code
 
@@ -59,14 +58,12 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/token", methods=["PUT"])
 async def receive_token(resource_id: str) -> tuple[str, int]:
 
-    resource_cur_state = client_state.current_state[resource_id]
-
-    if resource_cur_state == State.DEFAULT:
+    if client_state.current_state[resource_id] == State.DEFAULT:
         resp, code = await pass_token(resource_id)
         return resp, code
 
-    if resource_cur_state == State.REQUESTING:
-        resource_cur_state = State.EXECUTING
+    if client_state.current_state[resource_id] == State.REQUESTING:
+        client_state.current_state[resource_id] = State.EXECUTING
         resp, code = await lock_resource(resource_id)
         return resp, code
 
