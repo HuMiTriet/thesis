@@ -1,6 +1,5 @@
+import asyncio
 import os
-import logging
-import threading
 
 # from datetime import datetime
 from flask import Blueprint, request
@@ -46,11 +45,13 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
             401,
         )
 
-    client_state.current_state[resource_id] = State.DEFAULT
-
     if client_state.current_state[resource_id] == State.EXECUTING:
-        _, code = await release_lock(resource_id)
-        return f"client EXECUTING {resource_id} to DEFAULT)", code
+        client_state.current_state[resource_id] = State.DEFAULT
+        await asyncio.gather(
+            release_lock(resource_id),
+            pass_token(resource_id),
+        )
+        return f"client release token {resource_id} and passed it along", 200
 
     return f"client REQUESTING {resource_id} to DEFAULT)", 200
 
@@ -64,6 +65,7 @@ async def receive_token(resource_id: str) -> tuple[str, int]:
 
     if client_state.current_state[resource_id] == State.REQUESTING:
         client_state.current_state[resource_id] = State.EXECUTING
+        # print(f"client {request.host_url} is locking {resource_id}")
         resp, code = await lock_resource(resource_id)
         return resp, code
 
