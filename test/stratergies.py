@@ -1,10 +1,12 @@
 import os
 import json
+import requests
 
 from dataclasses import dataclass, field
+import random
 
 from hypothesis.strategies import SearchStrategy, lists, composite
-from hypothesis import strategies as st
+from hypothesis import strategies as st, given
 
 from proxy.injectable_fault import InjectibleFault
 
@@ -66,3 +68,39 @@ class FaultKeySingleton:
                     self._fault_keys.append(i["name"])
 
         return self._fault_keys
+
+
+@composite
+def get_random_faults(draw) -> list[str]:
+    choosen: list[str]
+
+    fault_key_singleton = FaultKeySingleton()
+
+    choosen = draw(
+        st.lists(
+            st.sampled_from(
+                fault_key_singleton.get_fault_keys(),
+            ),
+            min_size=1,
+        )
+    )
+
+    return choosen
+
+
+@dataclass
+class RuleBaseInjectibleFault:
+
+    # @given(faults=get_random_faults())
+    def inject(self, faults):
+        requests.post(
+            "http://127.0.0.1:5004/inject",
+            json={"fault": faults},
+            timeout=2,
+        )
+
+    def reset(self):
+        requests.delete(
+            "http://127.0.0.1:5004/inject",
+            timeout=2,
+        )

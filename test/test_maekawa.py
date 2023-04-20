@@ -9,8 +9,7 @@ from hypothesis.stateful import (
 )
 import requests
 import pytest
-from proxy.injectable_fault import InjectibleFault
-from .stratergies import fault_strategy
+from .stratergies import RuleBaseInjectibleFault, get_random_faults
 
 
 # pytestmark = pytest.mark.usefixtures("setup_maekawa_four_client")
@@ -21,6 +20,15 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 class MutexLocking(RuleBasedStateMachine):
     just_ran_invariant = False
+    fault = RuleBaseInjectibleFault()
+
+    @rule(faults=get_random_faults())
+    def inject_fault(self, faults):
+        self.fault.inject(faults)
+
+    @rule()
+    def reset_faults(self):
+        self.fault.reset()
 
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
