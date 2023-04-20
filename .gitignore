@@ -18,3 +18,4 @@ setup.sh
 test.py
 .pylintrc
 .vscode
+test_2.py

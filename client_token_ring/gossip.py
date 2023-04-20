@@ -1,6 +1,7 @@
 import asyncio
 import os
 
+
 # from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
@@ -53,7 +54,7 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
         )
         return f"client release token {resource_id} and passed it along", 200
 
-    return f"client REQUESTING {resource_id} to DEFAULT)", 200
+    return f"client REQUESTING {resource_id} to DEFAULT)", 202
 
 
 @bp.route("/<string:resource_id>/token", methods=["PUT"])

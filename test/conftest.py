@@ -17,6 +17,7 @@ from registrar import create_app as create_registrar
 from client import create_app as create_client
 from client_lamport import create_app as create_client_lamport
 from client_maekawa import create_app as create_client_maekawa
+from client_token_ring import create_app as create_client_token
 from proxy import create_app as create_proxy
 
 
@@ -52,6 +53,11 @@ def client_lamport_app() -> Flask:
 @pytest.fixture(scope=SCOPE)
 def client_maekawa_app() -> Flask:
     return create_client_maekawa()
+
+
+@pytest.fixture(scope=SCOPE)
+def client_token_app() -> Flask:
+    return create_client_token()
 
 
 @pytest.fixture(scope=SCOPE)
@@ -281,6 +287,45 @@ def setup_maekawa_four_client(
 
     client_4_process = Process(
         target=client_maekawa_app.run, kwargs={"port": 5005}
+    )
+
+    client_1_process.start()
+    client_2_process.start()
+    client_3_process.start()
+    client_4_process.start()
+
+    yield
+
+    client_1_process.terminate()
+    client_2_process.terminate()
+    client_3_process.terminate()
+    client_4_process.terminate()
+
+    kill_process([5002, 5003, 5004, 5005])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_token_ring_four_client(
+    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_token_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5002, 5003, 5004, 5005])
+
+    client_1_process = Process(
+        target=client_token_app.run, kwargs={"port": 5002}
+    )
+
+    client_2_process = Process(
+        target=client_token_app.run, kwargs={"port": 5003}
+    )
+
+    client_3_process = Process(
+        target=client_token_app.run, kwargs={"port": 5004}
+    )
+
+    client_4_process = Process(
+        target=client_token_app.run, kwargs={"port": 5005}
     )
 
     client_1_process.start()

@@ -26,18 +26,22 @@ bp = Blueprint("gossip", __name__)
 
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
-    resource_queue = client_state.get_request_queue(resource_id)
+    # resource_queue = client_state.get_request_queue(resource_id)
 
     # if not client_state.get_resource_queue(resource_id).count:
-    if len(resource_queue) != 0:
+    if len(client_state.get_request_queue(resource_id)) != 0:
 
-        if resource_queue[0].approvals == len(
+        if client_state.get_request_queue(resource_id)[0].approvals == len(
             client_state.get_broadcast_urls(request.host_url)
         ):
             return f"client {request.host_url} is executing", 200
 
-    if len(resource_queue) == 0 or resource_queue[0].url != request.host_url:
-        resource_queue.append(
+    if (
+        len(client_state.get_request_queue(resource_id)) == 0
+        or client_state.get_request_queue(resource_id)[0].url
+        != request.host_url
+    ):
+        client_state.get_request_queue(resource_id).append(
             ClientRequest(
                 url=request.host_url,
                 approvals=0,
@@ -59,7 +63,9 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         coroutines = []
 
         for target_url in set(broadcast_urls).difference(
-            resource_queue[0].already_given_approvals
+            client_state.get_request_queue(resource_id)[
+                0
+            ].already_given_approvals
         ):
             coroutine = session.post(
                 f"{target_url}{resource_id}/resource_status",
@@ -124,9 +130,8 @@ async def receive_reply(resource_id: str):
 
     approve_url = data["approve_url"]
     approver_url = data["origin"]
-    resource_queue = client_state.get_request_queue(resource_id)
 
-    for i in range(len(resource_queue)):
+    for i in range(len(client_state.get_request_queue(resource_id))):
         current_request: ClientRequest = client_state.get_request_queue(
             resource_id
         )[i]
@@ -143,7 +148,8 @@ async def receive_reply(resource_id: str):
             if (
                 current_request.approvals
                 == (len(client_state.get_broadcast_urls(request.host_url)))
-                and resource_queue[0].url == request.host_url
+                and client_state.get_request_queue(resource_id)[0].url
+                == request.host_url
             ):
 
                 # print(f"HERE CLIENT locking {resource_id}")
@@ -168,11 +174,15 @@ async def lock_resource(resource_id: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def delete_request(resource_id: str):
 
-    resource_queue = client_state.get_request_queue(resource_id)
+    # resource_queue = client_state.get_request_queue(resource_id)
 
-    if len(resource_queue) != 0 and resource_queue[0].url == request.host_url:
-        current_request = resource_queue[0]
-        resource_queue.pop(0)
+    if (
+        len(client_state.get_request_queue(resource_id)) != 0
+        and client_state.get_request_queue(resource_id)[0].url
+        == request.host_url
+    ):
+        current_request = client_state.get_request_queue(resource_id)[0]
+        client_state.get_request_queue(resource_id).pop(0)
 
         broadcast_urls = client_state.get_broadcast_urls(request.host_url)
 
@@ -221,21 +231,22 @@ async def release_resource(resource_id: str):
     original_url = request.get_json()["origin"]
 
     # Get the resource queue for the specified resource_id
-    resource_queue = client_state.get_request_queue(resource_id)
+    # resource_queue = client_state.get_request_queue(resource_id)
 
     # Check if the resource queue is not empty
-    if len(resource_queue) != 0:
+    if len(client_state.get_request_queue(resource_id)) != 0:
         # Remove the first request from the queue if it matches the original_url
-        if resource_queue[0].url == original_url:
-            resource_queue.pop(0)
+        if client_state.get_request_queue(resource_id)[0].url == original_url:
+            client_state.get_request_queue(resource_id).pop(0)
 
         # Check if the current process's request is now at the front of the queue
         if (
-            len(resource_queue) != 0
-            and resource_queue[0].url == request.host_url
+            len(client_state.get_request_queue(resource_id)) != 0
+            and client_state.get_request_queue(resource_id)[0].url
+            == request.host_url
         ):
 
-            if resource_queue[0].approvals == len(
+            if client_state.get_request_queue(resource_id)[0].approvals == len(
                 client_state.get_broadcast_urls(request.host_url)
             ):
                 # print(f"HERE CLIENT locking {resource_id}")

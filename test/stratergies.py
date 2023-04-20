@@ -1,12 +1,11 @@
 import os
 import json
+from dataclasses import dataclass, field
 import requests
 
-from dataclasses import dataclass, field
-import random
 
 from hypothesis.strategies import SearchStrategy, lists, composite
-from hypothesis import strategies as st, given
+from hypothesis import strategies as st
 
 from proxy.injectable_fault import InjectibleFault
 

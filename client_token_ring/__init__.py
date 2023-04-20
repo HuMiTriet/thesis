@@ -1,7 +1,6 @@
 from collections import defaultdict
 from enum import Enum
 import os
-import aiohttp
 
 
 from dataclasses import dataclass, field
