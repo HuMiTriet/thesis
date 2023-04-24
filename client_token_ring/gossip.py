@@ -1,10 +1,12 @@
 import asyncio
 import os
+import threading
 
 
 # from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
+import flask
 
 
 from . import State, client_state
@@ -27,7 +29,6 @@ bp = Blueprint("gossip", __name__)
 
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
-
     if client_state.current_state[resource_id] == State.EXECUTING:
         return f"client is already executing resource {resource_id}", 200
 
@@ -61,8 +62,14 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 async def receive_token(resource_id: str) -> tuple[str, int]:
 
     if client_state.current_state[resource_id] == State.DEFAULT:
-        resp, code = await pass_token(resource_id)
-        return resp, code
+        # resp, code = await pass_token(resource_id)
+        pass_thread = threading.Thread(
+            target=pass_token_wrapper,
+            args=(resource_id),
+        )
+
+        pass_thread.start()
+        return f"token {resource_id} passed", 200
 
     if client_state.current_state[resource_id] == State.REQUESTING:
         client_state.current_state[resource_id] = State.EXECUTING
@@ -75,8 +82,16 @@ async def receive_token(resource_id: str) -> tuple[str, int]:
     return f"duplication of token for {resource_id}", 400
 
 
+def pass_token_wrapper(resource_id: str):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    loop.run_until_complete(pass_token(resource_id))
+    loop.close()
+
+
 async def pass_token(resource_id: str) -> tuple[str, int]:
-    next_url = client_state.get_next_client_url(request.host_url)
+    next_url = client_state.get_next_client_url()
     async with aiohttp.ClientSession() as session:
         async with session.put(f"{next_url}{resource_id}/token") as response:
             return (

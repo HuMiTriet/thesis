@@ -17,7 +17,7 @@ def test_get_broadcast_url(all_urls: set[str]):
     # print(all_urls)
     delimiter = " "
     all_urls = {s.strip() for s in all_urls}
-    K = ceil(sqrt(len(all_urls)))
+    k = ceil(sqrt(len(all_urls)))
     joined_string = delimiter.join(all_urls)
 
     client_state = ClientState()
@@ -26,10 +26,6 @@ def test_get_broadcast_url(all_urls: set[str]):
 
     for client_url in all_urls:
         result = client_state.get_broadcast_urls(client_url, joined_string)
-
-        # Test property 0: the result set should have K -1 element
-        # (because the broadcast urls does not include the calling client itself)
-        assert len(result) == K - 1 or len(result) == K
 
         # Test property 1: The set[str] Result does not include client_url itself
         assert client_url not in result

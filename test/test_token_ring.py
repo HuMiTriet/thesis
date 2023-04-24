@@ -26,15 +26,15 @@ class MutexLocking(RuleBasedStateMachine):
     # just_ran_invariant = False
     # last_operation = None
 
-    # fault = RuleBaseInjectibleFault()
+    fault = RuleBaseInjectibleFault()
 
-    # @rule(faults=get_random_faults())
-    # def inject_fault(self, faults):
-    #     self.fault.inject(faults)
+    @rule(faults=get_random_faults())
+    def inject_fault(self, faults):
+        self.fault.inject(faults)
 
-    # @rule()
-    # def reset_faults(self):
-    #     self.fault.reset()
+    @rule()
+    def reset_faults(self):
+        self.fault.reset()
 
     @initialize(
         resource_id=st.sampled_from(["A", "B"]),
@@ -45,7 +45,6 @@ class MutexLocking(RuleBasedStateMachine):
         resource_id: str,
         client_port: int,
     ):
-
         requests.put(
             f"http://127.0.0.1:{client_port}/{resource_id}/token",
             timeout=10,
@@ -118,8 +117,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    max_examples=4,
-    stateful_step_count=4,
+    # max_examples=4,
+    # stateful_step_count=4,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

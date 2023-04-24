@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 
 # from datetime import datetime, timedelta
 
+import sys
 from dotenv import load_dotenv
 from flask import Flask
 from werkzeug.exceptions import InternalServerError
@@ -24,7 +25,9 @@ class ClientState:
         default_factory=lambda: defaultdict(lambda: State.DEFAULT)
     )
 
-    def get_next_client_url(self, host_url: str) -> str | None:
+    def get_next_client_url(self) -> str | None:
+        port_number = sys.argv[5]
+        host_url = f"http://127.0.0.1:{port_number}/"
         all_urls = os.getenv(
             "TOKEN_RING",
             """http://127.0.0.1:5002/ http://127.0.0.1:5003/
@@ -52,6 +55,7 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__, instance_relative_config=True)
+    # print(f"Client port {sys.argv}")
 
     # pylint: disable=import-outside-toplevel
     from . import gossip
