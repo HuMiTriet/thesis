@@ -1,6 +1,8 @@
 from collections import defaultdict
 from enum import Enum
 import os
+import logging
+import logging.handlers
 
 
 from dataclasses import dataclass, field
@@ -52,12 +54,31 @@ def create_app():
     A client is an entity that interact with a resource in acquiring locks and
     or releasing it.
     """
+
+    logger = logging.getLogger()
+
+    logging.basicConfig(
+        level=logging.WARNING,
+        format="%(asctime)s.%(msecs)03d %(levelname)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        # filename="basic.log",
+    )
+
+    http_handler = logging.handlers.HTTPHandler(
+        "127.0.0.1:3000",
+        "/log",
+        method="POST",
+    )
+
+    logger.addHandler(http_handler)
+
     load_dotenv()
 
     app = Flask(__name__, instance_relative_config=True)
     # print(f"Client port {sys.argv}")
 
     # pylint: disable=import-outside-toplevel
+
     from . import gossip
 
     app.register_blueprint(gossip.bp)

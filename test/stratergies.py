@@ -91,7 +91,7 @@ def get_random_faults(draw) -> list[str]:
 class RuleBaseInjectibleFault:
 
     # @given(faults=get_random_faults())
-    def inject(self, faults):
+    def inject(self, faults: list[str]):
         requests.post(
             "http://127.0.0.1:5004/inject",
             json={"fault": faults},

@@ -1,0 +1,90 @@
+2023-05-03 11:10:39.418 WARNING client http://127.0.0.1:5002/ is not interested, passing token A on
+2023-05-03 11:10:39.419 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.422 WARNING client http://127.0.0.1:5003/ is not interested, passing token A on
+2023-05-03 11:10:39.423 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.424 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.428 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mPOST /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.430 WARNING client http://127.0.0.1:5004/ is not interested, passing token A on
+2023-05-03 11:10:39.431 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.433 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.436 WARNING client http://127.0.0.1:5002/ want to execute A
+2023-05-03 11:10:39.437 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /A/request HTTP/1.1" 200 -
+2023-05-03 11:10:39.438 WARNING client http://127.0.0.1:5005/ is not interested, passing token A on
+2023-05-03 11:10:39.440 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.440 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.441 WARNING client http://127.0.0.1:5002/ interested in and locking A
+2023-05-03 11:10:39.443 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /reset HTTP/1.1" 200 -
+2023-05-03 11:10:39.448 WARNING client http://127.0.0.1:5005/ is not interested, passing token B on
+2023-05-03 11:10:39.449 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/lock HTTP/1.1" 200 -
+2023-05-03 11:10:39.450 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.451 WARNING client http://127.0.0.1:5002/ is not interested, passing token B on
+2023-05-03 11:10:39.452 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.453 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.455 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.455 WARNING client http://127.0.0.1:5003/ is not interested, passing token B on
+2023-05-03 11:10:39.457 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.457 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.459 WARNING client http://127.0.0.1:5004/ is not interested, passing token B on
+2023-05-03 11:10:39.460 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.461 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.462 WARNING client http://127.0.0.1:5005/ is not interested, passing token B on
+2023-05-03 11:10:39.464 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.464 WARNING client http://127.0.0.1:5005/ want to execute B
+2023-05-03 11:10:39.465 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /B/request HTTP/1.1" 200 -
+2023-05-03 11:10:39.466 WARNING client http://127.0.0.1:5002/ is not interested, passing token B on
+2023-05-03 11:10:39.467 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.468 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.468 WARNING client http://127.0.0.1:5003/ is not interested, passing token B on
+2023-05-03 11:10:39.470 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.471 WARNING client http://127.0.0.1:5004/ is not interested, passing token B on
+2023-05-03 11:10:39.471 WARNING client http://127.0.0.1:5003/ cannot delete A lock because has not yet hold it
+2023-05-03 11:10:39.472 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[31m[1mDELETE /A/lock HTTP/1.1[0m" 401 -
+2023-05-03 11:10:39.472 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.473 WARNING client http://127.0.0.1:5005/ interested in and locking B
+2023-05-03 11:10:39.474 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.476 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /reset HTTP/1.1" 200 -
+2023-05-03 11:10:39.477 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/lock HTTP/1.1" 200 -
+2023-05-03 11:10:39.479 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /B/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.480 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[31m[1mPUT /A/token HTTP/1.1[0m" 400 -
+2023-05-03 11:10:39.482 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.484 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.486 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.488 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.490 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.492 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.494 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.497 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /reset HTTP/1.1" 200 -
+2023-05-03 11:10:39.501 WARNING client http://127.0.0.1:5004/ is not interested, passing token A on
+2023-05-03 11:10:39.502 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.504 WARNING client http://127.0.0.1:5005/ is not interested, passing token A on
+2023-05-03 11:10:39.504 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "PUT /A/token HTTP/1.1" 200 -
+2023-05-03 11:10:39.504 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.506 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[31m[1mPUT /A/token HTTP/1.1[0m" 400 -
+2023-05-03 11:10:39.507 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.509 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.511 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.513 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.515 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "[33mDELETE /inject HTTP/1.1[0m" 404 -
+2023-05-03 11:10:39.517 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "GET /race HTTP/1.1" 200 -
+2023-05-03 11:10:39.518 INFO 127.0.0.1 - - [03/May/2023 11:10:39] "POST /reset HTTP/1.1" 200 -
+2023-05-03 11:12:25.656 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-05-03 11:12:25.656 INFO [33mPress CTRL+C to quit[0m
+2023-05-03 11:12:25.659 INFO  * Restarting with stat
+2023-05-03 11:12:25.946 WARNING  * Debugger is active!
+2023-05-03 11:12:25.946 INFO  * Debugger PIN: 291-074-014
+2023-05-03 11:12:48.246 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-05-03 11:12:48.246 INFO [33mPress CTRL+C to quit[0m
+2023-05-03 11:12:48.247 INFO  * Restarting with stat
+2023-05-03 11:12:48.561 WARNING  * Debugger is active!
+2023-05-03 11:12:48.561 INFO  * Debugger PIN: 291-074-014
+2023-05-03 11:13:06.631 INFO  * Detected change in '/home/pj/coding/prototype/server_lamport/__init__.py', reloading
+2023-05-03 11:13:06.683 INFO  * Restarting with stat
+2023-05-03 11:17:37.043 INFO  * Restarting with stat
+2023-05-03 11:18:38.730 INFO  * Restarting with stat
+2023-05-03 11:18:54.983 INFO  * Restarting with stat
+2023-05-03 11:19:05.234 INFO  * Restarting with stat
+2023-05-03 11:19:25.613 INFO  * Restarting with stat
+2023-05-03 11:19:31.040 INFO  * Restarting with stat
+2023-05-03 11:19:49.381 INFO  * Restarting with stat

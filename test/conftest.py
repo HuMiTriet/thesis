@@ -372,7 +372,25 @@ def load_faults_into_proxy():
 
         for fault in all_faults:
             requests.post(
-                "http://127.0.0.1:5004/fault",
+                "http://127.0.0.1:5001/fault",
+                json=fault,
+                timeout=5,
+            )
+
+
+@pytest.fixture(autouse=False, scope="session")
+def setup_four_token_and_load_faults(setup_token_ring_four_client):
+    with open(
+        os.path.join("faults.json"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+
+        all_faults = json.load(file)
+
+        for fault in all_faults:
+            requests.post(
+                "http://127.0.0.1:5001/fault",
                 json=fault,
                 timeout=5,
             )

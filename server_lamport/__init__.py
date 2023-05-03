@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 from flask import Flask
 from werkzeug.exceptions import InternalServerError
+import logging
+import logging.handlers
 
 from lamport_clock import LamportClock
 
@@ -16,6 +18,23 @@ def create_app():
     app.config.from_mapping(
         SECRET_KEY="dev",
     )
+
+    logger = logging.getLogger()
+
+    logging.basicConfig(
+        level=logging.WARNING,
+        format="%(asctime)s.%(msecs)03d %(levelname)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        # filename="basic.log",
+    )
+
+    http_handler = logging.handlers.HTTPHandler(
+        "127.0.0.1:3000",
+        "/log",
+        method="POST",
+    )
+
+    logger.addHandler(http_handler)
 
     @app.errorhandler(InternalServerError)
     def custom_error_msg(error: InternalServerError):  # pyright: ignore

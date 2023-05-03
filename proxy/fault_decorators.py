@@ -17,10 +17,12 @@ def fault_injection(fault_names: list[str]):
             # Adds in fault to the currently injecting faults
 
             requests.post(
-                "http://127.0.0.1:5004/inject",
+                "http://127.0.0.1:5001/inject",
                 json={"fault": fault_names},
                 timeout=TIMEOUT,
             )
+
+            print(f"injected fault {fault_names} into proxy")
 
             # try construct here
             func(*args, **kwargs)
@@ -31,7 +33,7 @@ def fault_injection(fault_names: list[str]):
             # Remove the faults once done
             # managerState.faults_currently_injected.clear()
             requests.delete(
-                "http://127.0.0.1:5004/inject",
+                "http://127.0.0.1:5001/inject",
                 timeout=TIMEOUT,
             )
 

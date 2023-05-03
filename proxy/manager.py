@@ -57,7 +57,7 @@ def fault_factory():
 
             managerState.faults[name] = error_fault
 
-            #            print(f"error fault {errorFault} added")
+            print(f"error fault {error_fault} added")
 
             return 'fault type "Error" added', 200
         case _:
@@ -78,10 +78,11 @@ def update_injections():
     try:
         data = request.get_json()
 
-        print(f"fault to be replaced {data['fault']}")
         managerState.faults_currently_injected = data["fault"]
 
-        print(f"currently now using {managerState.faults_currently_injected}")
+        print(
+            f"currently now using {managerState.faults_currently_injected} with full {managerState.faults}"
+        )
 
         return f"New injects {data} loaded", 200
 
@@ -100,6 +101,11 @@ def update_injections():
 #         return f"New injects {data} loaded", 200
 #     except Exception as e:
 #         return e.__repr__(), 504
+
+
+@bp.route("/is_alive", methods=["GET"])
+def is_alive():
+    return "yes", 200
 
 
 @bp.route("/inject", methods=["DELETE"])
