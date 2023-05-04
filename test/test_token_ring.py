@@ -28,27 +28,45 @@ class MutexLocking(RuleBasedStateMachine):
     # last_operation = None
     fault = RuleBaseInjectibleFault()
 
+    @initialize()
+    def inject_fault(self):
+        # pass
+        fault_key = os.getenv("FAULT_KEY", "NULL")
+        if fault_key != "NULL":
+            self.fault.inject([fault_key])
+        # self.fault.inject(["delay_all_small"])
+        # self.fault.inject(["delay_all_medium"])
+        # self.fault.inject(["delay_all_large"])
+
     @initialize(
-        resource_id=st.sampled_from(["A", "B"]),
+        # resource_id=st.sampled_from(["A", "B"]),
         client_port=st.integers(min_value=5002, max_value=5005),
     )
-    def pass_in_token(
+    def pass_in_token_a(
         self,
-        resource_id: str,
+        # resource_id: str,
         client_port: int,
     ):
         requests.put(
-            f"http://127.0.0.1:{client_port}/{resource_id}/token",
+            f"http://127.0.0.1:{client_port}/A/token",
             timeout=10,
         )
-        note(f"passed token {resource_id} to {client_port}")
+        note(f"passed token A to {client_port}")
 
-    @initialize()
-    def inject_fault(self):
-        self.fault.inject(["delay_all_small"])
-
-    # self.fault.inject(["delay_all_medium"])
-    # self.fault.inject(["delay_all_large"])
+    @initialize(
+        # resource_id=st.sampled_from(["A", "B"]),
+        client_port=st.integers(min_value=5002, max_value=5005),
+    )
+    def pass_in_token_b(
+        self,
+        # resource_id: str,
+        client_port: int,
+    ):
+        requests.put(
+            f"http://127.0.0.1:{client_port}/B/token",
+            timeout=10,
+        )
+        note(f"passed token B to {client_port}")
 
     # @rule()
     # def reset_faults(self):
@@ -118,8 +136,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    max_examples=10,
-    stateful_step_count=10,
+    max_examples=25,
+    stateful_step_count=25,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

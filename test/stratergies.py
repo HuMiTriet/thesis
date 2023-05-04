@@ -9,6 +9,8 @@ from hypothesis import strategies as st
 
 from proxy.injectable_fault import InjectibleFault
 
+PROXY_URL = os.getenv("PROXY_URL")
+
 
 @composite
 def resource(draw, size: int, min_codepoint: int = 65) -> SearchStrategy[str]:
@@ -93,13 +95,13 @@ class RuleBaseInjectibleFault:
     # @given(faults=get_random_faults())
     def inject(self, faults: list[str]):
         requests.post(
-            "http://127.0.0.1:5004/inject",
+            f"{PROXY_URL}inject",
             json={"fault": faults},
             timeout=2,
         )
 
     def reset(self):
         requests.delete(
-            "http://127.0.0.1:5004/inject",
+            f"{PROXY_URL}inject",
             timeout=2,
         )

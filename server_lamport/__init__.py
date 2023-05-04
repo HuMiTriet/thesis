@@ -19,22 +19,22 @@ def create_app():
         SECRET_KEY="dev",
     )
 
-    logger = logging.getLogger()
+    # logger = logging.getLogger()
 
-    logging.basicConfig(
-        level=logging.WARNING,
-        format="%(asctime)s.%(msecs)03d %(levelname)s %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        # filename="basic.log",
-    )
+    # logging.basicConfig(
+    #     level=logging.WARNING,
+    #     format="%(asctime)s.%(msecs)03d %(levelname)s %(message)s",
+    #     datefmt="%Y-%m-%d %H:%M:%S",
+    #     # filename="basic.log",
+    # )
 
-    http_handler = logging.handlers.HTTPHandler(
-        "127.0.0.1:3000",
-        "/log",
-        method="POST",
-    )
+    # http_handler = logging.handlers.HTTPHandler(
+    #     "127.0.0.1:3000",
+    #     "/log",
+    #     method="POST",
+    # )
 
-    logger.addHandler(http_handler)
+    # logger.addHandler(http_handler)
 
     @app.errorhandler(InternalServerError)
     def custom_error_msg(error: InternalServerError):  # pyright: ignore

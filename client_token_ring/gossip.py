@@ -2,11 +2,13 @@ import asyncio
 import os
 import threading
 import logging
+from time import time
 
 
 # from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
+import requests
 
 
 from . import State, client_state
@@ -17,6 +19,7 @@ TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 
 REGISTRAR_URL: str = os.getenv("REGISTRAR_URL", "http://127.0.0.1:5001/")
+LOGGER_URL: str = os.getenv("LOGGER_URL", "http://127.0.0.1:3000/")
 
 CLIENT_URL: str = os.getenv("CLIENT_URL", "http://127.0.0.1:5004")
 
@@ -39,8 +42,16 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         # logging.warning(
         #     "client %s want to execute %s", request.host_url, resource_id
         # )
-        logging.warning(
-            f"{request.host_url} {resource_id}",
+        # logging.warning(
+        #     f"{request.host_url} {resource_id}",
+        # )
+        requests.post(
+            f"{LOGGER_URL}{resource_id}/log",
+            json={
+                "client_url": request.host_url,
+                "time": time(),
+            },
+            timeout=TIMEOUT,
         )
         client_state.current_state[resource_id] = State.REQUESTING
 

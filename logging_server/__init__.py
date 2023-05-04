@@ -1,7 +1,8 @@
 from collections import defaultdict
 from dataclasses import dataclass
 import json
-from flask import Flask, request
+import logging
+from flask import Flask, jsonify, request
 
 
 app = Flask(__name__)
@@ -20,34 +21,37 @@ class Tally:
         return self.total_time / self.number_of_reqeuest
 
 
-existing_request: dict[str, float] = {}
+existing_requests: dict[str, float] = {}
 client_and_time: defaultdict[str, Tally] = defaultdict(Tally)
 
 
-@app.route("/log", methods=["POST"])
-def index():
-    data = request.form
-    if data["name"] == "root":
-        msg = json.dumps(data["msg"])
-        print(msg)
-        if existing_request.get(msg) is None:
-            existing_request[msg] = float(data["created"])
-        else:
-            delay = float(data["created"]) - existing_request[msg]
-            print(f"it took {msg} {delay}")
-            url = msg.split()[0].replace('"', "")
-            client_and_time[url].add_time_and_increment(delay)
+@app.route("/<string:resource_id>/log", methods=["POST", "PUT"])
+def index(resource_id: str):
+    data = request.get_json()
+    client_url: str = data["client_url"]
+    key = f"{client_url}-{resource_id}"
+    logging.info("using key %s", key)
+    time: float = data["time"]
+    if request.method == "POST":
+        if existing_requests.get(key) is None:
+            existing_requests[key] = time
+
+    elif request.method == "PUT":
+        latency = time - existing_requests[key]
+        logging.debug("it took %s : %s ", key, latency)
+        client_and_time[client_url].add_time_and_increment(latency)
 
     return ""
 
 
 @app.route("/stat", methods=["GET"])
 def stat():
-    result: str = ""
-    for client, tally in client_and_time.items():
-        result += f"client {client} delay stat: {tally.get_avg_time()} \n"
+    result: list[float] = []
+    for tally in client_and_time.values():
+        # result += f"client {client} delay stat: {tally.get_avg_time()} \n"
+        result.append(tally.get_avg_time())
 
-    existing_request.clear()
+    existing_requests.clear()
     client_and_time.clear()
 
     return result, 200

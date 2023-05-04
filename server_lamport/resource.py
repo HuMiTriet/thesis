@@ -4,6 +4,7 @@ import os
 
 from flask import Blueprint, request
 import requests
+from time import time
 
 
 TIMEOUT_SEC: int = 10
@@ -11,6 +12,8 @@ TIMEOUT_SEC: int = 10
 REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
 
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
+
+LOGGER_URL: str = os.getenv("LOGGER_URL", "http://127.0.0.1:3000/")
 
 bp = Blueprint("resouce", __name__)
 
@@ -69,9 +72,17 @@ def lock(resource_id: str):
             )
 
         server_state.resource[resource_id] = True
-        logging.warning(
-            f"{request.get_json()['origin']} {resource_id}",
+        requests.put(
+            f"{LOGGER_URL}{resource_id}/log",
+            json={
+                "client_url": request.get_json()["origin"],
+                "time": time(),
+            },
+            timeout=REQUEST_TIMEOUT,
         )
+        # logging.warning(
+        #     f"{request.get_json()['origin']} {resource_id}",
+        # )
         # os.environ["END_TIME"] = str(time())
         return f"sucessfully locked {resource_id}", 200
 

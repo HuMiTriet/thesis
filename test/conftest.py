@@ -9,6 +9,8 @@ from flask.testing import FlaskCliRunner, FlaskClient
 import pytest
 import requests
 
+# from logging_server import main as start_logging_server
+
 from psutil import process_iter, AccessDenied
 
 from server import create_app as create_server
@@ -360,6 +362,16 @@ def register_client(
     assert response.status_code == 200
 
 
+# @pytest.fixture(scope=SCOPE)
+# def setup_logging_server():
+#     # start_logging_server()
+#     logger_process = Process(target=start_logging_server)
+
+#     logger_process.start()
+#     yield
+#     logger_process.terminate()
+
+
 @pytest.fixture(autouse=False, scope="session")
 def load_faults_into_proxy():
     with open(
@@ -379,7 +391,10 @@ def load_faults_into_proxy():
 
 
 @pytest.fixture(autouse=False, scope="session")
-def setup_four_token_and_load_faults(setup_token_ring_four_client):
+def setup_four_token_and_load_faults(
+    setup_token_ring_four_client,
+    # setup_logging_server,
+):
     with open(
         os.path.join("faults.json"),
         "r",
