@@ -136,8 +136,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    max_examples=25,
-    stateful_step_count=25,
+    # max_examples=25,
+    # stateful_step_count=25,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

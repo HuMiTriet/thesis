@@ -1,22 +1,36 @@
 import os
 import unittest
 from hypothesis import strategies as st, settings
-from hypothesis.stateful import RuleBasedStateMachine, invariant, rule
+from hypothesis.stateful import (
+    RuleBasedStateMachine,
+    invariant,
+    rule,
+    initialize,
+)
 import requests
 import pytest
 
 from .request_thread import RequestsThread
 
+from .stratergies import RuleBaseInjectibleFault
 
-pytestmark = pytest.mark.usefixtures("setup_ricart_agrawala_four_client")
+# pytestmark = pytest.mark.usefixtures("setup_ricart_agrawala_four_client")
+pytestmark = pytest.mark.usefixtures(
+    "setup_ricart_agrawala_four_client_and_load_faults"
+)
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 class MutexLocking(RuleBasedStateMachine):
-    def injecting_faults(self):
-        pass
+    fault = RuleBaseInjectibleFault()
+
+    @initialize()
+    def inject_fault(self):
+        fault_key = os.getenv("FAULT_KEY", "NULL")
+        if fault_key != "NULL":
+            self.fault.inject([fault_key])
 
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
@@ -47,42 +61,6 @@ class MutexLocking(RuleBasedStateMachine):
             timeout=10,
         )
 
-    @rule(
-        resource_id=st.sampled_from(["A", "B"]),
-    )
-    def two_client(
-        self,
-        resource_id: str,
-    ):
-        client_1_thread = RequestsThread(
-            target=requests.post,
-            kwargs={"url": f"http://127.0.0.1:5002/{resource_id}/request"},
-        )
-
-        client_2_thread = RequestsThread(
-            target=requests.post,
-            kwargs={"url": f"http://127.0.0.1:5003/{resource_id}/request"},
-        )
-
-        client_1_thread.start()
-        client_2_thread.start()
-
-        response = requests.get(
-            f"{SERVER_URL}race",
-            timeout=TESTING_TIMEOUT,
-        )
-
-        assert response.status_code == 200
-
-        requests.delete(
-            f"http://127.0.0.1:5002/{resource_id}/lock",
-            timeout=TESTING_TIMEOUT,
-        )
-        requests.delete(
-            f"http://127.0.0.1:5003/{resource_id}/lock",
-            timeout=TESTING_TIMEOUT,
-        )
-
     @invariant()
     def test_no_race_server(self):
         response = requests.get(
@@ -100,8 +78,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    max_examples=10,
-    stateful_step_count=4,
+    # max_examples=10,
+    # stateful_step_count=4,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

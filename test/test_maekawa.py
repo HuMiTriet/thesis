@@ -5,30 +5,30 @@ from hypothesis.stateful import (
     RuleBasedStateMachine,
     invariant,
     rule,
-    precondition,
+    initialize,
 )
 import requests
 import pytest
-from .stratergies import RuleBaseInjectibleFault, get_random_faults
+from .stratergies import RuleBaseInjectibleFault
 
 
-pytestmark = pytest.mark.usefixtures("setup_maekawa_four_client")
+# pytestmark = pytest.mark.usefixtures("setup_maekawa_four_client")
+pytestmark = pytest.mark.usefixtures(
+    "setup_maekawa_four_client_and_load_faults"
+)
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 class MutexLocking(RuleBasedStateMachine):
-    just_ran_invariant = False
     fault = RuleBaseInjectibleFault()
 
-    @rule(faults=get_random_faults())
-    def inject_fault(self, faults):
-        self.fault.inject(faults)
-
-    @rule()
-    def reset_faults(self):
-        self.fault.reset()
+    @initialize()
+    def inject_fault(self):
+        fault_key = os.getenv("FAULT_KEY", "NULL")
+        if fault_key != "NULL":
+            self.fault.inject([fault_key])
 
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
@@ -42,7 +42,6 @@ class MutexLocking(RuleBasedStateMachine):
         # fault: InjectibleFault,
     ):
         # with fault:
-        self.just_ran_invariant = False
         note(f"client {client_port} is attempting to lock {resource_id}")
 
         requests.post(
@@ -53,7 +52,6 @@ class MutexLocking(RuleBasedStateMachine):
     @rule(
         resource_id=st.sampled_from(["A", "B"]),
         client_port=st.integers(min_value=5002, max_value=5005),
-        # fault=fault_strategy(),
     )
     def test_unlock(
         self,
@@ -62,7 +60,6 @@ class MutexLocking(RuleBasedStateMachine):
         # fault: InjectibleFault,
     ):
         # with fault:
-        self.just_ran_invariant = False
         note(f"client {client_port} is deleting {resource_id}")
 
         requests.delete(
@@ -70,10 +67,8 @@ class MutexLocking(RuleBasedStateMachine):
             timeout=10,
         )
 
-    @precondition(lambda self: self.just_ran_invariant is False)
     @invariant()
     def test_no_race_server(self):
-        self.just_ran_invariant = True
 
         response = requests.get(
             f"{SERVER_URL}race",
@@ -90,8 +85,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    max_examples=10,
-    stateful_step_count=10,
+    max_examples=50,
+    stateful_step_count=50,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

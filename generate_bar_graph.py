@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 import pytest
 import requests
@@ -8,25 +9,37 @@ import requests
 result: dict[str, list[float]] = {}
 
 
-def set_delay_injection_and_run(fault: str) -> list[float]:
+def set_delay_injection_and_run(fault: str, test_path: str) -> list[float]:
     os.environ["FAULT_KEY"] = fault
 
-    pytest.main(["./test/test_token_ring.py"])
-    # http://127.0.0.1:3000/stat
+    # Take the cli argument and replace it into the string below
+    pytest.main([test_path])
+
     resp = requests.get("http://127.0.0.1:3000/stat", timeout=10)
 
     return resp.json()
 
 
-# result["no_delay"] = set_delay_injection_and_run("NULL")
-# result["delay_0.02"] = set_delay_injection_and_run("delay_all_small")
-# result["delay_0.2"] = set_delay_injection_and_run("delay_all_medium")
-# result["delay_0.5"] = set_delay_injection_and_run("delay_all_large")
+parser = argparse.ArgumentParser(
+    description="please specify the path to the test file"
+)
+parser.add_argument("test_path", help="path to the stateful test file")
 
-no_delay = np.array(set_delay_injection_and_run("NULL"))
-delay_small = np.array(set_delay_injection_and_run("delay_all_small"))
-delay_medium = np.array(set_delay_injection_and_run("delay_all_medium"))
-delay_large = np.array(set_delay_injection_and_run("delay_all_large"))
+args = parser.parse_args()
+
+test_path = args.test_path
+
+no_delay = np.array(set_delay_injection_and_run("NULL", test_path))
+delay_small = np.array(
+    set_delay_injection_and_run("delay_all_small", test_path)
+)
+delay_medium = np.array(
+    set_delay_injection_and_run("delay_all_medium", test_path)
+)
+delay_large = np.array(
+    set_delay_injection_and_run("delay_all_large", test_path)
+)
+
 
 no_delay_mean = np.mean(no_delay)
 delay_small_mean = np.mean(delay_small)
@@ -62,5 +75,5 @@ ax.yaxis.grid(True)
 
 # Save the figure and show
 plt.tight_layout()
-plt.savefig("bar_plot_with_error_bars.png")
+# plt.savefig("maekawa_delay.png")
 plt.show()

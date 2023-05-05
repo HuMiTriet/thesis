@@ -269,6 +269,26 @@ def setup_ricart_agrawala_four_client(
 
 
 @pytest.fixture(scope=SCOPE)
+def setup_ricart_agrawala_four_client_and_load_faults(
+    setup_ricart_agrawala_four_client,
+):
+    with open(
+        os.path.join("faults.json"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+
+        all_faults = json.load(file)
+
+        for fault in all_faults:
+            requests.post(
+                "http://127.0.0.1:5001/fault",
+                json=fault,
+                timeout=5,
+            )
+
+
+@pytest.fixture(scope=SCOPE)
 def setup_maekawa_four_client(
     setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
     client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
@@ -304,6 +324,26 @@ def setup_maekawa_four_client(
     client_4_process.terminate()
 
     kill_process([5002, 5003, 5004, 5005])
+
+
+@pytest.fixture(scope="session")
+def setup_maekawa_four_client_and_load_faults(
+    setup_maekawa_four_client,
+):
+    with open(
+        os.path.join("faults.json"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+
+        all_faults = json.load(file)
+
+        for fault in all_faults:
+            requests.post(
+                "http://127.0.0.1:5001/fault",
+                json=fault,
+                timeout=5,
+            )
 
 
 @pytest.fixture(scope=SCOPE)

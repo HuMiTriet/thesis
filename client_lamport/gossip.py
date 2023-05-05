@@ -1,8 +1,11 @@
 import logging
 import os
-from flask import Blueprint, request
-import aiohttp
 import asyncio
+from time import time
+
+from flask import Blueprint, request
+
+import aiohttp
 
 from . import ResourceState, State, client_state
 
@@ -17,6 +20,7 @@ CLIENT_URL: str = os.getenv("CLIENT_URL", "http://127.0.0.1:5004")
 TOTAL_CLIENT: str = os.getenv("TOTAL_CLIENT", "3")
 
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5001")
+LOGGER_URL: str = os.getenv("LOGGER_URL", "http://127.0.0.1:3000/")
 
 bp = Blueprint("gossip", __name__)
 
@@ -40,6 +44,16 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             approvals=0,
         )
         coroutines = []
+        coroutines.append(
+            session.post(
+                f"{LOGGER_URL}{resource_id}/log",
+                json={
+                    "client_url": request.host_url,
+                    "time": time(),
+                },
+                timeout=TIMEOUT,
+            )
+        )
 
         for target_url in CLIENT_URL.split():
             if target_url != request.host_url:
