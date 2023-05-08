@@ -1,6 +1,4 @@
 import os
-import time
-import matplotlib.pyplot as plt
 
 # from random import randint
 # from hypothesis import given, settings, strategies as st

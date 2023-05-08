@@ -45,9 +45,10 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         )
         coroutines = []
         coroutines.append(
-            session.post(
+            session.put(
                 f"{LOGGER_URL}{resource_id}/log",
                 json={
+                    "type": "start",
                     "client_url": request.host_url,
                     "time": time(),
                 },

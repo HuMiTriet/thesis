@@ -10,7 +10,6 @@ from hypothesis.stateful import (
 import requests
 import pytest
 
-from .request_thread import RequestsThread
 
 from .stratergies import RuleBaseInjectibleFault
 
@@ -78,8 +77,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    # max_examples=10,
-    # stateful_step_count=4,
+    max_examples=10,
+    stateful_step_count=10,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

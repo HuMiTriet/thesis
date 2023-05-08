@@ -1,8 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask
 from werkzeug.exceptions import InternalServerError
-import logging
-import logging.handlers
 
 from lamport_clock import LamportClock
 

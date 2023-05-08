@@ -58,7 +58,7 @@ error = [no_delay_std, delay_small_std, delay_medium_std, delay_large_std]
 
 # Build the plot
 fig, ax = plt.subplots()
-ax.bar(
+ax.bar(  # pyright: ignore
     x_pos,
     CTEs,
     yerr=error,
@@ -67,11 +67,11 @@ ax.bar(
     ecolor="black",
     capsize=10,
 )
-ax.set_ylabel("Time")
-ax.set_xticks(x_pos)
-ax.set_xticklabels(titles)
-ax.set_title("fault injections")
-ax.yaxis.grid(True)
+ax.set_ylabel("Time (in seconds)")  # pyright: ignore
+ax.set_xticks(x_pos)  # pyright: ignore
+ax.set_xticklabels(titles)  # pyright: ignore
+ax.set_title("algorithm with delay injections")  # pyright: ignore
+ax.yaxis.grid(True)  # pyright: ignore
 
 # Save the figure and show
 plt.tight_layout()

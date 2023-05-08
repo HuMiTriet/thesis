@@ -1,7 +1,6 @@
 import asyncio
 import os
 import threading
-import logging
 from time import time
 
 
@@ -45,9 +44,10 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         # logging.warning(
         #     f"{request.host_url} {resource_id}",
         # )
-        requests.post(
+        requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={
+                "type": "start",
                 "client_url": request.host_url,
                 "time": time(),
             },

@@ -1,8 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
-import json
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, request
 
 
 app = Flask(__name__)
@@ -25,18 +24,21 @@ existing_requests: dict[str, float] = {}
 client_and_time: defaultdict[str, Tally] = defaultdict(Tally)
 
 
-@app.route("/<string:resource_id>/log", methods=["POST", "PUT"])
+# split this into two different endpoints
+@app.route("/<string:resource_id>/log", methods=["PUT"])
 def index(resource_id: str):
     data = request.get_json()
     client_url: str = data["client_url"]
+    log_type: str = data["type"]
     key = f"{client_url}-{resource_id}"
     logging.info("using key %s", key)
     time: float = data["time"]
-    if request.method == "POST":
+
+    if log_type == "start":
         if existing_requests.get(key) is None:
             existing_requests[key] = time
 
-    elif request.method == "PUT":
+    elif log_type == "end":
         latency = time - existing_requests[key]
         logging.debug("it took %s : %s ", key, latency)
         client_and_time[client_url].add_time_and_increment(latency)
@@ -48,13 +50,17 @@ def index(resource_id: str):
 def stat():
     result: list[float] = []
     for tally in client_and_time.values():
-        # result += f"client {client} delay stat: {tally.get_avg_time()} \n"
+        # getting individual time -> table (scatterplot) color by nodes
         result.append(tally.get_avg_time())
 
     existing_requests.clear()
     client_and_time.clear()
 
     return result, 200
+
+
+# request
+# check when it is lock
 
 
 if __name__ == "__main__":

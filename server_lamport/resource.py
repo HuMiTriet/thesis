@@ -1,10 +1,9 @@
 from dataclasses import dataclass, field
-import logging
 import os
+from time import time
 
 from flask import Blueprint, request
 import requests
-from time import time
 
 
 TIMEOUT_SEC: int = 10
@@ -75,6 +74,7 @@ def lock(resource_id: str):
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={
+                "type": "end",
                 "client_url": request.get_json()["origin"],
                 "time": time(),
             },

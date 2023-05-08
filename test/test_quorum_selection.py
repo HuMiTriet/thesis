@@ -17,7 +17,7 @@ def test_get_broadcast_url(all_urls: set[str]):
     # print(all_urls)
     delimiter = " "
     all_urls = {s.strip() for s in all_urls}
-    k = ceil(sqrt(len(all_urls)))
+    ceil(sqrt(len(all_urls)))
     joined_string = delimiter.join(all_urls)
 
     client_state = ClientState()

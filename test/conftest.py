@@ -270,7 +270,7 @@ def setup_ricart_agrawala_four_client(
 
 @pytest.fixture(scope=SCOPE)
 def setup_ricart_agrawala_four_client_and_load_faults(
-    setup_ricart_agrawala_four_client,
+    setup_ricart_agrawala_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     with open(
         os.path.join("faults.json"),
@@ -328,7 +328,7 @@ def setup_maekawa_four_client(
 
 @pytest.fixture(scope="session")
 def setup_maekawa_four_client_and_load_faults(
-    setup_maekawa_four_client,
+    setup_maekawa_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     with open(
         os.path.join("faults.json"),
@@ -432,7 +432,7 @@ def load_faults_into_proxy():
 
 @pytest.fixture(autouse=False, scope="session")
 def setup_four_token_and_load_faults(
-    setup_token_ring_four_client,
+    setup_token_ring_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
     # setup_logging_server,
 ):
     with open(

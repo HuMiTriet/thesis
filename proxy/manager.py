@@ -80,9 +80,10 @@ def update_injections():
 
         managerState.faults_currently_injected = data["fault"]
 
-        print(
-            f"currently now using {managerState.faults_currently_injected} with full {managerState.faults}"
-        )
+        # print(
+        #     f"currently now using {managerState.faults_currently_injected}
+        # with full {managerState.faults}"
+        # )
 
         return f"New injects {data} loaded", 200
 
