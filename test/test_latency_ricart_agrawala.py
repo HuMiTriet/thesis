@@ -1,0 +1,76 @@
+import json
+import os
+from hypothesis import given, strategies as st
+import requests
+from proxy.fault_decorators import fault_injection
+from .stratergies import RuleBaseInjectibleFault
+
+SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
+TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
+
+x: list[float] = []
+
+
+def test_client_with_delay(
+    # setup_ricart_agrawala_four_client_and_load_faults,
+    # setup_maekawa_four_client_and_load_faults,
+    # setup_four_token_and_load_faults,
+    load_faults_into_proxy,
+):
+    fault = RuleBaseInjectibleFault()
+
+    requests.put(
+        "http://127.0.0.1:5002/A/token",
+        timeout=10,
+    )
+
+    client_request_with_delay(fault, 1)
+    client_request_with_delay(fault, 2)
+    client_request_with_delay(fault, 3)
+    client_request_with_delay(fault, 4)
+    client_request_with_delay(fault, 5)
+    client_request_with_delay(fault, 6)
+    client_request_with_delay(fault, 7)
+    client_request_with_delay(fault, 8)
+    client_request_with_delay(fault, 9)
+    client_request_with_delay(fault, 10)
+
+    with open(os.path.join("result.json"), "w", encoding="utf-8") as file:
+        file.write(json.dumps(x))
+
+
+def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
+    fault_times: list[str] = []
+    for _ in range(times):
+        fault_times.append("delay_all_small")
+    fault.inject(fault_times)
+
+    print(f"executing time {times}")
+
+    client_request(5002)
+    # requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)
+
+    client_request(5003)
+    # requests.delete("http://127.0.0.1:5003/A/lock", timeout=10)
+
+    client_request(5004)
+    # requests.delete("http://127.0.0.1:5004/A/lock", timeout=10)
+
+    client_request(5005)
+
+    resp = requests.get("http://127.0.0.1:3000/stat", timeout=10)
+
+    x.extend(resp.json())
+    fault.reset()
+
+
+def client_request(port: int):
+    requests.post(
+        f"http://127.0.0.1:{port}/A/request",
+        # timeout=10,
+    )
+
+    # requests.post(
+    #     f"{SERVER_URL}reset",
+    #     # timeout=TESTING_TIMEOUT,
+    # )

@@ -20,6 +20,7 @@ from client import create_app as create_client
 from client_lamport import create_app as create_client_lamport
 from client_maekawa import create_app as create_client_maekawa
 from client_token_ring import create_app as create_client_token
+from special_server import create_app as create_special_server
 from proxy import create_app as create_proxy
 
 
@@ -65,6 +66,11 @@ def client_token_app() -> Flask:
 @pytest.fixture(scope=SCOPE)
 def proxy_app() -> Flask:
     return create_proxy()
+
+
+@pytest.fixture(scope=SCOPE)
+def special_server_app() -> Flask:
+    return create_special_server()
 
 
 @pytest.fixture
@@ -229,6 +235,30 @@ def setup_server_and_proxy(
 
 
 @pytest.fixture(scope=SCOPE)
+def setup_special_server_and_proxy(
+    special_server_app: Flask,  # pylint: disable=redefined-outer-name
+    proxy_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    kill_process([5000, 5001])
+
+    server_process = Process(
+        target=special_server_app.run, kwargs={"port": 5000}
+    )
+
+    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5001})
+
+    server_process.start()
+    proxy_process.start()
+
+    yield
+
+    server_process.terminate()
+    proxy_process.terminate()
+
+    kill_process([5000, 5001])
+
+
+@pytest.fixture(scope=SCOPE)
 def setup_ricart_agrawala_four_client(
     setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
     client_lamport_app: Flask,  # pylint: disable=redefined-outer-name
@@ -348,7 +378,7 @@ def setup_maekawa_four_client_and_load_faults(
 
 @pytest.fixture(scope=SCOPE)
 def setup_token_ring_four_client(
-    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_special_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
     client_token_app: Flask,  # pylint: disable=redefined-outer-name
 ):
 
@@ -400,16 +430,6 @@ def register_client(
         timeout=5,
     )
     assert response.status_code == 200
-
-
-# @pytest.fixture(scope=SCOPE)
-# def setup_logging_server():
-#     # start_logging_server()
-#     logger_process = Process(target=start_logging_server)
-
-#     logger_process.start()
-#     yield
-#     logger_process.terminate()
 
 
 @pytest.fixture(autouse=False, scope="session")

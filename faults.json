@@ -3,7 +3,7 @@
     "type": "delay",
     "name": "delay_all_small",
     "condition": "True",
-    "metadata": 0.02
+    "metadata": 0.01
   },
   {
     "type": "delay",

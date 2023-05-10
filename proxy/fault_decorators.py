@@ -22,7 +22,7 @@ def fault_injection(fault_names: list[str]):
                 timeout=TIMEOUT,
             )
 
-            print(f"injected fault {fault_names} into proxy")
+            # print(f"injected fault {fault_names} into proxy")
 
             # try construct here
             func(*args, **kwargs)

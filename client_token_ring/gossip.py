@@ -38,12 +38,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         return f"client is already executing resource {resource_id}", 200
 
     if client_state.current_state[resource_id] == State.DEFAULT:
-        # logging.warning(
-        #     "client %s want to execute %s", request.host_url, resource_id
-        # )
-        # logging.warning(
-        #     f"{request.host_url} {resource_id}",
-        # )
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={
@@ -51,8 +45,9 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                 "client_url": request.host_url,
                 "time": time(),
             },
-            timeout=TIMEOUT,
+            timeout=2,
         )
+        requests.get(f"{SERVER_URL}{resource_id}/finish")
         client_state.current_state[resource_id] = State.REQUESTING
 
     return f"client has requested {resource_id}", 200
