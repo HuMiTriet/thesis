@@ -34,6 +34,16 @@ def test_client_with_delay(
     client_request_with_delay(fault, 8)
     client_request_with_delay(fault, 9)
     client_request_with_delay(fault, 10)
+    client_request_with_delay(fault, 11)
+    client_request_with_delay(fault, 12)
+    client_request_with_delay(fault, 13)
+    client_request_with_delay(fault, 14)
+    client_request_with_delay(fault, 15)
+    client_request_with_delay(fault, 16)
+    client_request_with_delay(fault, 17)
+    client_request_with_delay(fault, 18)
+    client_request_with_delay(fault, 19)
+    client_request_with_delay(fault, 20)
 
     with open(os.path.join("result.json"), "w", encoding="utf-8") as file:
         file.write(json.dumps(x))

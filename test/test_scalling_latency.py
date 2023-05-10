@@ -9,26 +9,26 @@ x: list[float] = []
 
 
 def test_four_client(
-    setup_ricart_agrawala_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
 
 def test_five_client(
-    setup_ricart_agrawala_five_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_five_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
 
 def test_six_client(
-    setup_ricart_agrawala_six_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_six_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
     # 7,
 
 
 def test_seven_client(
-    setup_ricart_agrawala_seven_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_seven_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -36,7 +36,7 @@ def test_seven_client(
 
 
 def test_8_client(
-    setup_ricart_agrawala_8_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_8_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -44,7 +44,7 @@ def test_8_client(
 
 
 def test_9_client(
-    setup_ricart_agrawala_9_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_9_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -52,7 +52,7 @@ def test_9_client(
 
 
 def test_10_client(
-    setup_ricart_agrawala_10_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_10_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -60,7 +60,7 @@ def test_10_client(
 
 
 def test_11_client(
-    setup_ricart_agrawala_11_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_11_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -68,7 +68,7 @@ def test_11_client(
 
 
 def test_12_client(
-    setup_ricart_agrawala_11_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_11_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -76,7 +76,7 @@ def test_12_client(
 
 
 def test_13_client(
-    setup_ricart_agrawala_12_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    setup_token_ring_12_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
 ):
     run_requests()
 
@@ -111,7 +111,7 @@ def client_request(port: int):
         # timeout=10,
     )
 
-    requests.post(
-        f"{SERVER_URL}reset",
-        # timeout=TESTING_TIMEOUT,
-    )
+    # requests.post(
+    #     f"{SERVER_URL}reset",
+    #     # timeout=TESTING_TIMEOUT,
+    # )

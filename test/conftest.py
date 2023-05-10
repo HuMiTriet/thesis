@@ -545,6 +545,195 @@ def setup_maekawa_four_client(
     kill_process([5002, 5003, 5004, 5005])
 
 
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_5_client(
+    setup_maekawa_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5006])
+
+    client_5_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5006}
+    )
+
+    client_5_process.start()
+
+    yield
+
+    client_5_process.terminate()
+
+    kill_process([5006])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_6_client(
+    setup_maekawa_5_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5007])
+
+    client_6_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5007}
+    )
+
+    client_6_process.start()
+
+    yield
+
+    client_6_process.terminate()
+
+    kill_process([5007])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_7_client(
+    setup_maekawa_6_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5008])
+
+    client_7_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5008}
+    )
+
+    client_7_process.start()
+
+    yield
+
+    client_7_process.terminate()
+
+    kill_process([5008])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_8_client(
+    setup_maekawa_7_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5009])
+
+    client_8_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5009}
+    )
+
+    client_8_process.start()
+
+    yield
+
+    client_8_process.terminate()
+
+    kill_process([5009])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_9_client(
+    setup_maekawa_8_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5010])
+
+    client_9_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5010}
+    )
+
+    client_9_process.start()
+
+    yield
+
+    client_9_process.terminate()
+
+    kill_process([5010])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_10_client(
+    setup_maekawa_9_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5011])
+
+    client_10_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5011}
+    )
+
+    client_10_process.start()
+
+    yield
+
+    client_10_process.terminate()
+
+    kill_process([5011])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_11_client(
+    setup_maekawa_10_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5012])
+
+    client_11_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5012}
+    )
+
+    client_11_process.start()
+
+    yield
+
+    client_11_process.terminate()
+
+    kill_process([5012])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_12_client(
+    setup_maekawa_11_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5013])
+
+    client_12_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5013}
+    )
+
+    client_12_process.start()
+
+    yield
+
+    client_12_process.terminate()
+
+    kill_process([5013])
+
+
+@pytest.fixture(scope=SCOPE)
+def setup_maekawa_13_client(
+    setup_maekawa_12_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+
+    kill_process([5014])
+
+    client_13_process = Process(
+        target=client_maekawa_app.run, kwargs={"port": 5014}
+    )
+
+    client_13_process.start()
+
+    yield
+
+    client_13_process.terminate()
+
+    kill_process([5014])
+
+
 @pytest.fixture(scope="session")
 def setup_maekawa_four_client_and_load_faults(
     setup_maekawa_four_client,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name

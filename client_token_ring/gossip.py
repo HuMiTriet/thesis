@@ -47,7 +47,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             },
             timeout=2,
         )
-        # requests.get(f"{SERVER_URL}{resource_id}/finish")
+        requests.get(f"{SERVER_URL}{resource_id}/finish")
         client_state.current_state[resource_id] = State.REQUESTING
 
     return f"client has requested {resource_id}", 200
