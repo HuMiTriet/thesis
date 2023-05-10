@@ -2,7 +2,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 import logging
 from flask import Flask, request
-import statistics
 
 
 app = Flask(__name__)
@@ -36,16 +35,16 @@ def index(resource_id: str):
     time: float = data["time"]
 
     if log_type == "start":
-        print(
-            f"START: client {client_url} on {resource_id} with existing keys are {existing_requests.keys()}"
-        )
+        # print(
+        #     f"START: client {client_url} on {resource_id} with existing keys are {existing_requests.keys()}"
+        # )
         # if existing_requests.get(key) is None:
         existing_requests[key] = time
 
     elif log_type == "end":
-        print(
-            f"END: client {client_url} on {resource_id} with existing keys are {existing_requests.keys()}"
-        )
+        # print(
+        #     f"END: client {client_url} on {resource_id} with existing keys are {existing_requests.keys()}"
+        # )
 
         latency = time - existing_requests[key]
 
@@ -61,17 +60,10 @@ def stat():
         # getting individual time -> table (scatterplot) color by nodes
         result.append(tally.get_avg_time())
 
-    real_result: list[float] = []
-    real_result.append(statistics.fmean(result))
+    existing_requests.clear()
+    client_and_time.clear()
 
-    # existing_requests.clear()
-    # client_and_time.clear()
-
-    return real_result, 200
-
-
-# request
-# check when it is lock
+    return result, 200
 
 
 if __name__ == "__main__":

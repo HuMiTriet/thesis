@@ -65,8 +65,8 @@ plt.style.use("seaborn")
 plt.tight_layout()
 
 with open(os.path.join("result.json"), "r", encoding="utf-8") as file:
-    res = json.loads(file.read())
-    y = res
+    y = json.loads(file.read())
+
 
 plt.scatter(
     x,
