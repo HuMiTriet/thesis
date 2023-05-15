@@ -59,7 +59,7 @@ def check_locking_status(resource_id: str):
 
 @bp.route("/<string:resource_id>/finish", methods=["GET"])
 def get_finish(resource_id: str):
-    while server_state.resource[resource_id] is not False:
+    while server_state.resource[resource_id] is True:
         sleep(0.01)  # Sleep for a second before checking again
     return "has finished", 200
 

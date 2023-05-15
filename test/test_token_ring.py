@@ -86,7 +86,6 @@ class MutexLocking(RuleBasedStateMachine):
         # self.just_ran_invariant = False
         # self.last_operation = "request"
         note(f"client {client_port} is attempting to lock {resource_id}")
-        # print(f"client {client_port} is attempting to lock {resource_id}")
 
         requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/request",
@@ -119,7 +118,6 @@ class MutexLocking(RuleBasedStateMachine):
     # @precondition(lambda self: self.just_ran_invariant is False)
     @invariant()
     def test_no_race_server(self):
-        # self.just_ran_invariant = True
 
         response = requests.get(
             f"{SERVER_URL}race",
@@ -136,8 +134,8 @@ class MutexLocking(RuleBasedStateMachine):
 
 
 MutexLocking.TestCase.settings = settings(
-    # max_examples=25,
-    # stateful_step_count=25,
+    max_examples=25,
+    stateful_step_count=25,
     deadline=None,
 )
 MutexLockingCase: unittest.TestCase = MutexLocking.TestCase

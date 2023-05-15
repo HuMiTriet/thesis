@@ -64,8 +64,8 @@ def stat():
     real_result: list[float] = []
     real_result.append(statistics.fmean(result))
 
-    # existing_requests.clear()
-    # client_and_time.clear()
+    existing_requests.clear()
+    client_and_time.clear()
 
     return real_result, 200
 

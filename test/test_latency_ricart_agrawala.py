@@ -58,7 +58,7 @@ def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
     print(f"executing time {times}")
 
     client_request(5002)
-    # requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)
+    requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)
 
     client_request(5003)
     # requests.delete("http://127.0.0.1:5003/A/lock", timeout=10)
