@@ -32,9 +32,6 @@ bp = Blueprint("gossip", __name__)
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
     if client_state.current_state[resource_id] == State.EXECUTING:
-        # logging.warning(
-        #     "client %s alr executing %s", request.host_url, resource_id
-        # )
         return f"client is already executing resource {resource_id}", 200
 
     if client_state.current_state[resource_id] == State.DEFAULT:
@@ -47,7 +44,8 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             },
             timeout=2,
         )
-        requests.get(f"{SERVER_URL}{resource_id}/finish")
+
+        # requests.get(f"{SERVER_URL}{resource_id}/finish")
         # await asyncio.sleep(1)
         client_state.current_state[resource_id] = State.REQUESTING
 
@@ -58,11 +56,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 async def delete_request(resource_id: str) -> tuple[str, int]:
 
     if client_state.current_state[resource_id] == State.DEFAULT:
-        # logging.warning(
-        #     "client %s cannot delete %s lock because has not yet hold it",
-        #     request.host_url,
-        #     resource_id,
-        # )
         return (
             f"client cannot delete {resource_id} lock because has not yet hold it",
             401,
@@ -70,11 +63,6 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 
     if client_state.current_state[resource_id] == State.EXECUTING:
         client_state.current_state[resource_id] = State.DEFAULT
-        # logging.warning(
-        #     "client %s deleted lock on server and passed token %s on",
-        #     request.host_url,
-        #     resource_id,
-        # )
         await asyncio.gather(
             release_lock(resource_id),
             pass_token(resource_id),
@@ -87,25 +75,33 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/token", methods=["PUT"])
 async def receive_token(resource_id: str) -> tuple[str, int]:
 
-    if client_state.current_state[resource_id] == State.DEFAULT:
+    # if client_state.current_state[resource_id] == State.DEFAULT:
 
-        pass_thread = threading.Thread(
-            target=pass_token_wrapper,
-            args=(resource_id),
-        )
+    #     pass_thread = threading.Thread(
+    #         target=pass_token_wrapper,
+    #         args=(resource_id),
+    #     )
 
-        pass_thread.start()
-        return f"token {resource_id} passed", 200
+    #     pass_thread.start()
+    #     return f"token {resource_id} passed", 200
 
     if client_state.current_state[resource_id] == State.REQUESTING:
         client_state.current_state[resource_id] = State.EXECUTING
 
         resp, code = await lock_resource(resource_id)
-        return resp, code
+        # return resp, code
+
+    pass_thread = threading.Thread(
+        target=pass_token_wrapper,
+        args=(resource_id),
+    )
+
+    pass_thread.start()
 
     # The only state remaining is EXECUTING but if the client is executing then
     # it is currently holding that token so it can't receive a token from somewhere else
-    return f"duplication of token for {resource_id}", 400
+    # return f"duplication of token for {resource_id}", 400
+    return f"pass in  token for {resource_id}", 200
 
 
 def pass_token_wrapper(resource_id: str):

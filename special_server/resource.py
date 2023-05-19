@@ -57,11 +57,11 @@ def check_locking_status(resource_id: str):
     return "Resource not found", 404
 
 
-@bp.route("/<string:resource_id>/finish", methods=["GET"])
-def get_finish(resource_id: str):
-    while server_state.resource[resource_id] is True:
-        sleep(0.01)  # Sleep for a second before checking again
-    return "has finished", 200
+# @bp.route("/<string:resource_id>/finish", methods=["GET"])
+# def get_finish(resource_id: str):
+#     while server_state.resource[resource_id] is True:
+#         sleep(0.01)  # Sleep for a second before checking again
+#     return "has finished", 200
 
 
 # accquire a temporary lock on a resource that will expirce after 2s
@@ -77,7 +77,7 @@ def lock(resource_id: str):
                 423,
             )
 
-        server_state.resource[resource_id] = True
+        # server_state.resource[resource_id] = True
         client_url: str = request.get_json()["origin"]
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",

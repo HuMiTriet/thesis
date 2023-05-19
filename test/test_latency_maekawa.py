@@ -15,8 +15,7 @@ x: list[float] = []  # change this to input delay and value
 
 
 def test_client_with_delay(
-    setup_ricart_agrawala_four_client_and_load_faults,
-    # setup_maekawa_four_client_and_load_faults,
+    setup_maekawa_four_client_and_load_faults,
     # setup_four_token_and_load_faults,
     # load_faults_into_proxy,
 ):
@@ -45,7 +44,7 @@ def test_client_with_delay(
         client_request_with_delay(fault, 20)
 
     with open(
-        os.path.join("ricart_agrawala_median.json"), "w", encoding="utf-8"
+        os.path.join("maekawa_median.json"), "w", encoding="utf-8"
     ) as file:
         file.write(json.dumps(x))
 
@@ -69,9 +68,6 @@ def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
     client_request(5005)
     requests.delete("http://127.0.0.1:5005/A/lock", timeout=10)
 
-    # await asyncio.sleep(1)
-
-    # resp = requests.get("http://127.0.0.1:3000/stat")
     resp = requests.get("http://127.0.0.1:3000/stat_median")
 
     x.extend(resp.json())

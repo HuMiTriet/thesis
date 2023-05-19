@@ -32,7 +32,7 @@ def index(resource_id: str):
     client_url: str = data["client_url"]
     log_type: str = data["type"]
     key = f"{client_url}-{resource_id}"
-    logging.info("using key %s", key)
+    # logging.info("using key %s", key)
     time: float = data["time"]
 
     if log_type == "start":
@@ -57,21 +57,30 @@ def index(resource_id: str):
 @app.route("/stat", methods=["GET"])
 def stat():
     result: list[float] = []
+    for name, tally in client_and_time.items():
+        print(f"appending {name} to result list")
+        result.append(tally.get_avg_time())
+
+    existing_requests.clear()
+    client_and_time.clear()
+
+    return result, 200
+
+
+@app.route("/stat_median", methods=["GET"])
+def stat_mean():
+    result: list[float] = []
     for tally in client_and_time.values():
         # getting individual time -> table (scatterplot) color by nodes
         result.append(tally.get_avg_time())
 
     real_result: list[float] = []
-    real_result.append(statistics.fmean(result))
+    real_result.append(statistics.median(result))
 
     existing_requests.clear()
     client_and_time.clear()
 
     return real_result, 200
-
-
-# request
-# check when it is lock
 
 
 if __name__ == "__main__":
