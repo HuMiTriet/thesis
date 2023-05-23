@@ -26,11 +26,6 @@ def create_app():
     )
     def handler(url: str):  # pyright: ignore
 
-        print(f"all fautls lens {len(managerState.faults)}")
-
-        print(
-            f"all faults_currently_injected lens {len(managerState.faults_currently_injected)}"
-        )
         response: Response = Response()
 
         if len(managerState.faults) != 0:

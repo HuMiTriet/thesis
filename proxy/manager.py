@@ -29,6 +29,7 @@ managerState = ManagerState()
 def fault_factory():
     data = request.get_json()
     condition = data["condition"]
+
     name = data["name"]
 
     match data["type"]:

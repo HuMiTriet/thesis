@@ -7,6 +7,7 @@ from time import time
 # from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
+from hypothesis.internal.reflection import proxies
 import requests
 
 
@@ -115,7 +116,10 @@ def pass_token_wrapper(resource_id: str):
 async def pass_token(resource_id: str) -> tuple[str, int]:
     next_url = client_state.get_next_client_url()
     async with aiohttp.ClientSession() as session:
-        async with session.put(f"{next_url}{resource_id}/token") as response:
+        async with session.put(
+            f"{next_url}{resource_id}/token",
+            proxy=PROXY_URL,
+        ) as response:
             return (
                 f"client has passed token {resource_id} to {next_url}",
                 response.status,

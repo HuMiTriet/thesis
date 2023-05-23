@@ -1,11 +1,6 @@
-import asyncio
 import json
 import os
-from time import sleep
-from hypothesis import given, strategies as st
 import requests
-import pytest
-from proxy.fault_decorators import fault_injection
 from .stratergies import RuleBaseInjectibleFault
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
@@ -15,7 +10,8 @@ x: list[float] = []  # change this to input delay and value
 
 
 def test_client_with_delay(
-    setup_ricart_agrawala_four_client_and_load_faults,
+    # setup_ricart_agrawala_four_client_and_load_faults,
+    setup_ricart_agrawala_four_client,
     # setup_maekawa_four_client_and_load_faults,
     # setup_four_token_and_load_faults,
     # load_faults_into_proxy,
@@ -57,8 +53,8 @@ def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
 
     fault.inject(fault_times)
 
-    client_request(5002)
-    requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)
+    client_request(5002)  # start A
+    requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)  # end
 
     client_request(5003)
     requests.delete("http://127.0.0.1:5003/A/lock", timeout=10)
@@ -81,10 +77,8 @@ def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
 def client_request(port: int):
     requests.post(
         f"http://127.0.0.1:{port}/A/request",
-        # timeout=10,
     )
 
     requests.post(
         f"{SERVER_URL}reset",
-        # timeout=TESTING_TIMEOUT,
     )

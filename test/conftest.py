@@ -213,25 +213,25 @@ def setup_no_registrar(
 @pytest.fixture(scope=SCOPE)
 def setup_server_and_proxy(
     server_lamport_app: Flask,  # pylint: disable=redefined-outer-name
-    proxy_app: Flask,  # pylint: disable=redefined-outer-name
+    # proxy_app: Flask,  # pylint: disable=redefined-outer-name
 ):
-    kill_process([5000, 5001])
+    kill_process([5000])
 
     server_process = Process(
         target=server_lamport_app.run, kwargs={"port": 5000}
     )
 
-    proxy_process = Process(target=proxy_app.run, kwargs={"port": 5001})
+    # proxy_process = Process(target=proxy_app.run, kwargs={"port": 5001})
 
     server_process.start()
-    proxy_process.start()
+    # proxy_process.start()
 
     yield
 
     server_process.terminate()
-    proxy_process.terminate()
+    # proxy_process.terminate()
 
-    kill_process([5000, 5001])
+    kill_process([5000])
 
 
 @pytest.fixture(scope=SCOPE)

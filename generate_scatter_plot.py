@@ -5,7 +5,7 @@ import matplotlib.patches as mpatches
 from numpy import size
 import numpy as np
 
-ALGORITHM_NAME = "token_ring"
+ALGORITHM_NAME = "ricart_agrawala"
 
 TIME = 10
 
@@ -203,7 +203,6 @@ x: list[float] = [
 colors = colors * TIME
 x = x * TIME
 
-y: list[float] = []
 
 plt.style.use("seaborn")
 
@@ -212,13 +211,13 @@ plt.tight_layout()
 with open(
     os.path.join(f"{ALGORITHM_NAME}_median.json"), "r", encoding="utf-8"
 ) as file:
-    y = json.loads(file.read())
+    y_token_ring = json.loads(file.read())
 
-print(f"size of x {size(x)} size of y {size(y)}")
+print(f"size of x {size(x)} size of y {size(y_token_ring)}")
 
 plt.scatter(
     x,
-    y,
+    y_token_ring,
     edgecolors="black",
     # c=colors,
     # cmap="Greens",
@@ -227,17 +226,49 @@ plt.scatter(
 
 plt.xlabel("delay in seconds")
 plt.ylabel("median latency time (in seconds)")
-plt.title(f"{ALGORITHM_NAME} with delay (run {TIME} times)")
+plt.title(f"all algorithms with delay (run {TIME} times)")
 
-m, b = np.polyfit(x, y, 1)
+m, b = np.polyfit(x, y_token_ring, 1)
 
 plt.plot(
     x,
     m * np.array(x) + b,
     color="red",
     linewidth=2,
-    label=f"slope = {m} and bias is {b}",
+    label=f"token slope = {m} and bias is {b}",
 )
+
+# with open(
+#     os.path.join("ricart_agrawala_median.json"), "r", encoding="utf-8"
+# ) as file:
+#     y_ricart = json.loads(file.read())
+
+# plt.scatter(x, y_ricart, edgecolors="black", c="black")
+
+# m_2, b_2 = np.polyfit(x, y_ricart, 1)
+
+# plt.plot(
+#     x,
+#     m_2 * np.array(x) + b_2,
+#     color="green",
+#     linewidth=2,
+#     label=f"ricart slope = {m_2} and bias is {b_2}",
+# )
+
+# with open(os.path.join("maekawa_median.json"), "r", encoding="utf-8") as file:
+#     y_maekawa = json.loads(file.read())
+
+# plt.scatter(x, y_maekawa, edgecolors="black", c="yellow")
+
+# m_3, b_3 = np.polyfit(x, y_maekawa, 1)
+
+# plt.plot(
+#     x,
+#     m_3 * np.array(x) + b_3,
+#     color="blue",
+#     linewidth=2,
+#     label=f"maekawa slope = {m_3} and bias is {b_3}",
+# )
 
 plt.legend(loc="lower right")
 plt.show()
