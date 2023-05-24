@@ -43,11 +43,8 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                 "client_url": request.host_url,
                 "time": time(),
             },
-            timeout=2,
         )
 
-        # requests.get(f"{SERVER_URL}{resource_id}/finish")
-        # await asyncio.sleep(1)
         client_state.current_state[resource_id] = State.REQUESTING
 
     return f"client has requested {resource_id}", 200
@@ -90,6 +87,8 @@ async def receive_token(resource_id: str) -> tuple[str, int]:
         client_state.current_state[resource_id] = State.EXECUTING
 
         resp, code = await lock_resource(resource_id)
+        print(f"client {request.host_url} has locked")
+        client_state.current_state[resource_id] = State.DEFAULT
         # return resp, code
 
     pass_thread = threading.Thread(
@@ -116,14 +115,13 @@ def pass_token_wrapper(resource_id: str):
 async def pass_token(resource_id: str) -> tuple[str, int]:
     next_url = client_state.get_next_client_url()
     async with aiohttp.ClientSession() as session:
-        async with session.put(
+        await session.put(
             f"{next_url}{resource_id}/token",
             proxy=PROXY_URL,
-        ) as response:
-            return (
-                f"client has passed token {resource_id} to {next_url}",
-                response.status,
-            )
+            json={},
+        )
+
+    return "passed", 200
 
 
 async def lock_resource(resource_id: str) -> tuple[str, int]:

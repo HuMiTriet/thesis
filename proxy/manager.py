@@ -9,8 +9,6 @@ from proxy.fault import DelayFault
 
 bp = Blueprint("manager", __name__)
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
-
 
 @dataclass
 class ManagerState:

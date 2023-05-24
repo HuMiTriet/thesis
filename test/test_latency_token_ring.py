@@ -1,7 +1,6 @@
 import asyncio
 import json
 import os
-from time import sleep
 from hypothesis import given, strategies as st
 import requests
 import pytest
@@ -22,7 +21,7 @@ async def test_client_with_delay(
     # setup_ricart_agrawala_four_client_and_load_faults,
     # setup_maekawa_four_client_and_load_faults,
     # setup_four_token_and_load_faults,
-    load_faults_into_proxy,
+    # load_faults_into_proxy,
 ):
     fault = RuleBaseInjectibleFault()
 
@@ -49,7 +48,10 @@ async def test_client_with_delay(
         await client_request_with_delay(fault, 20)
 
     with open(
-        os.path.join("token_ring_median.json"), "w", encoding="utf-8"
+        # os.path.join("token_ring_median.json"), "w", encoding="utf-8"
+        os.path.join("token_ring.json"),
+        "w",
+        encoding="utf-8",
     ) as file:
         file.write(json.dumps(x))
 
@@ -71,10 +73,10 @@ async def client_request_with_delay(
 
     client_request(5005)
 
-    await asyncio.sleep(1)
+    await asyncio.sleep(0.5)
 
-    # resp = requests.get("http://127.0.0.1:3000/stat")
-    resp = requests.get("http://127.0.0.1:3000/stat_median")
+    resp = requests.get("http://127.0.0.1:3000/stat")
+    # resp = requests.get("http://127.0.0.1:3000/stat_median")
 
     x.extend(resp.json())
     fault.reset()
@@ -83,5 +85,4 @@ async def client_request_with_delay(
 def client_request(port: int):
     requests.post(
         f"http://127.0.0.1:{port}/A/request",
-        # timeout=10,
     )

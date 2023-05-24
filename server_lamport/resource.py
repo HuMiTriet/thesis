@@ -8,7 +8,7 @@ import requests
 
 TIMEOUT_SEC: int = 10
 
-REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
+REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
 

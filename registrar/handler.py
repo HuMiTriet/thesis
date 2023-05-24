@@ -7,7 +7,7 @@ bp = Blueprint("handler", __name__)
 
 subscribers_url: set[str] = set()
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
+TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
 

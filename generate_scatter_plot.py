@@ -209,7 +209,10 @@ plt.style.use("seaborn")
 plt.tight_layout()
 
 with open(
-    os.path.join(f"{ALGORITHM_NAME}_median.json"), "r", encoding="utf-8"
+    os.path.join(f"{ALGORITHM_NAME}_median.json"),
+    "r",
+    encoding="utf-8"
+    # os.path.join(f"{ALGORITHM_NAME}.json"), "r", encoding="utf-8",
 ) as file:
     y_token_ring = json.loads(file.read())
 
@@ -226,7 +229,7 @@ plt.scatter(
 
 plt.xlabel("delay in seconds")
 plt.ylabel("median latency time (in seconds)")
-plt.title(f"all algorithms with delay (run {TIME} times)")
+plt.title(f"{ALGORITHM_NAME} algorithm with delay (run {TIME} times)")
 
 m, b = np.polyfit(x, y_token_ring, 1)
 
@@ -235,7 +238,7 @@ plt.plot(
     m * np.array(x) + b,
     color="red",
     linewidth=2,
-    label=f"token slope = {m} and bias is {b}",
+    label=f"{ALGORITHM_NAME} slope = {m} and bias is {b}",
 )
 
 # with open(

@@ -1,0 +1,81 @@
+\documentclass[12pt, a4paper, twoside, table, xcdraw]{report}
+
+%% Language and font encodings
+\usepackage[utf8]{inputenc}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+
+% \setmainlanguage{english}
+% \usepackage{svg}
+
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{longtable} \usepackage{multirow}
+\usepackage[page,toc,titletoc,title]{appendix}
+\usepackage{tocloft}
+\usepackage{blindtext} % \usepackage{titlesec}
+% \titleformat{\chapter}{}{}{0em}{\bf\LARGE}
+
+
+\usepackage[spaces,hyphens]{url}
+
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+
+\usepackage{graphicx}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\usepackage{lscape}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Set subsubsubsection
+\setcounter{tocdepth}{4} 
+\setcounter{secnumdepth}{4}
+
+\usepackage[table,xcdraw]{xcolor}
+
+% Set style
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Title}
+\author{Group Berlin}
+
+\begin{document}
+
+\input{title/title.tex}
+\tableofcontents
+
+% Put all of your chapters here
+\input{chapters/introduction.tex}
+\input{chapters/presentation_of_the_company.tex}
+\input{chapters/applied_technologies.tex}
+\input{chapters/mutex_algorithms.tex}
+\input{chapters/implementation.tex}
+\input{chapters/experience.tex}
+\input{chapters/conclusion.tex}
+
+
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{./ref.bib}
+}
+\end{document}
+

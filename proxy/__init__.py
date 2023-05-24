@@ -1,4 +1,5 @@
 import os
+import aiohttp
 from dotenv import load_dotenv
 from flask import Flask, request
 import requests
@@ -11,8 +12,6 @@ from .fault import ErrorFault
 
 from .manager import managerState
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
-
 
 def create_app():
 
@@ -24,16 +23,14 @@ def create_app():
         "/<path:url>",
         methods=["GET", "POST", "PUT", "DELETE"],
     )
-    def handler(url: str):  # pyright: ignore
-
-        response: Response = Response()
+    async def handler(url: str):  # pyright: ignore
 
         if len(managerState.faults) != 0:
             for fault in managerState.faults_currently_injected:
 
                 choosen_fault = managerState.faults[fault]
 
-                print(f"1 url {url} choosen_fault: {choosen_fault}")
+                # print(f"1 url {url} choosen_fault: {choosen_fault}")
 
                 if isinstance(choosen_fault, ErrorFault):
                     res = choosen_fault.execute(request=request, url=url)
@@ -42,32 +39,33 @@ def create_app():
                 else:
                     choosen_fault.execute(request=request, url=url)
 
-        match request.method:
-            case "GET":
-                response = requests.get(
-                    f"{request.url}",
-                    json=request.json,
-                    timeout=TIMEOUT,
-                )
-            case "POST":
-                response = requests.post(
-                    f"{request.url}",
-                    json=request.json,
-                    timeout=TIMEOUT,
-                )
-            case "PUT":
-                response = requests.put(
-                    f"{request.url}",
-                    json=request.json,
-                    timeout=TIMEOUT,
-                )
-            case "DELETE":
-                response = requests.delete(
-                    f"{request.url}",
-                    timeout=TIMEOUT,
-                )
+        async with aiohttp.ClientSession() as session:
+            match request.method:
+                case "GET":
+                    async with session.get(
+                        f"{request.url}",
+                        json=request.json,
+                    ) as res:
+                        return await res.text(), res.status
+                case "POST":
+                    async with session.post(
+                        f"{request.url}",
+                        json=request.json,
+                    ) as res:
+                        return await res.text(), res.status
+                case "PUT":
+                    async with session.put(
+                        f"{request.url}",
+                        json=request.json,
+                    ) as res:
+                        return await res.text(), res.status
+                case "DELETE":
+                    async with session.delete(
+                        f"{request.url}",
+                    ) as res:
+                        return await res.text(), res.status
 
-        return response.text, response.status_code
+        return "failed", 423
 
     @app.errorhandler(InternalServerError)
     def custom_error_msg(error: InternalServerError):  # pyright: ignore

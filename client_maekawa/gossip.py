@@ -124,6 +124,7 @@ async def resource_status(resource_id: str):
                     "approve_url": original_url,
                     "origin": request.host_url,
                 },
+                proxy=PROXY_URL,
                 timeout=TIMEOUT,
             ):
                 return (
