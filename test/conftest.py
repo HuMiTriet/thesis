@@ -499,12 +499,10 @@ def setup_ricart_agrawala_four_client_and_load_faults(
 
         all_faults = json.load(file)
 
-        for fault in all_faults:
-            requests.post(
-                "http://127.0.0.1:5001/fault",
-                json=fault,
-                timeout=5,
-            )
+        requests.post(
+            "http://127.0.0.1:5001/fault",
+            json=all_faults,
+        )
 
 
 @pytest.fixture(scope=SCOPE)

@@ -1,5 +1,5 @@
 import json
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 import statistics
 from flask import Flask, request
 import redis
@@ -13,49 +13,73 @@ def index(resource_id: str):
     data = request.get_json()
     client_url: str = data["client_url"]
     log_type: str = data["type"]
-    key = f"{client_url}-{resource_id}"
+    delay_time: str = data["delay_time"]
+    key = f"{client_url}-{resource_id}-{delay_time}"
     time: float = data["time"]
 
     if log_type == "start":
+        # print(f"START: {key}")
         redis_connection.set(key, time)
 
     elif log_type == "end":
-        latency = time - float(redis_connection.get(key) or 0)
-
-        # print(f"latency for {client_url} is {latency}")
-
-        redis_connection.rpush("latencies", latency)
+        # print(f"END: {key}")
+        start_time = redis_connection.get(key)
+        if start_time is None:
+            print(f"Warning: No start time for key: {key}")
+            # Optionally handle this case further, e.g., return an error status
+        else:
+            latency = time - float(start_time)
+            latency_data = json.dumps(
+                {"latency": latency, "delay_time": delay_time}
+            )
+            redis_connection.rpush("latencies", latency_data)
 
     return ""
 
 
 @app.route("/stat", methods=["GET"])
 def stat():
-    latencies = [float(x) for x in redis_connection.lrange("latencies", 0, -1)]
+    latencies_data = [
+        json.loads(x) for x in redis_connection.lrange("latencies", 0, -1)
+    ]
 
     redis_connection.flushall()
-    return latencies, 200
+    return latencies_data, 200
 
 
 @app.route("/stat_median", methods=["GET"])
 def median():
-    latencies = [float(x) for x in redis_connection.lrange("latencies", 0, -1)]
+    latencies_data = [
+        json.loads(x) for x in redis_connection.lrange("latencies", 0, -1)
+    ]
+    latencies = [x["latency"] for x in latencies_data]
+    delay_time = latencies_data[0]["delay_time"] if latencies_data else None
+
     median_latency = statistics.median(latencies) if latencies else 0
 
-    result: list[float] = []
-    result.append(median_latency)
+    result = {
+        "median_latency": median_latency,
+        "delay_time": delay_time,
+    }
+    # print(f"result from stat_median {result}")
     redis_connection.flushall()
     return result, 200
 
 
 @app.route("/stat_mean", methods=["GET"])
 def mean():
-    latencies = [float(x) for x in redis_connection.lrange("latencies", 0, -1)]
+    latencies_data = [
+        json.loads(x) for x in redis_connection.lrange("latencies", 0, -1)
+    ]
+    latencies = [x["latency"] for x in latencies_data]
+    delay_times = [x["delay_time"] for x in latencies_data]
 
-    median_latency = statistics.fmean(latencies) if latencies else 0
+    mean_latency = statistics.fmean(latencies) if latencies else 0
 
-    result: list[float] = []
-    result.append(median_latency)
+    result = {
+        "mean_latency": mean_latency,
+        "delay_times": delay_times,
+    }
     redis_connection.flushall()
     return result, 200
 

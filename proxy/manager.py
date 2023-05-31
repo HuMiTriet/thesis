@@ -22,45 +22,58 @@ class ManagerState:
 
 managerState = ManagerState()
 
+for i in range(1, 21):
+    duration = i / 100
+    managerState.faults[str(duration)] = DelayFault(
+        condition="True",
+        duration=duration,
+        name=str(duration),
+    )
+
 
 @bp.route("/fault", methods=["POST"])
 def fault_factory():
-    data = request.get_json()
-    condition = data["condition"]
+    all_data = request.get_json()
+    for data in all_data:
+        condition = data["condition"]
+        name = data["name"]
 
-    name = data["name"]
+        match data["type"]:
+            case "delay":
+                delay_fault = DelayFault(
+                    condition=condition,
+                    duration=data["metadata"],
+                    name=data["name"],
+                )
 
-    match data["type"]:
-        case "delay":
-            delay_fault = DelayFault(
-                condition=condition,
-                duration=data["metadata"],
-                name=data["name"],
-            )
+                managerState.faults[name] = delay_fault
 
-            managerState.faults[name] = delay_fault
+                print(f"delay fault {delay_fault} added")
 
-            print(f"delay fault {delay_fault} added")
+                # return 'fault type "Delay" added', 200
+            case "error":
+                status_code = data["metadata"]["status_code"]
+                text = data["metadata"]["text"]
 
-            return 'fault type "Delay" added', 200
-        case "error":
-            status_code = data["metadata"]["status_code"]
-            text = data["metadata"]["text"]
+                error_fault = ErrorFault(
+                    condition=condition,
+                    name=data["name"],
+                    text=text,
+                    status_code=status_code,
+                )
 
-            error_fault = ErrorFault(
-                condition=condition,
-                name=data["name"],
-                text=text,
-                status_code=status_code,
-            )
+                managerState.faults[name] = error_fault
 
-            managerState.faults[name] = error_fault
+                print(f"error fault {error_fault} added")
 
-            print(f"error fault {error_fault} added")
+                # return 'fault type "Error" added', 200
+            case _:
+                # return f'fault type {data["type"]} unknown', 406
+                print(f'fault type {data["type"]} unknown')
+    return "ok", 200
 
-            return 'fault type "Error" added', 200
-        case _:
-            return f'fault type {data["type"]} unknown', 406
+    # condition = data["condition"]
+    # name = data["name"]
 
 
 @bp.route("/fault/<string:name>", methods=["DELETE"])
@@ -105,7 +118,7 @@ def update_injections():
 
 @bp.route("/is_alive", methods=["GET"])
 def is_alive():
-    return "yes", 200
+    return str(managerState.faults.keys()), 200
 
 
 @bp.route("/inject", methods=["DELETE"])

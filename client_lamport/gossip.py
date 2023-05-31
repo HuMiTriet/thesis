@@ -30,6 +30,8 @@ logger.setLevel(logging.DEBUG)
 
 @bp.route("/<string:resource_id>/request", methods=["POST"])
 async def request_resource(resource_id: str) -> tuple[str, int]:
+    data = request.get_json()
+    delay_time: str = data["delay_time"]
 
     if resource_id in client_state.resource_states.keys():
         return (
@@ -51,6 +53,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                     "type": "start",
                     "client_url": request.host_url,
                     "time": time(),
+                    "delay_time": delay_time,
                 },
                 timeout=TIMEOUT,
             )
@@ -63,6 +66,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                     json={
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
+                        "delay_time": delay_time,
                     },
                     proxy=PROXY_URL,
                 )
@@ -82,6 +86,7 @@ async def resource_status(resource_id: str):
         data = request.get_json()
         timestamp = data["timestamp"]
         origin = data["origin"]
+        delay_time: str = data["delay_time"]
 
         client_state.lamport_clock.update(timestamp)
 
@@ -95,6 +100,7 @@ async def resource_status(resource_id: str):
                 json={
                     "origin": request.host_url,
                     "timestamp": client_state.lamport_clock.get_time(),
+                    "delay_time": delay_time,
                 },
                 proxy=PROXY_URL,
             ) as response:
@@ -110,6 +116,7 @@ async def resource_status(resource_id: str):
                     json={
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
+                        "delay_time": delay_time,
                     },
                     proxy=PROXY_URL,
                 ) as response:
@@ -131,6 +138,7 @@ async def resource_status(resource_id: str):
             json={
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
+                "delay_time": delay_time,
             },
             proxy=PROXY_URL,
         ) as response:
@@ -140,20 +148,20 @@ async def resource_status(resource_id: str):
 @bp.route("/<string:resource_id>/reply", methods=["POST"])
 async def receive_reply(resource_id: str):
 
-    print(
-        f"""{request.host_url} getting a reply from {request.get_json()['origin']}
-        for {resource_id}
-        """
-    )
+    # print(
+    #     f"""{request.host_url} getting a reply from {request.get_json()['origin']}
+    #     for {resource_id}
+    #     """
+    # )
 
     try:
         interested_resource: ResourceState = client_state.resource_states[
             resource_id
         ]
     except KeyError as error:
-        print(
-            f"client {request.host_url} does not have {resource_id} {client_state.resource_states}"
-        )
+        # print(
+        #     f"client {request.host_url} does not have {resource_id} {client_state.resource_states}"
+        # )
         return (
             f"client does not have {resource_id} in resource_states {repr(error)}",
             412,
@@ -164,6 +172,7 @@ async def receive_reply(resource_id: str):
     data = request.get_json()
 
     timestamp = data["timestamp"]
+    delay_time = data["delay_time"]
     client_state.lamport_clock.update(timestamp)
 
     # await asyncio.sleep(0.01)
@@ -173,7 +182,7 @@ async def receive_reply(resource_id: str):
         interested_resource.approvals = 0
         interested_resource.current_state = State.EXECUTING
 
-        text, code = await lock_resource(resource_id)
+        text, code = await lock_resource(resource_id, delay_time)
 
         return text, code
 
@@ -184,14 +193,15 @@ async def receive_reply(resource_id: str):
     )
 
 
-async def lock_resource(resource_id: str) -> tuple[str, int]:
+async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
-        print(f"client {request.host_url} put lock on {resource_id}")
+        # print(f"client {request.host_url} put lock on {resource_id}")
         async with session.put(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
+                "delay_time": delay_time,
             },
             proxy=PROXY_URL,
         ) as response:

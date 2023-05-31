@@ -27,7 +27,7 @@ def create_app():
 
         if len(managerState.faults) != 0:
             for fault in managerState.faults_currently_injected:
-
+                # print(f"all available faults {managerState.faults.keys()}")
                 choosen_fault = managerState.faults[fault]
 
                 # print(f"1 url {url} choosen_fault: {choosen_fault}")

@@ -1,6 +1,26 @@
 \chapter{\centering Distributed Mutex Algorithms}
 
+\section{Safety and Liveness properties}
+
 \section{Token Ring}
+Token ring initially is a computer networking technology introduced by IBM 
+to build local area network \cite{wiki_token_ring}. The token ring can be used 
+to describe the physical or logical topology, in this specific project since 
+the nodes are all just different process running on local host, the term will be
+used to describe the logical topology.
+
+The token ring algorithm is the simplest conceptually of the three since it works 
+by first arranging the node in a circular ring and then a random node is given a 
+token. This token is continuously pass around the ring in one direction as shown in
+\ref{fig:token_ring_top}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg{/home/pj/coding/prototype/report/images/token_ring.svg}
+  \caption{Token ring's topology}
+  \label{fig:token_ring_top}
+\end{figure}
 
 \section{Ricart Agrawala}
 

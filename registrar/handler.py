@@ -29,7 +29,7 @@ def broadcast(resource_id: str):
     approvals: int = 0
 
     for url in subscribers_url:
-        print(f"Asking {url} for {resource_id}")
+        # print(f"Asking {url} for {resource_id}")
         if url != requester_url:
             response = requests.get(
                 f"{url}/{resource_id}/resource_status",
@@ -46,15 +46,15 @@ def broadcast(resource_id: str):
             #            print(f"after broadcast {r.text}, {r.status_code}")
             if response.status_code == 200:
                 approvals += 1
-                print(f"Registrar: received approval {resource_id} from {url}")
+                # print(f"Registrar: received approval {resource_id} from {url}")
 
     if approvals == len(subscribers_url) - 1:
         return "resource free", 200
 
-    print(
-        f"""host {requester_url} Does not obtain enough approval
-        {approvals}/{len(subscribers_url) - 1}""",
-    )
+    # print(
+    #     f"""host {requester_url} Does not obtain enough approval
+    #     {approvals}/{len(subscribers_url) - 1}""",
+    # )
 
     return (
         f"""host {requester_url} Does not obtain enough approval

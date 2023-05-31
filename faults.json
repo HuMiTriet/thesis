@@ -1,29 +1,122 @@
 [
   {
     "type": "delay",
-    "name": "delay_all_small",
+    "name": "0.01",
     "condition": "True",
     "metadata": 0.01
   },
   {
     "type": "delay",
-    "name": "delay_all_medium",
+    "name": "0.02",
     "condition": "True",
-    "metadata": 0.2
+    "metadata": 0.02
   },
   {
     "type": "delay",
-    "name": "delay_all_large",
+    "name": "0.03",
     "condition": "True",
-    "metadata": 0.5
+    "metadata": 0.03
   },
   {
-    "type": "error",
-    "name": "dummy_error",
+    "type": "delay",
+    "name": "0.04",
     "condition": "True",
-    "metadata": {
-      "status_code": 420,
-      "text": "foobar"
-    }
+    "metadata": 0.04
+  },
+  {
+    "type": "delay",
+    "name": "0.05",
+    "condition": "True",
+    "metadata": 0.05
+  },
+  {
+    "type": "delay",
+    "name": "0.06",
+    "condition": "True",
+    "metadata": 0.06
+  },
+  {
+    "type": "delay",
+    "name": "0.07",
+    "condition": "True",
+    "metadata": 0.07
+  },
+  {
+    "type": "delay",
+    "name": "0.08",
+    "condition": "True",
+    "metadata": 0.08
+  },
+  {
+    "type": "delay",
+    "name": "0.09",
+    "condition": "True",
+    "metadata": 0.09
+  },
+  {
+    "type": "delay",
+    "name": "0.1",
+    "condition": "True",
+    "metadata": 0.1
+  },
+  {
+    "type": "delay",
+    "name": "0.11",
+    "condition": "True",
+    "metadata": 0.11
+  },
+  {
+    "type": "delay",
+    "name": "0.12",
+    "condition": "True",
+    "metadata": 0.12
+  },
+  {
+    "type": "delay",
+    "name": "0.13",
+    "condition": "True",
+    "metadata": 0.13
+  },
+  {
+    "type": "delay",
+    "name": "0.14",
+    "condition": "True",
+    "metadata": 0.14
+  },
+  {
+    "type": "delay",
+    "name": "0.15",
+    "condition": "True",
+    "metadata": 0.15
+  },
+  {
+    "type": "delay",
+    "name": "0.16",
+    "condition": "True",
+    "metadata": 0.16
+  },
+  {
+    "type": "delay",
+    "name": "0.17",
+    "condition": "True",
+    "metadata": 0.17
+  },
+  {
+    "type": "delay",
+    "name": "0.18",
+    "condition": "True",
+    "metadata": 0.18
+  },
+  {
+    "type": "delay",
+    "name": "0.19",
+    "condition": "True",
+    "metadata": 0.19
+  },
+  {
+    "type": "delay",
+    "name": "0.2",
+    "condition": "True",
+    "metadata": 0.2
   }
 ]

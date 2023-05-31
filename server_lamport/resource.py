@@ -71,12 +71,14 @@ def lock(resource_id: str):
             )
 
         server_state.resource[resource_id] = True
+        data = request.get_json()
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={
                 "type": "end",
-                "client_url": request.get_json()["origin"],
+                "client_url": data["origin"],
                 "time": time(),
+                "delay_time": data["delay_time"],
             },
             timeout=REQUEST_TIMEOUT,
         )

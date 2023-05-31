@@ -93,28 +93,28 @@ colors = [
 ]
 
 
-x: list[float] = [
-    0.01,
-    0.02,
-    0.03,
-    0.04,
-    0.05,
-    0.06,
-    0.07,
-    0.08,
-    0.09,
-    0.1,
-    0.11,
-    0.12,
-    0.13,
-    0.14,
-    0.15,
-    0.16,
-    0.17,
-    0.18,
-    0.19,
-    0.2,
-]
+# x: list[float] = [
+#     0.01,
+#     0.02,
+#     0.03,
+#     0.04,
+#     0.05,
+#     0.06,
+#     0.07,
+#     0.08,
+#     0.09,
+#     0.1,
+#     0.11,
+#     0.12,
+#     0.13,
+#     0.14,
+#     0.15,
+#     0.16,
+#     0.17,
+#     0.18,
+#     0.19,
+#     0.2,
+# ]
 
 
 # x: list[float] = [
@@ -201,7 +201,7 @@ x: list[float] = [
 # ]
 
 colors = colors * TIME
-x = x * TIME
+# x = x * TIME
 
 
 plt.style.use("seaborn")
@@ -214,13 +214,15 @@ with open(
     encoding="utf-8"
     # os.path.join(f"{ALGORITHM_NAME}.json"), "r", encoding="utf-8",
 ) as file:
-    y_token_ring = json.loads(file.read())
+    data = json.loads(file.read())
 
-print(f"size of x {size(x)} size of y {size(y_token_ring)}")
+x = [float(point["delay_time"]) for point in data]
+y = [float(point["latency"]) for point in data]
+print(f"size of x {size(x)} size of y {size(y)}")
 
 plt.scatter(
     x,
-    y_token_ring,
+    y,
     edgecolors="black",
     # c=colors,
     # cmap="Greens",
@@ -231,7 +233,7 @@ plt.xlabel("delay in seconds")
 plt.ylabel("median latency time (in seconds)")
 plt.title(f"{ALGORITHM_NAME} algorithm with delay (run {TIME} times)")
 
-m, b = np.polyfit(x, y_token_ring, 1)
+m, b = np.polyfit(x, y, 1)
 
 plt.plot(
     x,

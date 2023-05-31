@@ -30,7 +30,7 @@ def test_one_client_lock(
             timeout=TESTING_TIMEOUT,
         )
 
-        print(f"resp {response.text}")
+        # print(f"resp {response.text}")
         assert response.status_code == 200
 
     requests.delete(

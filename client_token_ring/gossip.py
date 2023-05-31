@@ -87,7 +87,7 @@ async def receive_token(resource_id: str) -> tuple[str, int]:
         client_state.current_state[resource_id] = State.EXECUTING
 
         resp, code = await lock_resource(resource_id)
-        print(f"client {request.host_url} has locked")
+        # print(f"client {request.host_url} has locked")
         client_state.current_state[resource_id] = State.DEFAULT
         # return resp, code
 

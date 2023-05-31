@@ -20,7 +20,7 @@ def test_one_client_lock_with_small_delay(
     avg_duration = client_lock_10_times()
 
     assert avg_duration > 0
-    print(f"average time taken to lock the resource is {avg_duration} second")
+    # print(f"average time taken to lock the resource is {avg_duration} second")
     testing_data["small"] = avg_duration
 
 
