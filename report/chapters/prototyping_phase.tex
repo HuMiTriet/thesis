@@ -1,0 +1,93 @@
+\section{Prototyping Phase}
+
+For the three months internship about the first one and a half months was spent 
+on learning and developing the distributed system.
+
+\subsection{Architecture of the prototype}
+
+The prototype was built using the Python programming language along 
+with Flask \cite{flask} a popular microframework built on top of Werkzeug WSGI 
+toolkit, the Jinja template engine, and the Click CLI toolkit. It is classified
+as a microframework because it does not provide much of the features commonly used
+in web application development by default. 
+
+However, this is perfect for the internship project as the goal was to only build
+a working prototype of communicating nodes without any graphical user interface.
+
+As shown in the figure \ref{fig:prototype_architecture} shows an overview of the prototype 
+consisting a minimum of 4 clients nodes, 1 proxy, 1 database or resource manager, and 1 logger.
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg{images/prototype_architecture.svg} 
+  \caption{Overview of prototype Architecture}
+  \label{fig:prototype_architecture}
+\end{figure}
+
+The figure in \ref{fig:prototype_architecture} is the final version of the prototype.
+During this phase of the internship the prototype was developed in an incremental
+manner with first the clients and resource being added, then comes the proxy and 
+finally the logger.
+
+Every client has a RESTful API layer that allows for communication and data transfer 
+between each other using HTTP and JSON as the encoding format for data.
+
+\subsubsection{Client}
+
+Since the entire prototype is run on a single local host each client is actually 
+a single process running concurrently to each others. 
+
+Each client has a HTTP endpoint which response to a specific HTTP verb such as
+GET, PUT, or POST this is called a view in Flask:
+
+\begin{lstlisting}[language=Python, label={lst:signature}, caption={function signature of a client}]
+@bp.route("/<string:resource_id>/request", methods=["POST"])
+async def request_resource(resource_id: str) -> tuple[str, int]:
+    data = request.get_json()
+    delay_time: str = data["delay_time"]
+    ...
+\end{lstlisting}
+
+In addition, as we can see from the code snippet \ref{lst:signature}  each view is has the word 
+async in the front to indicate that this is an asynchornous function. 
+
+The reason for the async keywords is to allow for the use of the keyword 
+\textit{await} to handle the scenario where there are multiple message to be 
+sent. If that was done without concurrency then the entire process is hang 
+and have to wait until the HTTP request is sent and responded to which takes a 
+lot of time.
+
+
+\begin{lstlisting}[language=Python, label={lsts:multiple_requests}, caption={Multiple requests being sent simultaneously}]
+coroutines = []
+
+for target_url in CLIENT_URL:
+    coroutine = session.post(
+        ...
+        proxy=PROXY_URL,
+    )
+    coroutines.append(coroutine)
+
+await asyncio.gather(*coroutines)
+\end{lstlisting}
+
+The code in \ref{lsts:multiple_requests} is putting all the coroutines of sending the HTTP request into 
+an array. By using \textit{asyncio.gather()} it will await for all and finished
+when all coroutine are finished.
+
+Inisde the snippet of \ref{lsts:multiple_requests} there is the line 
+\textit{proxy=PROXY\_URL}
+similarly for all HTTP request and response in the prototype they all have this line 
+as a part of the option when sending HTTP requests, this is done to route all 
+communication via the proxy.
+
+\subsubsection{Proxy}
+
+The existence of the proxy is to inject fault into the system and monitor to 
+generate the necessary data for analysis
+
+
+\subsubsection{Logger}
+
+\subsubsection{Resource Manager}
+

@@ -1,0 +1,28 @@
+\chapter{\centering Background}
+
+Originally software architecture were monoliths where a single component is 
+responsible for all the application's logic. However, over time especially how 
+the issue of horizontally scaling the infrastructure become more and more pressing 
+as the demand of the modern world for modern technology is also increasing for now
+the solution to solve them is microservices.
+
+This means that software systems are increasingly becoming distributed, but this 
+also brings with it increasing challenges in ensuring the reliability and 
+security of the system.
+
+By introducing extra components into a software system also increases the amount 
+of failure points that are possible. For example latency that are small in 
+testing environment could become very substantial in the production environment 
+consisting of hundreds of nodes.
+
+This internship work aim is to show how much latency and error affects a distributed
+system by doing fault injection, a technique where developers deliberately introduce
+error into the system to see whether the system's response is sufficiently resilient 
+or robust.
+
+Furthermore, in the during the building of the prototype a library called Hypothesis
+will be used for fuzzy based testing ensuring the correctness of the system. 
+
+In addition, fuzzy based testing is also used to randomly inject faults into the system
+to mimic the arbitrary nature of real world faults occurrences and avoiding covering
+only the typically expected faults or "happy paths" \cite{happy_path}.
