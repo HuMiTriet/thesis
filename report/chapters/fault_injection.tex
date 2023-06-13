@@ -16,10 +16,13 @@ In order to
 
   \begin{minted}{json}
   {
-    "type": "delay",
-    "name": "0.01",
-    "condition": "True",
-    "metadata": 0.01
-  }
+    "type": "error",
+    "name": "error_420_5003_no_reg",
+    "condition": "request.method == \"PUT\" and re.match(\".+/lock\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5003/\"",
+    "metadata": {
+      "text": "dummy error",
+      "status_code": 420
+    }
+  },
   \end{minted}
 \end{multicols}
