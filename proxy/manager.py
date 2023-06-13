@@ -22,7 +22,7 @@ class ManagerState:
 
 managerState = ManagerState()
 
-for i in range(1, 21):
+for i in range(0, 21):
     duration = i / 100
     managerState.faults[str(duration)] = DelayFault(
         condition="True",

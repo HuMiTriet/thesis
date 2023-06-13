@@ -1,11 +1,10 @@
 import json
 import os
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 from numpy import size
 import numpy as np
 
-ALGORITHM_NAME = "ricart_agrawala"
+ALGORITHM_NAME = "token_ring"
 
 TIME = 10
 

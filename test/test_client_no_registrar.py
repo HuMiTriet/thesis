@@ -20,7 +20,6 @@ def test_one_client_lock(
         f"http://127.0.0.1:{client_port}/{resource_id}/lock/no_registrar",
         timeout=TESTING_TIMEOUT,
     )
-    # print(f"client {client_port} lock resource {resource_id}")
     assert response.status_code == 200
 
     requests.delete(
@@ -34,7 +33,6 @@ def test_two_client_lock(
     setup_no_registrar,  # pyright: ignore # pylint: disable=unused-argument
     resource_id: str,
 ):
-
     client_1_thread = RequestsThread(
         target=requests.post,
         kwargs={

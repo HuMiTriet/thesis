@@ -9,7 +9,7 @@
 % \setmainlanguage{english}
 % \usepackage{svg}
 
-\usepackage{listings}
+\usepackage{minted}
 \usepackage{textcomp}
 \usepackage{longtable} \usepackage{multirow}
 \usepackage[page,toc,titletoc,title]{appendix}
@@ -40,7 +40,6 @@
 \usepackage[table,xcdraw]{xcolor}
 
 % Set style
-\usepackage{listings}
 \usepackage{xcolor}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -54,6 +53,7 @@
 \usepackage{svg}
 \usepackage{amsmath}
 \usepackage{setspace}
+\usepackage{multicol}
 % \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \graphicspath{{./images/}}
@@ -79,6 +79,8 @@
 \chapter{\centering Implementation}
 \input{chapters/prototyping_phase.tex}
 \input{chapters/fault_injection_fuzzy_testing.tex}
+\input{chapters/fault_injection.tex}
+
 \input{chapters/data_collection_and_statistical_analysis.tex}
 
 \input{chapters/mutex_algorithms.tex}

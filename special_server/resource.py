@@ -27,7 +27,6 @@ server_state.resource = {"A": False, "B": False}
 
 @bp.route("/race", methods=["GET"])
 def check_race():
-
     if server_state.race_condition:
         return "race condition has occured", 418
 
@@ -65,7 +64,6 @@ def check_locking_status(resource_id: str):
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:resource_id>/lock", methods=["PUT"])
 def lock(resource_id: str):
-
     # potential_state = server_state.resource.get(resource_id)
     # if potential_state is not None:
     #     if potential_state is True:
@@ -76,13 +74,16 @@ def lock(resource_id: str):
     #         )
 
     # server_state.resource[resource_id] = True
-    client_url: str = request.get_json()["origin"]
+    data = request.get_json()
+    client_url: str = data["origin"]
+    delay_time: str = data["delay_time"]
     requests.put(
         f"{LOGGER_URL}{resource_id}/log",
         json={
             "type": "end",
             "client_url": client_url,
             "time": time(),
+            "delay_time": delay_time,
         },
     )
 
@@ -97,10 +98,9 @@ def lock(resource_id: str):
     return f"sucessfully locked {resource_id}", 200
 
 
-# # explicitly release a lock on a resource
+# explicitly release a lock on a resource
 # @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 # def unlock(resource_id: str):
-
 #     try:
 #         server_state.resource[resource_id] = False
 #         return f"sucessfully unlocked {resource_id}", 200

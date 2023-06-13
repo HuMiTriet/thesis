@@ -1,10 +1,9 @@
 import os
 import asyncio
+from time import time
 
-# from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
-from time import time
 
 
 from . import ClientRequest, client_state
@@ -33,7 +32,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 
     # if not client_state.get_resource_queue(resource_id).count:
     if len(client_state.get_request_queue(resource_id)) != 0:
-
         if client_state.get_request_queue(resource_id)[0].approvals == len(
             client_state.get_broadcast_urls(request.host_url)
         ):
@@ -61,8 +59,9 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
 
-    async with aiohttp.ClientSession() as session:
+    delay_time = request.get_json()["delay_time"]
 
+    async with aiohttp.ClientSession() as session:
         coroutines = []
 
         coroutines.append(
@@ -72,6 +71,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                     "type": "start",
                     "client_url": request.host_url,
                     "time": time(),
+                    "delay_time": delay_time,
                 },
                 timeout=TIMEOUT,
             )
@@ -86,6 +86,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                 f"{target_url}{resource_id}/resource_status",
                 json={
                     "origin": request.host_url,
+                    "delay_time": delay_time,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -106,8 +107,9 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/resource_status", methods=["POST"])
 async def resource_status(resource_id: str):
-
-    original_url = request.get_json()["origin"]
+    json_data = request.get_json()
+    original_url = json_data["origin"]
+    delay_time = json_data["delay_time"]
 
     client_state.get_request_queue(resource_id).append(
         ClientRequest(
@@ -117,12 +119,12 @@ async def resource_status(resource_id: str):
 
     if client_state.get_request_queue(resource_id)[0].url == original_url:
         async with aiohttp.ClientSession() as session:
-
             async with session.post(
                 f"{original_url}{resource_id}/reply",
                 json={
                     "approve_url": original_url,
                     "origin": request.host_url,
+                    "delay_time": delay_time,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -141,11 +143,11 @@ async def resource_status(resource_id: str):
 
 @bp.route("/<string:resource_id>/reply", methods=["POST"])
 async def receive_reply(resource_id: str):
-
     data = request.get_json()
 
     approve_url = data["approve_url"]
     approver_url = data["origin"]
+    delay_time = data["delay_time"]
 
     for i in range(len(client_state.get_request_queue(resource_id))):
         current_request: ClientRequest = client_state.get_request_queue(
@@ -167,20 +169,20 @@ async def receive_reply(resource_id: str):
                 and client_state.get_request_queue(resource_id)[0].url
                 == request.host_url
             ):
-
                 # print(f"HERE CLIENT locking {resource_id}")
-                await lock_resource(resource_id)
+                await lock_resource(resource_id, delay_time)
                 return f"Client locked {resource_id}", 200
 
     return "client did not receive enough approval", 403
 
 
-async def lock_resource(resource_id: str) -> tuple[str, int]:
+async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         async with session.put(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
+                "delay_time": delay_time,
             },
             proxy=PROXY_URL,
         ) as response:
@@ -189,8 +191,8 @@ async def lock_resource(resource_id: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def delete_request(resource_id: str):
-
     # resource_queue = client_state.get_request_queue(resource_id)
+    delay_time = request.get_json()["delay_time"]
 
     if (
         len(client_state.get_request_queue(resource_id)) != 0
@@ -210,6 +212,7 @@ async def delete_request(resource_id: str):
                 f"{SERVER_URL}{resource_id}/lock",
                 json={
                     "origin": current_request.url,
+                    "delay_time": delay_time,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -222,6 +225,7 @@ async def delete_request(resource_id: str):
                     f"{target_url}{resource_id}/release",
                     json={
                         "origin": current_request.url,
+                        "delay_time": delay_time,
                     },
                     proxy=PROXY_URL,
                     timeout=TIMEOUT,
@@ -244,7 +248,9 @@ async def delete_request(resource_id: str):
 @bp.route("/<string:resource_id>/release", methods=["POST"])
 async def release_resource(resource_id: str):
     # Parse the request to get the URL of the client that released the resource
-    original_url = request.get_json()["origin"]
+    data = request.get_json()
+    original_url = data["origin"]
+    delay_time = data["delay_time"]
 
     # Get the resource queue for the specified resource_id
     # resource_queue = client_state.get_request_queue(resource_id)
@@ -261,12 +267,11 @@ async def release_resource(resource_id: str):
             and client_state.get_request_queue(resource_id)[0].url
             == request.host_url
         ):
-
             if client_state.get_request_queue(resource_id)[0].approvals == len(
                 client_state.get_broadcast_urls(request.host_url)
             ):
                 # print(f"HERE CLIENT locking {resource_id}")
-                resp, status = await lock_resource(resource_id)
+                resp, status = await lock_resource(resource_id, delay_time)
                 return resp, status
 
             # Try to acquire the resource again
@@ -274,7 +279,9 @@ async def release_resource(resource_id: str):
             async with aiohttp.ClientSession() as session:
                 async with session.post(
                     f"{request.host_url}{resource_id}/request",
-                    json={},
+                    json={
+                        "delay_time": delay_time,
+                    },
                     proxy=PROXY_URL,
                     timeout=TIMEOUT,
                 ):

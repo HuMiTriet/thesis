@@ -23,66 +23,51 @@ async def test_client_with_delay(
     # setup_four_token_and_load_faults,
     # load_faults_into_proxy,
 ):
-    fault = RuleBaseInjectibleFault()
-
     for _ in range(10):
-        await client_request_with_delay(fault, 1)
-        await client_request_with_delay(fault, 2)
-        await client_request_with_delay(fault, 3)
-        await client_request_with_delay(fault, 4)
-        await client_request_with_delay(fault, 5)
-        await client_request_with_delay(fault, 6)
-        await client_request_with_delay(fault, 7)
-        await client_request_with_delay(fault, 8)
-        await client_request_with_delay(fault, 9)
-        await client_request_with_delay(fault, 10)
-        await client_request_with_delay(fault, 11)
-        await client_request_with_delay(fault, 12)
-        await client_request_with_delay(fault, 13)
-        await client_request_with_delay(fault, 14)
-        await client_request_with_delay(fault, 15)
-        await client_request_with_delay(fault, 16)
-        await client_request_with_delay(fault, 17)
-        await client_request_with_delay(fault, 18)
-        await client_request_with_delay(fault, 19)
-        await client_request_with_delay(fault, 20)
-
+        await client_request_with_delay("0.0")
+        await client_request_with_delay("0.01")
+        await client_request_with_delay("0.02")
+        await client_request_with_delay("0.03")
+        await client_request_with_delay("0.04")
+        await client_request_with_delay("0.05")
+        await client_request_with_delay("0.06")
+        await client_request_with_delay("0.07")
+        await client_request_with_delay("0.08")
+        await client_request_with_delay("0.09")
+        await client_request_with_delay("0.1")
+        await client_request_with_delay("0.11")
+        await client_request_with_delay("0.12")
+        await client_request_with_delay("0.13")
+        await client_request_with_delay("0.14")
+        await client_request_with_delay("0.15")
+        await client_request_with_delay("0.16")
+        await client_request_with_delay("0.17")
+        await client_request_with_delay("0.18")
+        await client_request_with_delay("0.19")
+        await client_request_with_delay("0.2")
     with open(
-        # os.path.join("token_ring_median.json"), "w", encoding="utf-8"
-        os.path.join("token_ring.json"),
-        "w",
-        encoding="utf-8",
+        os.path.join("token_ring_median.json"), "w", encoding="utf-8"
     ) as file:
         file.write(json.dumps(x))
 
 
-async def client_request_with_delay(
-    fault: RuleBaseInjectibleFault, times: int
-):
-    fault_times: list[str] = []
-    for _ in range(times):
-        fault_times.append("delay_all_small")
+async def client_request_with_delay(delay_time: str):
+    client_request(5002, delay_time)
+    client_request(5003, delay_time)
+    client_request(5004, delay_time)
+    client_request(5005, delay_time)
 
-    fault.inject(fault_times)
-
-    client_request(5002)
-
-    client_request(5003)
-
-    client_request(5004)
-
-    client_request(5005)
-
-    await asyncio.sleep(0.5)
+    await asyncio.sleep(3)
 
     resp = requests.get("http://127.0.0.1:3000/stat")
-    # resp = requests.get("http://127.0.0.1:3000/stat_median")
 
     x.extend(resp.json())
-    fault.reset()
 
 
-def client_request(port: int):
+def client_request(port: int, delay_time: str):
     requests.post(
         f"http://127.0.0.1:{port}/A/request",
+        json={
+            "delay_time": delay_time,
+        },
     )

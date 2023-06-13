@@ -97,11 +97,11 @@ class RuleBaseInjectibleFault:
         requests.post(
             f"{PROXY_URL}inject",
             json={"fault": faults},
-            timeout=2,
+            # timeout=2,
         )
 
     def reset(self):
         requests.delete(
             f"{PROXY_URL}inject",
-            timeout=2,
+            # timeout=2,
         )

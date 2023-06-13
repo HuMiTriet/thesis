@@ -14,7 +14,6 @@ from .manager import managerState
 
 
 def create_app():
-
     load_dotenv()
 
     app = Flask(__name__)
@@ -24,20 +23,20 @@ def create_app():
         methods=["GET", "POST", "PUT", "DELETE"],
     )
     async def handler(url: str):  # pyright: ignore
+        delay_time = request.get_json()["delay_time"]
 
         if len(managerState.faults) != 0:
-            for fault in managerState.faults_currently_injected:
-                # print(f"all available faults {managerState.faults.keys()}")
-                choosen_fault = managerState.faults[fault]
+            # for fault in managerState.faults_currently_injected:
+            choosen_fault = managerState.faults[delay_time]
 
-                # print(f"1 url {url} choosen_fault: {choosen_fault}")
+            # print(f"1 url {url} choosen_fault: {choosen_fault}")
 
-                if isinstance(choosen_fault, ErrorFault):
-                    res = choosen_fault.execute(request=request, url=url)
-                    if res is not None:
-                        return res
-                else:
-                    choosen_fault.execute(request=request, url=url)
+            if isinstance(choosen_fault, ErrorFault):
+                res = await choosen_fault.execute(request=request, url=url)
+                if res is not None:
+                    return res
+            else:
+                await choosen_fault.execute(request=request, url=url)
 
         async with aiohttp.ClientSession() as session:
             match request.method:

@@ -1,1 +1,168 @@
-\section{Fault Injection and Fuzzy Testing Phase}
+\section{Fault Injection and Property Based Testing Phase}
+
+
+\subsection{Property Based Testing}
+Once all the algorithms are finished implementing each of the algorithms in 
+\ref{chap:algorithms} we need to ensure the correctness of each algorithm, and to
+do this we used a property based testing framework called \textit{Hypothesis}.
+
+But before we go into Hypothesis a quick introduction into the history of fuzzy testing.
+Fuzzy testing was first introduced in \cite{OG_fuzzy_testing}, where researcher
+gave Unix utilities such as awk, grep, etc. a lot of random inputs to see if they crash or 
+result in undefined behavior.
+
+Overtime, fuzzy testing developed and mature to give us a more advance method called
+property based testing such as \textit{Quickcheck} \cite{quickcheck}, in which the strategy is still 
+to generate random input and feed it into the program under testing but this 
+time certain property are being tested to see if they hold across the runtime 
+and not just a crash. Furthermore, once a property also called invariant has 
+been violated they can be shrunk to a minimal failing example, the smallest test 
+case that will also result in the same behavior. 
+
+The property based testing that in used in this project is \textit{Hypothesis} an
+implementation of \textit{Quickcheck} in Python but also come with some other features
+such as caching past mistakes and stateful testing.
+
+\subsubsection{Basic Hypothesis Tests}
+\label{subsubsec:basic_hypothesis_tests}
+
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+from hypothesis import given, strategies as st
+@given(
+    resource_id=st.sampled_from(["A", "B"]),
+    client_port=st.integers(min_value=5002, max_value=5003),
+)
+  # ...
+  \end{minted}
+  \caption{Hypothesis python decorator}
+  \label{code:hypothesis_decorator}
+\end{listing}
+
+The decorator above in listing \ref{code:hypothesis_decorator} set up the randomization of the input, the testing case above 
+means choose a random client in each of the four client to lock on either resource 
+type "A" or "B".
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+#...
+def test_one_client_lock_and_delete(
+    setup_ricart_agrawala,
+    resource_id: str,
+    client_port: int,
+):
+  #...
+  \end{minted}
+  \caption{Test case function signature}
+  \label{code:test_case_signature}
+\end{listing}
+
+The test signature's in listing \ref{code:test_case_signature} parameter \textit{resource} 
+and \textit{client\_port} is being provided by the Hypothesis decorator 
+in listing \ref{code:hypothesis_decorator}. The parameter \textit{setup\_ricart\_agrawala}
+is a pytest's fixture which does the setup and tear down of the clients, proxy, logger 
+and resource manger at the beginning and end of every test to ensure a blank state 
+and a testing environment that is not influenced by previous runs.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+    #...
+    response = requests.post(
+        f"http://127.0.0.1:{client_port}/{resource_id}/lock",
+        timeout=TESTING_TIMEOUT,
+    )
+
+    assert response.status_code == 200
+
+    response = requests.delete(
+        f"http://127.0.0.1:{client_port}/{resource_id}/lock",
+        timeout=TESTING_TIMEOUT,
+    )
+
+    assert response.status_code == 200
+  \end{minted}
+  \caption{Body of the test case}
+  \label{code:test_case_body}
+\end{listing}
+
+
+The testing logic in in listing \ref{code:test_case_body} is after each client lock or delete
+on a particular resource, a check for the request response' status code is equal 
+to 200, mean successfully executed by using python's \textit{assert}.
+
+\subsubsection{Stateful Testing}
+In the section above in listing \ref{subsubsec:basic_hypothesis_tests} \textit{Hypothesis} 
+does only randomization of the inputs for each test case. However, during the process
+of developing the prototype for this project the majority of the bugs found where
+not the result of randomizing the input but from the random ordering of client 
+locking or deleting a resource, this is where Stateful testing comes in.
+
+
+Stateful testing, or model based testing, deploys a state machine with a set of 
+predefined \textit{@rule} in which the state machine will try to find the sequence
+of which will result in a failure.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+class MutexLocking(RuleBasedStateMachine):
+  #... 
+    @initialize()
+    def inject_fault(self):
+        #...
+  def teardown(self):
+  #...
+      requests.post(
+          f"{SERVER_URL}reset",
+          timeout=TESTING_TIMEOUT,
+      )
+ \end{minted}
+ \caption{Initialization and teardown of the state machine}
+ \label{code:init_teardown_state_machine}
+\end{listing}
+
+The code in listing \ref{code:init_teardown_state_machine} does some initialization to set
+up and \textit{teardown} to reset the testing environment similar to pytest's fixture 
+in \ref{code:test_case_signature}.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+    @rule(
+        resource_id=st.sampled_from(["A", "B"]),
+        client_port=st.integers(min_value=5002, max_value=5005),
+    )
+    def test_lock(
+        self,
+        resource_id: str,
+        client_port: int,
+    ):
+    # ...
+
+    #... 
+    def test_unlock(#...)
+    #... 
+  \end{minted}
+  \caption{Rules for locking and unlocking resources}
+  \label{code:rule}
+\end{listing}
+
+Each of the rules in listing \ref{code:rule} will be run in an arbitrary order by hypothesis.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+    @invariant()
+    def test_no_race_condition(self):
+        response = requests.get(
+            f"{SERVER_URL}race",
+            timeout=TESTING_TIMEOUT,
+        )
+  \end{minted}
+  \caption{Invariant checking for race condition on the resource manager}
+  \label{code:invariant}
+\end{listing}
+
+To ensure a certain property is being held, in the example in listing \ref{code:invariant} is that there is 
+no race condition ever happens on the resource manager \ref{subsubsec:resource_manager}.
+We specified an invariant called \textit{test\_no\_race\_condition} which will be run 
+after each rule, checking whether it has been violated.
+

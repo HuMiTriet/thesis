@@ -24,6 +24,7 @@ class ClientState:
     current_state: defaultdict[str, State] = field(
         default_factory=lambda: defaultdict(lambda: State.DEFAULT)
     )
+    delay_time: str | None = None
 
     def get_next_client_url(self) -> str | None:
         port_number = sys.argv[5]

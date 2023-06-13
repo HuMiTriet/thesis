@@ -16,7 +16,10 @@ SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 
 REGISTRAR_URL: str = os.getenv("REGISTRAR_URL", "http://127.0.0.1:5001/")
 
-CLIENT_URL: str = os.getenv("CLIENT_URL", "http://127.0.0.1:5004")
+CLIENT_URL: str = os.getenv(
+    "CLIENT_URL",
+    "http://127.0.0.1:5002/ http://127.0.0.1:5003/ http://127.0.0.1:5004/ http://127.0.0.1:5005/",
+)
 TOTAL_CLIENT: str = os.getenv("TOTAL_CLIENT", "3")
 
 PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5001")
@@ -40,7 +43,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         )
 
     async with aiohttp.ClientSession() as session:
-
         client_state.resource_states[resource_id] = ResourceState(
             current_state=State.REQUESTING,
             approvals=0,
@@ -82,7 +84,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/resource_status", methods=["POST"])
 async def resource_status(resource_id: str):
     async with aiohttp.ClientSession() as session:
-
         data = request.get_json()
         timestamp = data["timestamp"]
         origin = data["origin"]
@@ -147,7 +148,6 @@ async def resource_status(resource_id: str):
 
 @bp.route("/<string:resource_id>/reply", methods=["POST"])
 async def receive_reply(resource_id: str):
-
     # print(
     #     f"""{request.host_url} getting a reply from {request.get_json()['origin']}
     #     for {resource_id}
@@ -178,7 +178,6 @@ async def receive_reply(resource_id: str):
     # await asyncio.sleep(0.01)
 
     if interested_resource.approvals == int(TOTAL_CLIENT) - 1:
-
         interested_resource.approvals = 0
         interested_resource.current_state = State.EXECUTING
 
@@ -211,7 +210,6 @@ async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def revoke_lock(resource_id: str):
-
     if client_state.resource_states.get(resource_id) is None:
         return "resource not held", 200
 
@@ -222,16 +220,15 @@ async def revoke_lock(resource_id: str):
         return "resource held but not executing", 200
 
     async with aiohttp.ClientSession() as session:
-
         async with session.delete(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
+                "delay_time": request.get_json()["delay_time"],
             },
             proxy=PROXY_URL,
         ) as response:
-
             client_state.lamport_clock.increment()
             client_state.resource_states.pop(resource_id)
 
@@ -246,6 +243,7 @@ async def revoke_lock(resource_id: str):
                     json={
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
+                        "delay_time": request.get_json()["delay_time"],
                     },
                     proxy=PROXY_URL,
                 ) as response:

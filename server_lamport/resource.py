@@ -10,8 +10,6 @@ TIMEOUT_SEC: int = 10
 
 REQUEST_TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 
-PROXY_URL: str = os.getenv("PROXY_URL", "http://127.0.0.1:5004")
-
 LOGGER_URL: str = os.getenv("LOGGER_URL", "http://127.0.0.1:3000/")
 
 bp = Blueprint("resouce", __name__)
@@ -29,7 +27,6 @@ server_state.resource = {"A": False, "B": False}
 
 @bp.route("/race", methods=["GET"])
 def check_race():
-
     if server_state.race_condition:
         return "race condition has occured", 418
 
@@ -60,7 +57,6 @@ def check_locking_status(resource_id: str):
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:resource_id>/lock", methods=["PUT"])
 def lock(resource_id: str):
-
     potential_state = server_state.resource.get(resource_id)
     if potential_state is not None:
         if potential_state is True:
@@ -94,7 +90,6 @@ def lock(resource_id: str):
 # explicitly release a lock on a resource
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 def unlock(resource_id: str):
-
     try:
         server_state.resource[resource_id] = False
         return f"sucessfully unlocked {resource_id}", 200

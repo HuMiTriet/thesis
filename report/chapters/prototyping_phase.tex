@@ -40,15 +40,19 @@ a single process running concurrently to each others.
 Each client has a HTTP endpoint which response to a specific HTTP verb such as
 GET, PUT, or POST this is called a view in Flask:
 
-\begin{lstlisting}[language=Python, label={lst:signature}, caption={function signature of a client}]
-@bp.route("/<string:resource_id>/request", methods=["POST"])
-async def request_resource(resource_id: str) -> tuple[str, int]:
-    data = request.get_json()
-    delay_time: str = data["delay_time"]
-    ...
-\end{lstlisting}
+\begin{listing}[!ht]
+  \begin{minted}{python}
+  @bp.route("/<string:resource_id>/request", methods=["POST"])
+  async def request_resource(resource_id: str) -> tuple[str, int]:
+      data = request.get_json()
+      delay_time: str = data["delay_time"]
+      # ...
+  \end{minted}
+\caption{function signature of a client}
+\label{code:signature}
+\end{listing}
 
-In addition, as we can see from the code snippet \ref{lst:signature}  each view is has the word 
+In addition, as we can see from the code snippet \ref{code:signature}  each view is has the word 
 async in the front to indicate that this is an asynchornous function. 
 
 The reason for the async keywords is to allow for the use of the keyword 
@@ -57,23 +61,33 @@ sent. If that was done without concurrency then the entire process is hang
 and have to wait until the HTTP request is sent and responded to which takes a 
 lot of time.
 
-
-\begin{lstlisting}[language=Python, label={lsts:multiple_requests}, caption={Multiple requests being sent simultaneously}]
+\begin{listing}[!ht]
+\begin{minted}{python}
 coroutines = []
 
 for target_url in CLIENT_URL:
     coroutine = session.post(
-        ...
+        # ...
         proxy=PROXY_URL,
     )
     coroutines.append(coroutine)
 
 await asyncio.gather(*coroutines)
-\end{lstlisting}
+\end{minted}
+\caption{Multiple requests being sent simultaneously}
+\label{code:multiple_requests}
+\end{listing}
 
-The code in \ref{lsts:multiple_requests} is putting all the coroutines of sending the HTTP request into 
+
+The code in \ref{code:multiple_requests} is putting all the coroutines of sending the HTTP request into 
 an array. By using \textit{asyncio.gather()} it will await for all and finished
-when all coroutine are finished.
+when all coroutines are finished.
+
+
+\subsubsection{Proxy}
+
+The existence of the proxy is to inject fault into the system and monitor to 
+generate the necessary data for analysis.
 
 Inisde the snippet of \ref{lsts:multiple_requests} there is the line 
 \textit{proxy=PROXY\_URL}
@@ -81,13 +95,125 @@ similarly for all HTTP request and response in the prototype they all have this 
 as a part of the option when sending HTTP requests, this is done to route all 
 communication via the proxy.
 
-\subsubsection{Proxy}
+This is done so that the process of fault injection, for more information on fault injection and what it is
+please refer to \ref{subsec:fault_injection}.
 
-The existence of the proxy is to inject fault into the system and monitor to 
-generate the necessary data for analysis
+Initially when the proxy is built it was run using the Flask default development 
+server \cite{flask_dev_server}. 
 
+However, there is a problem with this approach in our goal to obtain the correct 
+data points, the proxy soon proves to be one of the big bottleneck.
+
+This is because the clients are communicating using aiohttp which sends all the 
+message asynchronously, which means more or less the request are being sent 
+simultaneously.
+
+However, the original proxy was running on Flask's development server which is 
+only single threaded. This resulted in, although the request is being sent sequentially
+one after another due to the proxy incapable of handling concurrent requests.
+
+to solve this issue we switched over from the development server to gunicorn,
+which allows for use to use multiple workers at the same time for the proxy.
+
+\begin{listing}[!ht]
+  \begin{minted}{bash}
+gunicorn --reload -w 4 -b 127.0.0.1:5001 "proxy:create_app()"
+  \end{minted}
+  \caption{Running gunicorn with 4 workers}
+\end{listing}
+
+Since the proxy is now servered by at least 4 workers, one for each client, each
+client's HTTP request are now being sent concurrently as initially intended.
 
 \subsubsection{Logger}
 
+To gather the information needed, there is a process constantly running called 
+the logger. The logger has two endpoints:
+
+First is the log endpoint: 
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+  @app.route("/<string:resource_id>/log", methods=["PUT"])
+  def log(resource_id: str):
+  \end{minted}
+  \caption{Code snippet of the logger's log endpoint}
+  \label{code:logger_log}
+\end{listing}
+
+The endpoint \ref{code:logger_log} is being accessed at the start of the client request, meaning 
+when the client node shows an initial interest in accessing the resource and is called again when the
+resource is actually been acquired by that client. 
+
+Each client carries along with its request a Unix timestamp that at the time of calling 
+that request. 
+
+
+When the logger is first called it will log the start time of that request:
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+   latency_dict: dict[str, float] = {}
+  \end{minted}
+  \caption{in memory dictionary to store the latency}
+  \label{code:latency_dict}
+\end{listing}
+
+
+When the log endpoint is being called a second time, the logger will take the time 
+that the second request is being called subtract the time stored in the \textit{latency\_dict}
+to obtain the latency.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+  latency_tally: list[dict[str, float]] = []
+  \end{minted}
+  \caption{The resulted latency is stored in a list}
+  \label{code:latency_tally}
+\end{listing}
+
+\textit{latency\_tally} is a list of dictionaries, each dictionary keys are the 
+name of that client, e.g., client\_1 and the value 0.02 is the latency of that client.
+
+
 \subsubsection{Resource Manager}
+\label{subsubsec:resource_manager}
+
+Resource manager is another process where the client contact to either lock or
+delete a particular resource.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+@bp.route("/<string:resource_id>/lock", methods=["PUT"])
+def lock(resource_id: str):
+  # ...
+
+@bp.route("/<string:resource_id>/lock", methods=["DELETE"])
+def unlock(resource_id: str):
+  # ...
+  \end{minted}
+\end{listing}
+
+In addition, there is also another endpoint to check whether a race condition 
+has occurred:
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+@bp.route("/<string:resource_id>/is_lock", methods=["GET"])
+def check_locking_status(resource_id: str):
+  # ...
+  \end{minted}
+\end{listing}
+
+All the resources are stored in memory using a class 
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+@dataclass(slots=True)
+class ServerState:
+    race_condition: bool = False
+    resource: dict[str, bool] = field(default_factory=dict[str, bool])
+  \end{minted}
+\end{listing}
+
 

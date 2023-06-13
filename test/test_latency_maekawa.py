@@ -11,7 +11,7 @@ from .stratergies import RuleBaseInjectibleFault
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
-x: list[float] = []  # change this to input delay and value
+x = []
 
 
 def test_client_with_delay(
@@ -20,29 +20,28 @@ def test_client_with_delay(
     # setup_four_token_and_load_faults,
     # load_faults_into_proxy,
 ):
-    fault = RuleBaseInjectibleFault()
-
     for _ in range(10):
-        client_request_with_delay(fault, 1)
-        client_request_with_delay(fault, 2)
-        client_request_with_delay(fault, 3)
-        client_request_with_delay(fault, 4)
-        client_request_with_delay(fault, 5)
-        client_request_with_delay(fault, 6)
-        client_request_with_delay(fault, 7)
-        client_request_with_delay(fault, 8)
-        client_request_with_delay(fault, 9)
-        client_request_with_delay(fault, 10)
-        client_request_with_delay(fault, 11)
-        client_request_with_delay(fault, 12)
-        client_request_with_delay(fault, 13)
-        client_request_with_delay(fault, 14)
-        client_request_with_delay(fault, 15)
-        client_request_with_delay(fault, 16)
-        client_request_with_delay(fault, 17)
-        client_request_with_delay(fault, 18)
-        client_request_with_delay(fault, 19)
-        client_request_with_delay(fault, 20)
+        client_request_with_delay("0.0")
+        client_request_with_delay("0.01")
+        client_request_with_delay("0.02")
+        client_request_with_delay("0.03")
+        client_request_with_delay("0.04")
+        client_request_with_delay("0.05")
+        client_request_with_delay("0.06")
+        client_request_with_delay("0.07")
+        client_request_with_delay("0.08")
+        client_request_with_delay("0.09")
+        client_request_with_delay("0.1")
+        client_request_with_delay("0.11")
+        client_request_with_delay("0.12")
+        client_request_with_delay("0.13")
+        client_request_with_delay("0.14")
+        client_request_with_delay("0.15")
+        client_request_with_delay("0.16")
+        client_request_with_delay("0.17")
+        client_request_with_delay("0.18")
+        client_request_with_delay("0.19")
+        client_request_with_delay("0.2")
 
     with open(
         os.path.join("maekawa_median.json"), "w", encoding="utf-8"
@@ -50,38 +49,59 @@ def test_client_with_delay(
         file.write(json.dumps(x))
 
 
-def client_request_with_delay(fault: RuleBaseInjectibleFault, times: int):
-    fault_times: list[str] = []
-    for _ in range(times):
-        fault_times.append("delay_all_small")
+def client_request_with_delay(delay_time: str):
+    client_request(5002, delay_time)  # start A
+    requests.delete(
+        "http://127.0.0.1:5002/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-    fault.inject(fault_times)
+    client_request(5003, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5003/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-    client_request(5002)
-    requests.delete("http://127.0.0.1:5002/A/lock", timeout=10)
+    client_request(5004, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5004/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-    client_request(5003)
-    requests.delete("http://127.0.0.1:5003/A/lock", timeout=10)
+    client_request(5005, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5005/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-    client_request(5004)
-    requests.delete("http://127.0.0.1:5004/A/lock", timeout=10)
+    resp = requests.get("http://127.0.0.1:3000/stat")
+    # resp = requests.get("http://127.0.0.1:3000/stat_median")
 
-    client_request(5005)
-    requests.delete("http://127.0.0.1:5005/A/lock", timeout=10)
+    data = resp.json()
+    # result = {
+    #     "latency": data["median_latency"],
+    #     "delay_time": data["delay_time"],
+    # }
 
-    resp = requests.get("http://127.0.0.1:3000/stat_median")
-
-    x.extend(resp.json())
-    fault.reset()
+    x.extend(data)
 
 
-def client_request(port: int):
+def client_request(port: int, delay_time: str):
     requests.post(
         f"http://127.0.0.1:{port}/A/request",
-        # timeout=10,
+        json={
+            "delay_time": delay_time,
+        },
     )
 
     requests.post(
         f"{SERVER_URL}reset",
-        # timeout=TESTING_TIMEOUT,
     )

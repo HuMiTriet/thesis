@@ -1,6 +1,8 @@
 from abc import abstractmethod
+import asyncio
 from dataclasses import dataclass
-from time import sleep
+
+# from time import sleep
 import re  # pyright: ignore # pylint: disable=unused-import # noqa
 
 from flask.wrappers import Request
@@ -12,7 +14,7 @@ class Fault:
     condition: str
 
     @abstractmethod
-    def execute(self, request: Request, url: str):
+    async def execute(self, request: Request, url: str):
         pass
 
 
@@ -21,7 +23,7 @@ class Fault:
 class DelayFault(Fault):
     duration: float
 
-    def execute(self, request: Request, url: str):  # pyright: ignore
+    async def execute(self, request: Request, url: str):  # pyright: ignore
         # print(
         #     f"""
         #     2 (actual) method {request.method}, url  {url}, origin
@@ -36,7 +38,7 @@ class DelayFault(Fault):
         # )
         # pylint: disable=eval-used
         if eval(self.condition):
-            sleep(self.duration)
+            await asyncio.sleep(self.duration)
 
 
 @dataclass(slots=True, kw_only=True)
@@ -45,7 +47,7 @@ class ErrorFault(Fault):
     status_code: int = 420
 
     # pylint: disable=inconsistent-return-statements
-    def execute(
+    async def execute(
         self,
         request: Request,  # pyright: ignore
         url: str,  # pyright: ignore

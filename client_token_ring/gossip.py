@@ -7,7 +7,6 @@ from time import time
 # from datetime import datetime
 from flask import Blueprint, request
 import aiohttp
-from hypothesis.internal.reflection import proxies
 import requests
 
 
@@ -36,12 +35,16 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         return f"client is already executing resource {resource_id}", 200
 
     if client_state.current_state[resource_id] == State.DEFAULT:
+        delay_time = request.get_json()["delay_time"]
+        client_state.delay_time = delay_time
+
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={
                 "type": "start",
                 "client_url": request.host_url,
                 "time": time(),
+                "delay_time": delay_time,
             },
         )
 
@@ -52,7 +55,6 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def delete_request(resource_id: str) -> tuple[str, int]:
-
     if client_state.current_state[resource_id] == State.DEFAULT:
         return (
             f"client cannot delete {resource_id} lock because has not yet hold it",
@@ -61,9 +63,11 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 
     if client_state.current_state[resource_id] == State.EXECUTING:
         client_state.current_state[resource_id] = State.DEFAULT
+        data = request.get_json()
+        delay_time: str = data["delay_time"]
         await asyncio.gather(
-            release_lock(resource_id),
-            pass_token(resource_id),
+            # release_lock(resource_id, delay_time),
+            pass_token(resource_id, delay_time),
         )
         return f"client release token {resource_id} and passed it along", 200
 
@@ -72,76 +76,84 @@ async def delete_request(resource_id: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/token", methods=["PUT"])
 async def receive_token(resource_id: str) -> tuple[str, int]:
+    delay_time = (
+        "0.0" if client_state.delay_time is None else client_state.delay_time
+    )
+    if client_state.current_state[resource_id] == State.DEFAULT:
+        pass_thread = threading.Thread(
+            target=pass_token_wrapper,
+            args=(resource_id, delay_time),
+        )
 
-    # if client_state.current_state[resource_id] == State.DEFAULT:
-
-    #     pass_thread = threading.Thread(
-    #         target=pass_token_wrapper,
-    #         args=(resource_id),
-    #     )
-
-    #     pass_thread.start()
-    #     return f"token {resource_id} passed", 200
+        pass_thread.start()
+        return f"token {resource_id} passed", 200
 
     if client_state.current_state[resource_id] == State.REQUESTING:
         client_state.current_state[resource_id] = State.EXECUTING
 
-        resp, code = await lock_resource(resource_id)
+        resp, code = await lock_resource(resource_id, delay_time)
         # print(f"client {request.host_url} has locked")
         client_state.current_state[resource_id] = State.DEFAULT
-        # return resp, code
+        return resp, code
 
-    pass_thread = threading.Thread(
-        target=pass_token_wrapper,
-        args=(resource_id),
-    )
+    # pass_thread = threading.Thread(
+    #     target=pass_token_wrapper,
+    #     args=(resource_id, delay_time),
+    # )
 
-    pass_thread.start()
+    # pass_thread.start()
 
     # The only state remaining is EXECUTING but if the client is executing then
     # it is currently holding that token so it can't receive a token from somewhere else
-    # return f"duplication of token for {resource_id}", 400
-    return f"pass in  token for {resource_id}", 200
+    return f"duplication of token for {resource_id}", 400
+    # return f"pass in  token for {resource_id}", 200
 
 
-def pass_token_wrapper(resource_id: str):
+def pass_token_wrapper(resource_id: str, delay_time: str):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    loop.run_until_complete(pass_token(resource_id))
+    loop.run_until_complete(pass_token(resource_id, delay_time))
     loop.close()
 
 
-async def pass_token(resource_id: str) -> tuple[str, int]:
+async def pass_token(resource_id: str, delay_time: str) -> tuple[str, int]:
     next_url = client_state.get_next_client_url()
     async with aiohttp.ClientSession() as session:
         await session.put(
             f"{next_url}{resource_id}/token",
+            json={
+                "delay_time": delay_time,
+            },
             proxy=PROXY_URL,
-            json={},
         )
 
     return "passed", 200
 
 
-async def lock_resource(resource_id: str) -> tuple[str, int]:
+async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         async with session.put(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
+                "delay_time": delay_time,
             },
             proxy=PROXY_URL,
         ) as response:
-            return await response.text(), response.status
+            text, code = await response.text(), response.status
+
+    await delete_request("A")
+    return text, code
 
 
-async def release_lock(resource_id: str) -> tuple[str, int]:
+async def release_lock(resource_id: str, delay_time: str) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         async with session.delete(
             f"{SERVER_URL}{resource_id}/lock",
-            json={},
+            json={
+                "delay_time": delay_time,
+            },
             proxy=PROXY_URL,
-            timeout=TIMEOUT,
         ) as response:
             return await response.text(), response.status
