@@ -87,11 +87,12 @@ and a testing environment that is not influenced by previous runs.
 \end{listing}
 
 
-The testing logic in in listing \ref{code:test_case_body} is after each client lock or delete
-on a particular resource, a check for the request response' status code is equal 
+The testing logic in listing \ref{code:test_case_body} is after each client lock or delete
+on a particular resource, a check for the request response's status code is equal 
 to 200, mean successfully executed by using python's \textit{assert}.
 
 \subsubsection{Stateful Testing}
+\label{subsubsec:stateful_testing}
 In the section above in listing \ref{subsubsec:basic_hypothesis_tests} \textit{Hypothesis} 
 does only randomization of the inputs for each test case. However, during the process
 of developing the prototype for this project the majority of the bugs found where
@@ -100,8 +101,8 @@ locking or deleting a resource, this is where Stateful testing comes in.
 
 
 Stateful testing, or model based testing, deploys a state machine with a set of 
-predefined \textit{@rule} in which the state machine will try to find the sequence
-of which will result in a failure.
+predefined \textit{@rule} and the state machine will try to find the sequence
+of \textit{@rule} that will result in a failure.
 
 \begin{listing}[!ht]
   \begin{minted}{python}

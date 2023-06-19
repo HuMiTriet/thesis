@@ -1,8 +1,22 @@
 \subsection{Fault Injection}
 \label{subsec:fault_injection}
-In order to 
+
+This section will be break down into two smaller sections:
+\begin{itemize}
+  \item Preprocessing phase: this is when the faults are being defined and loaded into the proxy
+  \item Execution phase: this is during runtime when faults are being injected into the prototype to alter the behaviors
+\end{itemize}
+
+\subsubsection{Preprocessing phase}
+\label{subsubssec:preprocessing_phase}
+The First step in doing fault injection is to store all faults that will be injected 
+inside a JSON file called \textit{faults.json}.
+
+Currently, there are two types of fault that can be specified:
 
 \begin{multicols}{2}
+  \begin{listing}[H]
+    
   \begin{minted}{json}
   {
     "type": "delay",
@@ -11,18 +25,200 @@ In order to
     "metadata": 0.01
   }
   \end{minted}
+  \caption{Delay type fault}
+  \label{code:json_delay}
+\end{listing}
 
   \columnbreak
 
+  \begin{listing}[H]
   \begin{minted}{json}
   {
     "type": "error",
-    "name": "error_420_5003_no_reg",
-    "condition": "request.method == \"PUT\" and re.match(\".+/lock\", url) is not None  and request.get_json()[\"origin\"] == \"http://127.0.0.1:5003/\"",
+    "name": "error_420",
+    "condition": "True",
     "metadata": {
       "text": "dummy error",
       "status_code": 420
     }
-  },
+  }
   \end{minted}
+  \caption{Error type fault}
+  \label{code:json_error}
+\end{listing}
 \end{multicols}
+
+The fault will be load into the proxy at the start of testing using a pytest's 
+fixture like the one in \ref{code:test_case_signature}.
+
+Next the JSON file will be parsed and then sent to the proxy endpoint /fault:
+
+\begin{listing}[H]
+  \begin{minted}{python}
+managerState = ManagerState()
+@bp.route("/fault", methods=["POST"])
+def fault_factory():
+    all_data = request.get_json()
+    for data in all_data:
+        match data["type"]:
+            case "delay":
+                managerState.faults[name] = DelayFault(
+                    #...
+                )
+            case "error":
+                managerState.faults[name]  = ErrorFault(
+                    #...
+                )
+            case _:
+                return f'fault type {data["type"]} unknown', 406
+    return "ok", 200
+  \end{minted}
+  \caption{The /fault endpoint deserialize the JSON data into fault objects}
+\end{listing}
+
+
+Since there are two types of faults, there are two corresponding two classes 
+\textit{DelayFault} and \textit{ErrorFault} both inherited from \textit{Fault}
+abstract class.
+
+\begin{multicols}{2}
+  \begin{listing}[H]
+  \begin{minted}{python}
+@dataclass
+class DelayFault(Fault):
+    #...
+    async def execute(
+        #...
+    ): 
+        if eval(self.condition):
+            await asyncio.sleep(self.duration)
+  \end{minted}
+  \caption{Delay fault class}
+\end{listing}
+
+  \columnbreak
+
+  \begin{listing}[H]
+  \begin{minted}{python}
+@dataclass
+class ErrorFault(Fault):
+    #...
+    async def execute(
+        #...
+    ):
+        if eval(self.condition):
+            return self.text, self.status_code
+  \end{minted}
+  \caption{Error fault class}
+\end{listing}
+\end{multicols}
+
+The two child class both has an execute function which uses python's eval to 
+evaluate the string condition to see if they are applicable for the current request.
+
+The eval can evalute condition basic such as the ones in \ref{code:json_delay} and
+\ref{code:json_error}, or they can be more complex:
+
+\begin{listing}[!ht]
+  \begin{minted}{json}
+"condition": "request.method == \"POST\" 
+                and re.match(\".+/broadcast\", url) is not None  
+                and request.get_json()[\"origin\"] == \"http://127.0.0.1:5002/\"",
+  \end{minted}
+  \caption{Condition targeting the broadcast request of a particular client}
+\end{listing}
+
+\subsubsection{Execution phase}
+
+Inside the proxy there is a class: 
+\begin{listing}[!ht]
+  \begin{minted}{python}
+@dataclass
+class ManagerState:
+    faults: dict[str, Fault] = field(
+        default_factory=dict[str, Fault]
+    )  # all of the possible faults
+    faults_currently_injected: list[str] = field(
+        default_factory=list[str]
+    )  # the fault we are currently using
+  \end{minted}
+  \caption{Code snippet of the managerState class}
+  \label{code:managerState}
+\end{listing}
+
+In the previous phase \ref{subsubssec:preprocessing_phase} the dictionary \textit{faults}
+in managerState has already been populated. In this phase we will then fill 
+the list \textit{faults\_currently\_injected}.
+
+There are two ways to inject faults into the proxy in order for them to take effect.
+
+The first method is to make an HTTP request to the proxy endpoint: 
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+requests.post(
+    "http://127.0.0.1:5001/inject",
+    json={"fault": fault_names},
+)
+  \end{minted}
+  \caption{Applying the fault by making an HTTP request to the proxy}
+\end{listing}
+
+Once the test has finished running we also need to make another HTTP DELETE request
+to the /inject endpoint to reset the proxy to its initial state.
+
+For ease of implementation, there is also another way to do it via the fault\_injection, 
+decorator:
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+    
+@fault_injection(["delay_0.01"])
+def test_one_client_lock_with_small_delay():
+  #... testing logic
+  \end{minted}
+  \caption{Applying the fault via fault\_injection decorator}
+\end{listing}
+
+The fault\_injection decorator is just a wrapper around the original function 
+which will also make a HTTP POST and another DELETE to the /inject endpoint 
+automatically once the test has finished running.
+ 
+
+Since every client's HTTP request are being routed through the proxy, it will be
+contacting this endpoint:
+\begin{listing}[!ht]
+  \begin{minted}{python}
+    @app.route(
+        "/<path:url>",
+        methods=["GET", "POST", "PUT", "DELETE"],
+    )
+    async def handler(url: str):
+  \end{minted}
+  \caption{Proxy endpoint which handles all routed HTTP requests}
+  \label{code:handler}
+\end{listing}
+
+The proxy in listing \ref{code:handler} will then loop over every faults that is currently being used, and execute
+those faults.
+
+\begin{listing}[!ht]
+  \begin{minted}{python}
+if len(managerState.faults) != 0:
+    for fault in managerState.faults_currently_injected:
+        choosen_fault = managerState.faults[fault]
+        #...
+        choosen_fault.execute(request=request, url=url)
+  \end{minted}
+  \caption{Proxy loops over all currently injected faults and execute them}
+  \label{code:fault_execute}
+\end{listing}
+
+Since calling the execute() method in \ref{code:fault_execute} will first check by 
+using an eval statement to see if that fault should be applied to that specific 
+request, meaning not every fault will always be executed on all requests.
+
+In addition, because the \textit{DelayFault} and \textit{ErrorFault} are both 
+child of the abstract class Fault, which has the abstract method \textit{execute()},
+when invoking the method \textit{execute()} the implementation logic will be handled 
+by the concrete child classes.

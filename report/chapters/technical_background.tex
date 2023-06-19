@@ -1,28 +1,26 @@
 \chapter{\centering Background}
 
-Originally software architecture were monoliths where a single component is 
-responsible for all the application's logic. However, over time especially how 
-the issue of horizontally scaling the infrastructure become more and more pressing 
-as the demand of the modern world for modern technology is also increasing for now
-the solution to solve them is microservices.
+Traditionally, software architectures were monoliths, with a single component
+responsible for all the application's logic. However, as the modern world's
+demand for technology increased, the need for horizontal scaling of
+infrastructure became more pressing. The solution has been a transition to
+microservices.
 
-This means that software systems are increasingly becoming distributed, but this 
-also brings with it increasing challenges in ensuring the reliability and 
-security of the system.
+As a result, software systems are becoming increasingly distributed. This
+shift, however, brings challenges in ensuring the system's reliability and
+security. The introduction of extra components into a software system increases
+the potential failure points. For instance, latency that is minimal in a
+testing environment can become substantial in a production environment with
+hundreds of nodes.
 
-By introducing extra components into a software system also increases the amount 
-of failure points that are possible. For example latency that are small in 
-testing environment could become very substantial in the production environment 
-consisting of hundreds of nodes.
+The aim of this internship work is to explore how latency and errors impact a
+distributed system through fault injection. This technique involves
+deliberately introducing errors into the system to test its resilience and
+robustness.
 
-This internship work aim is to show how much latency and error affects a distributed
-system by doing fault injection, a technique where developers deliberately introduce
-error into the system to see whether the system's response is sufficiently resilient 
-or robust.
-
-Furthermore, in the during the building of the prototype a library called Hypothesis
-will be used for fuzzy based testing ensuring the correctness of the system. 
-
-In addition, fuzzy based testing is also used to randomly inject faults into the system
-to mimic the arbitrary nature of real world faults occurrences and avoiding covering
-only the typically expected faults or "happy paths" \cite{happy_path}.
+During the construction of the prototype, a library called Hypothesis was
+employed for fuzz-based testing, ensuring the system's correctness.
+Furthermore, fuzz-based testing was also used to randomly inject faults into
+the system, mimicking the arbitrary nature of real-world fault occurrences.
+This approach avoids focusing solely on the typically expected faults or "happy
+paths" \cite{happy_path}.

@@ -52,12 +52,12 @@ GET, PUT, or POST this is called a view in Flask:
 \label{code:signature}
 \end{listing}
 
-In addition, as we can see from the code snippet \ref{code:signature}  each view is has the word 
-async in the front to indicate that this is an asynchornous function. 
+In addition, as we can see from the code snippet \ref{code:signature}  each view is having the word 
+async in the front to indicate that this is an asynchronous function. 
 
 The reason for the async keywords is to allow for the use of the keyword 
-\textit{await} to handle the scenario where there are multiple message to be 
-sent. If that was done without concurrency then the entire process is hang 
+\textit{await} to handle the scenario where there are multiple messages to be 
+sent. If that was done without concurrency then the entire process is hung 
 and have to wait until the HTTP request is sent and responded to which takes a 
 lot of time.
 
@@ -89,7 +89,7 @@ when all coroutines are finished.
 The existence of the proxy is to inject fault into the system and monitor to 
 generate the necessary data for analysis.
 
-Inisde the snippet of \ref{lsts:multiple_requests} there is the line 
+Inside the snippet of \ref{code:multiple_requests} there is the line 
 \textit{proxy=PROXY\_URL}
 similarly for all HTTP request and response in the prototype they all have this line 
 as a part of the option when sending HTTP requests, this is done to route all 
@@ -122,7 +122,7 @@ gunicorn --reload -w 4 -b 127.0.0.1:5001 "proxy:create_app()"
   \caption{Running gunicorn with 4 workers}
 \end{listing}
 
-Since the proxy is now servered by at least 4 workers, one for each client, each
+Since the proxy is now severed by at least 4 workers, one for each client, each
 client's HTTP request are now being sent concurrently as initially intended.
 
 \subsubsection{Logger}
