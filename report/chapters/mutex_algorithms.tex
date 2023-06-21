@@ -76,14 +76,28 @@ variations can lead to substantial inconsistencies when it comes to deciding the
 sequence of events, particularly in algorithms like Ricart-Agrawala where mutual 
 exclusion is governed by timestamps.
 
+\begin{figure}[H]
+  \centering
+  \includesvg{physical_clock.svg}
+  \caption{Physical clock: count the number of seconds that has passed}
+  \label{fig:physical_clock}
+\end{figure}
 
-\begin{itemize}
-  \item Physical clock: count the number of seconds that has passed
-  \item Logical clock: count the number of events that has occurred
-\end{itemize}
+\begin{figure}[H]
+  \centering
+  \includesvg{logical_clock.svg}
+  \caption{Logical clock: count the number of events that has occurred}
+  \label{fig:logical_clock}
+\end{figure}
+
+% \begin{itemize}
+%   \item Physical clock: count the number of seconds that has passed
+%   \item Logical clock: count the number of events that has occurred
+% \end{itemize}
 
 In the prototype implementation the logical clock is a counter variable that updates
-every time a message is sent or received.
+every time an event has occurred.
+
 \subsection{How the algorithm works}
 
 If a process seeks to enter a critical section, it first sends a Request message to all other processes in the system. The recipient processes, under certain conditions, will send back a Reply. Once the initiating process has received enough Replies, it will proceed to enter the critical section.
