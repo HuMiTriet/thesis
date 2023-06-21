@@ -2,26 +2,13 @@
 
 
 \subsection{Property Based Testing}
-Once all the algorithms are finished implementing each of the algorithms in 
-\ref{chap:algorithms} we need to ensure the correctness of each algorithm, and to
-do this we used a property based testing framework called \textit{Hypothesis}.
+Upon completing the implementation of the algorithms mentioned in \ref{chap:algorithms}, it was essential to verify their correctness. To accomplish this, we utilized a property-based testing framework called \textit{Hypothesis}.
 
-But before we go into Hypothesis a quick introduction into the history of fuzzy testing.
-Fuzzy testing was first introduced in \cite{OG_fuzzy_testing}, where researcher
-gave Unix utilities such as awk, grep, etc. a lot of random inputs to see if they crash or 
-result in undefined behavior.
+However, before delving into Hypothesis, it's worth providing a brief historical overview of fuzzy testing. First introduced in \cite{OG_fuzzy_testing}, researchers used fuzzy testing to bombard Unix utilities like awk, grep, etc., with an abundance of random inputs to identify any instances of system crashes or undefined behavior.
 
-Overtime, fuzzy testing developed and mature to give us a more advance method called
-property based testing such as \textit{Quickcheck} \cite{quickcheck}, in which the strategy is still 
-to generate random input and feed it into the program under testing but this 
-time certain property are being tested to see if they hold across the runtime 
-and not just a crash. Furthermore, once a property also called invariant has 
-been violated they can be shrunk to a minimal failing example, the smallest test 
-case that will also result in the same behavior. 
+Over time, fuzzy testing evolved and matured, leading to the development of a more advanced technique known as property-based testing, exemplified by \textit{Quickcheck} \cite{quickcheck}. This approach still involved generating random input for the program under test, but instead of merely searching for crashes, it tested whether certain properties or invariants held throughout the runtime. Additionally, once an invariant was violated, it could be shrunk to a minimal failing example, which is the smallest test case that would produce the same behavior.
 
-The property based testing that in used in this project is \textit{Hypothesis} an
-implementation of \textit{Quickcheck} in Python but also come with some other features
-such as caching past mistakes and stateful testing.
+In this project, we used \textit{Hypothesis}, a Python implementation of \textit{Quickcheck}. Hypothesis includes features beyond those of Quickcheck, such as caching previous errors and stateful testing.
 
 \subsubsection{Basic Hypothesis Tests}
 \label{subsubsec:basic_hypothesis_tests}
@@ -40,15 +27,14 @@ from hypothesis import given, strategies as st
   \label{code:hypothesis_decorator}
 \end{listing}
 
-The decorator above in listing \ref{code:hypothesis_decorator} set up the randomization of the input, the testing case above 
-means choose a random client in each of the four client to lock on either resource 
-type "A" or "B".
+The decorator shown in listing \ref{code:hypothesis_decorator} sets up the input randomization. This test case implies that a random client, from among the four clients, will attempt to lock either resource type "A" or "B".
+
 
 \begin{listing}[!ht]
   \begin{minted}{python}
 #...
 def test_one_client_lock_and_delete(
-    setup_ricart_agrawala,
+    setup_ricart_agrawala, # pytest's fixture
     resource_id: str,
     client_port: int,
 ):
@@ -58,12 +44,11 @@ def test_one_client_lock_and_delete(
   \label{code:test_case_signature}
 \end{listing}
 
-The test signature's in listing \ref{code:test_case_signature} parameter \textit{resource} 
-and \textit{client\_port} is being provided by the Hypothesis decorator 
-in listing \ref{code:hypothesis_decorator}. The parameter \textit{setup\_ricart\_agrawala}
-is a pytest's fixture which does the setup and tear down of the clients, proxy, logger 
-and resource manger at the beginning and end of every test to ensure a blank state 
-and a testing environment that is not influenced by previous runs.
+In the function signature for the test case, as shown in listing
+\ref{code:test_case_signature}, the parameters \textit{resource\_id} and
+\textit{client\_port} are provided by the Hypothesis decorator from listing \ref{code:hypothesis_decorator}. 
+The parameter \textit{setup\_ricart\_agrawala} is a pytest fixture, which prepares the clients, proxy, logger, and resource manager at the start and conclusion of each test. This ensures a clean slate and a test environment unaffected by previous runs.
+
 
 \begin{listing}[!ht]
   \begin{minted}{python}
@@ -87,22 +72,13 @@ and a testing environment that is not influenced by previous runs.
 \end{listing}
 
 
-The testing logic in listing \ref{code:test_case_body} is after each client lock or delete
-on a particular resource, a check for the request response's status code is equal 
-to 200, mean successfully executed by using python's \textit{assert}.
+The test logic shown in listing \ref{code:test_case_body} involves checking the request response's status code after each client locks or deletes a specific resource. This is done using Python's \textit{assert} to ensure the status code equals 200, indicating successful execution.
 
 \subsubsection{Stateful Testing}
 \label{subsubsec:stateful_testing}
-In the section above in listing \ref{subsubsec:basic_hypothesis_tests} \textit{Hypothesis} 
-does only randomization of the inputs for each test case. However, during the process
-of developing the prototype for this project the majority of the bugs found where
-not the result of randomizing the input but from the random ordering of client 
-locking or deleting a resource, this is where Stateful testing comes in.
+In the previous section, as presented in listing \ref{subsubsec:basic_hypothesis_tests}, \textit{Hypothesis} only randomized the inputs for each test case. However, during the development of the prototype for this project, the majority of the bugs found were not a result of randomizing the inputs. Instead, they were due to the random ordering of clients locking or deleting a resource. This is where Stateful testing comes into play.
 
-
-Stateful testing, or model based testing, deploys a state machine with a set of 
-predefined \textit{@rule} and the state machine will try to find the sequence
-of \textit{@rule} that will result in a failure.
+Stateful testing, also known as model-based testing, employs a state machine with a predefined set of \textit{@rules}. The state machine then attempts to discover the sequence of \textit{@rules} that will lead to a failure.
 
 \begin{listing}[!ht]
   \begin{minted}{python}
@@ -122,9 +98,7 @@ class MutexLocking(RuleBasedStateMachine):
  \label{code:init_teardown_state_machine}
 \end{listing}
 
-The code in listing \ref{code:init_teardown_state_machine} does some initialization to set
-up and \textit{teardown} to reset the testing environment similar to pytest's fixture 
-in \ref{code:test_case_signature}.
+The code depicted in listing \ref{code:init_teardown_state_machine} performs some initialization tasks to set up the testing environment and executes a \textit{teardown} operation to reset it. This mirrors the functionality of the pytest's fixture presented in \ref{code:test_case_signature}.
 
 \begin{listing}[!ht]
   \begin{minted}{python}
@@ -157,13 +131,11 @@ Each of the rules in listing \ref{code:rule} will be run in an arbitrary order b
             f"{SERVER_URL}race",
             timeout=TESTING_TIMEOUT,
         )
+        assert response.status_code == 200
   \end{minted}
   \caption{Invariant checking for race condition on the resource manager}
   \label{code:invariant}
 \end{listing}
 
-To ensure a certain property is being held, in the example in listing \ref{code:invariant} is that there is 
-no race condition ever happens on the resource manager \ref{subsubsec:resource_manager}.
-We specified an invariant called \textit{test\_no\_race\_condition} which will be run 
-after each rule, checking whether it has been violated.
+In the example provided in listing \ref{code:invariant}, we have set an invariant named \textit{test\_no\_race\_condition}. This invariant ensures that no race condition ever occurs on the resource manager, as explained in \ref{subsubsec:resource_manager}. The invariant is executed after each rule is applied to verify whether the invariant condition has been violated.
 

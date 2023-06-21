@@ -29,8 +29,6 @@ def create_app():
             # for fault in managerState.faults_currently_injected:
             choosen_fault = managerState.faults[delay_time]
 
-            # print(f"1 url {url} choosen_fault: {choosen_fault}")
-
             if isinstance(choosen_fault, ErrorFault):
                 res = await choosen_fault.execute(request=request, url=url)
                 if res is not None:

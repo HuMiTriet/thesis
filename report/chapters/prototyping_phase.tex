@@ -1,44 +1,31 @@
 \section{Prototyping Phase}
 
-For the three months internship about the first one and a half months was spent 
-on learning and developing the distributed system.
+The initial half of the three-month internship was dedicated to learning about distributed systems and developing the prototype.
 
-\subsection{Architecture of the prototype}
+\subsection{Prototype Architecture}
 
-The prototype was built using the Python programming language along 
-with Flask \cite{flask} a popular microframework built on top of Werkzeug WSGI 
-toolkit, the Jinja template engine, and the Click CLI toolkit. It is classified
-as a microframework because it does not provide much of the features commonly used
-in web application development by default. 
+The prototype was constructed utilizing the Python programming language, complemented by Flask \cite{flask}, a widely used microframework. Flask, built on the foundation of the Werkzeug WSGI toolkit, the Jinja template engine, and the Click CLI toolkit, is classified as a microframework because it does not natively offer many of the features typically required in web application development. 
 
-However, this is perfect for the internship project as the goal was to only build
-a working prototype of communicating nodes without any graphical user interface.
+This lean approach is ideal for the internship project as our goal was to create a functional prototype of communicating nodes, devoid of any graphical user interface.
 
-As shown in the figure \ref{fig:prototype_architecture} shows an overview of the prototype 
-consisting a minimum of 4 clients nodes, 1 proxy, 1 database or resource manager, and 1 logger.
+The figure \ref{fig:prototype_architecture} presents an overview of the prototype, which comprises a minimum of four client nodes, a single proxy, a database or resource manager, and a logger.
 
 \begin{figure}[htbp]
   \centering
   \includesvg{images/prototype_architecture.svg} 
-  \caption{Overview of prototype Architecture}
+  \caption{Overview of Prototype Architecture}
   \label{fig:prototype_architecture}
 \end{figure}
 
-The figure in \ref{fig:prototype_architecture} is the final version of the prototype.
-During this phase of the internship the prototype was developed in an incremental
-manner with first the clients and resource being added, then comes the proxy and 
-finally the logger.
+The depiction in figure \ref{fig:prototype_architecture} represents the final version of the prototype. During this stage of the internship, the prototype was built incrementally - we first integrated the clients and resources, followed by the proxy, and lastly the logger.
 
-Every client has a RESTful API layer that allows for communication and data transfer 
-between each other using HTTP and JSON as the encoding format for data.
+Each client is equipped with a RESTful API layer that facilitates communication and data exchange between them using HTTP, with JSON serving as the data encoding format.
 
 \subsubsection{Client}
 
-Since the entire prototype is run on a single local host each client is actually 
-a single process running concurrently to each others. 
+Given that the entire prototype operates on a single localhost, each client is effectively an individual process executing concurrently with others.
 
-Each client has a HTTP endpoint which response to a specific HTTP verb such as
-GET, PUT, or POST this is called a view in Flask:
+Each client features an HTTP endpoint responding to specific HTTP verbs such as GET, PUT, or POST. In Flask, this is referred to as a view:
 
 \begin{listing}[!ht]
   \begin{minted}{python}
@@ -48,18 +35,13 @@ GET, PUT, or POST this is called a view in Flask:
       delay_time: str = data["delay_time"]
       # ...
   \end{minted}
-\caption{function signature of a client}
+\caption{Function signature of a client}
 \label{code:signature}
 \end{listing}
 
-In addition, as we can see from the code snippet \ref{code:signature}  each view is having the word 
-async in the front to indicate that this is an asynchronous function. 
+As visible from code snippet \ref{code:signature}, each view is prefaced by the 'async' keyword, signifying that it's an asynchronous function. 
 
-The reason for the async keywords is to allow for the use of the keyword 
-\textit{await} to handle the scenario where there are multiple messages to be 
-sent. If that was done without concurrency then the entire process is hung 
-and have to wait until the HTTP request is sent and responded to which takes a 
-lot of time.
+The 'async' keyword is leveraged to enable the use of 'await' for handling scenarios where multiple messages need to be dispatched. If this were to be performed without concurrency, the entire process would become unresponsive and forced to wait until the HTTP request has been sent and acknowledged, leading to significant delays.
 
 \begin{listing}[!ht]
 \begin{minted}{python}
@@ -74,106 +56,75 @@ for target_url in CLIENT_URL:
 
 await asyncio.gather(*coroutines)
 \end{minted}
-\caption{Multiple requests being sent simultaneously}
+\caption{Simultaneous dispatch of multiple requests}
 \label{code:multiple_requests}
 \end{listing}
 
-
-The code in \ref{code:multiple_requests} is putting all the coroutines of sending the HTTP request into 
-an array. By using \textit{asyncio.gather()} it will await for all and finished
-when all coroutines are finished.
-
+The code in \ref{code:multiple_requests} packages all the coroutines responsible for sending HTTP requests into an array. Using 'asyncio.gather()', the system waits for all coroutines and completes when each coroutine has finished execution.
 
 \subsubsection{Proxy}
 
-The existence of the proxy is to inject fault into the system and monitor to 
-generate the necessary data for analysis.
+The primary role of the proxy is to facilitate fault injection into the system and to monitor and generate data for further analysis.
 
-Inside the snippet of \ref{code:multiple_requests} there is the line 
-\textit{proxy=PROXY\_URL}
-similarly for all HTTP request and response in the prototype they all have this line 
-as a part of the option when sending HTTP requests, this is done to route all 
-communication via the proxy.
+As evident in the \ref{code:multiple_requests} snippet, there is the line \textit{proxy=PROXY\_URL}. Similarly, for all HTTP requests and responses in the prototype, this line is part of the options when sending HTTP requests, to ensure all communication is routed via the proxy.
 
-This is done so that the process of fault injection, for more information on fault injection and what it is
-please refer to \ref{subsec:fault_injection}.
+The integration of this option in sending HTTP requests allows for fault injection. For additional information on fault injection and its significance, please refer to \ref{subsec:fault_injection}.
 
-Initially when the proxy is built it was run using the Flask default development 
-server \cite{flask_dev_server}. 
+In its early stages, the proxy was executed using the Flask default development server \cite{flask_dev_server}. However, with the aim of acquiring accurate data points, this approach exhibited a significant bottleneck due to the proxy.
 
-However, there is a problem with this approach in our goal to obtain the correct 
-data points, the proxy soon proves to be one of the big bottleneck.
+The clients were communicating using aiohttp, sending all messages asynchronously, essentially dispatching requests more or less simultaneously. In contrast, the initial proxy, operating on Flask's development server, was single-threaded. Consequently, requests were sent sequentially, one after another, due to the proxy's inability to handle concurrent requests.
 
-This is because the clients are communicating using aiohttp which sends all the 
-message asynchronously, which means more or less the request are being sent 
-simultaneously.
-
-However, the original proxy was running on Flask's development server which is 
-only single threaded. This resulted in, although the request is being sent sequentially
-one after another due to the proxy incapable of handling concurrent requests.
-
-to solve this issue we switched over from the development server to gunicorn,
-which allows for use to use multiple workers at the same time for the proxy.
+To overcome this issue, we transitioned from the development server to Gunicorn, facilitating the use of multiple workers concurrently for the proxy.
 
 \begin{listing}[!ht]
   \begin{minted}{bash}
 gunicorn --reload -w 4 -b 127.0.0.1:5001 "proxy:create_app()"
   \end{minted}
-  \caption{Running gunicorn with 4 workers}
+  \caption{Execution of Gunicorn with 4 workers}
 \end{listing}
 
-Since the proxy is now severed by at least 4 workers, one for each client, each
-client's HTTP request are now being sent concurrently as initially intended.
+Now, with the proxy being served by at least four workers, one for each client, each client's HTTP request is dispatched concurrently, aligning with the initial intention.
 
 \subsubsection{Logger}
 
-To gather the information needed, there is a process constantly running called 
-the logger. The logger has two endpoints:
+The logger is a continuously running process, essential for data acquisition. This process is equipped with two endpoints:
 
-First is the log endpoint: 
+The first endpoint is the log endpoint:
 
 \begin{listing}[!ht]
   \begin{minted}{python}
   @app.route("/<string:resource_id>/log", methods=["PUT"])
   def log(resource_id: str):
   \end{minted}
-  \caption{Code snippet of the logger's log endpoint}
+  \caption{Code snippet showcasing the logger's log endpoint}
   \label{code:logger_log}
 \end{listing}
 
-The endpoint \ref{code:logger_log} is being accessed at the start of the client request, meaning 
-when the client node shows an initial interest in accessing the resource and is called again when the
-resource is actually been acquired by that client. 
+The endpoint as highlighted in \ref{code:logger_log} is triggered at the initiation of a client request, which indicates the client node's initial intent to access the resource, and it's activated again when the resource has been obtained by the client. 
 
-Each client carries along with its request a Unix timestamp that at the time of calling 
-that request. 
+Each client request is accompanied by a Unix timestamp, indicating the exact time at which the request was made.
 
-
-When the logger is first called it will log the start time of that request:
+At the first logger call, the start time of the request is recorded:
 
 \begin{listing}[!ht]
   \begin{minted}{python}
    latency_dict: dict[str, float] = {}
   \end{minted}
-  \caption{in memory dictionary to store the latency}
+  \caption{An in-memory dictionary to store latency}
   \label{code:latency_dict}
 \end{listing}
 
-
-When the log endpoint is being called a second time, the logger will take the time 
-that the second request is being called subtract the time stored in the \textit{latency\_dict}
-to obtain the latency.
+When the log endpoint is triggered for the second time, the logger will subtract the time stored in the \textit{latency\_dict} from the time the second request was made, providing the latency.
 
 \begin{listing}[!ht]
   \begin{minted}{python}
   latency_tally: list[dict[str, float]] = []
   \end{minted}
-  \caption{The resulted latency is stored in a list}
+  \caption{Latency results are stored in a list}
   \label{code:latency_tally}
 \end{listing}
 
-\textit{latency\_tally} is a list of dictionaries, each dictionary keys are the 
-name of that client, e.g., client\_1 and the value 0.02 is the latency of that client.
+\textit{latency\_tally} is a list of dictionaries. Each dictionary's keys represent the name of the client, for instance, client\_1, and the corresponding value, such as 0.02, signifies the client's latency.
 
 
 \subsubsection{Resource Manager}

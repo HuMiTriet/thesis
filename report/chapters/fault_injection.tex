@@ -1,16 +1,22 @@
 \subsection{Fault Injection}
 \label{subsec:fault_injection}
 
-This section will be break down into two smaller sections:
-\begin{itemize}
-  \item Preprocessing phase: this is when the faults are being defined and loaded into the proxy
-  \item Execution phase: this is during runtime when faults are being injected into the prototype to alter the behaviors
+
+Fault injection is a crucial technique used in our study to test the robustness of our implemented algorithms. We introduce various fault scenarios into the system, and evaluate the algorithms' performance and response to these errors. 
+The process of fault injection in our project can be broken down into two phases:
+
+\begin{enumerate}
+  \item \textbf{Preprocessing Phase:} This phase involves defining the faults and loading them into the proxy. These faults are preconceived scenarios or errors that will be introduced into the system during the testing process. 
+  \item \textbf{Execution Phase:} During this phase, the predefined faults are injected into the prototype during runtime. The aim of this phase is to observe how these faults alter the behaviors of the algorithms and the system as a whole.
+\end{enumerate}
+
+The subsequent sections will delve into the details of each of these phases.
 \end{itemize}
 
 \subsubsection{Preprocessing phase}
 \label{subsubssec:preprocessing_phase}
-The First step in doing fault injection is to store all faults that will be injected 
-inside a JSON file called \textit{faults.json}.
+The preprocessing phase sets the stage for fault injection by specifying the faults to be injected. 
+To do this, all faults to be injected are stored in a JSON file named \textit{faults.json}.
 
 Currently, there are two types of fault that can be specified:
 
@@ -119,7 +125,7 @@ evaluate the string condition to see if they are applicable for the current requ
 The eval can evalute condition basic such as the ones in \ref{code:json_delay} and
 \ref{code:json_error}, or they can be more complex:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
   \begin{minted}{json}
 "condition": "request.method == \"POST\" 
                 and re.match(\".+/broadcast\", url) is not None  
@@ -146,15 +152,16 @@ class ManagerState:
   \label{code:managerState}
 \end{listing}
 
-In the previous phase \ref{subsubssec:preprocessing_phase} the dictionary \textit{faults}
-in managerState has already been populated. In this phase we will then fill 
-the list \textit{faults\_currently\_injected}.
+During the preprocessing phase (\ref{subsubssec:preprocessing_phase}), the 
+\textit{faults} dictionary in the \textit{managerState} has already been populated 
+with potential faults. In this phase, we proceed to populate the \textit{faults\_currently\_injected} 
+list. This list serves to keep track of the faults that are presently in use.
 
-There are two ways to inject faults into the proxy in order for them to take effect.
+There exist two methods to populate the \textit{faults\_currently\_injected} list, thereby enabling the corresponding faults to take effect.
 
 The first method is to make an HTTP request to the proxy endpoint: 
 
-\begin{listing}[!ht]
+\begin{listing}[H]
   \begin{minted}{python}
 requests.post(
     "http://127.0.0.1:5001/inject",
@@ -164,13 +171,11 @@ requests.post(
   \caption{Applying the fault by making an HTTP request to the proxy}
 \end{listing}
 
-Once the test has finished running we also need to make another HTTP DELETE request
-to the /inject endpoint to reset the proxy to its initial state.
+Upon completion of the test, it's essential to send an HTTP DELETE request to the /inject endpoint in order to restore the proxy to its initial state.
 
-For ease of implementation, there is also another way to do it via the fault\_injection, 
-decorator:
+Alternatively, for convenience in implementation, the \textit{fault\_injection} decorator can be employed:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
   \begin{minted}{python}
     
 @fault_injection(["delay_0.01"])
@@ -180,13 +185,9 @@ def test_one_client_lock_with_small_delay():
   \caption{Applying the fault via fault\_injection decorator}
 \end{listing}
 
-The fault\_injection decorator is just a wrapper around the original function 
-which will also make a HTTP POST and another DELETE to the /inject endpoint 
-automatically once the test has finished running.
- 
+The \textit{fault\_injection} decorator essentially wraps the original function. It automatically sends an HTTP POST request and, upon completion of the test, sends an HTTP DELETE request to the /inject endpoint. 
 
-Since every client's HTTP request are being routed through the proxy, it will be
-contacting this endpoint:
+Given that every client's HTTP request is routed through the proxy, these requests will be interacting with the following endpoint:
 \begin{listing}[!ht]
   \begin{minted}{python}
     @app.route(
@@ -214,11 +215,10 @@ if len(managerState.faults) != 0:
   \label{code:fault_execute}
 \end{listing}
 
-Since calling the execute() method in \ref{code:fault_execute} will first check by 
-using an eval statement to see if that fault should be applied to that specific 
-request, meaning not every fault will always be executed on all requests.
+When the \textit{execute()} method, as seen in \ref{code:fault_execute}, is called, it 
+first checks via an eval statement whether the fault should be applied to the 
+particular request. Therefore, not every fault is necessarily executed for every request.
 
-In addition, because the \textit{DelayFault} and \textit{ErrorFault} are both 
-child of the abstract class Fault, which has the abstract method \textit{execute()},
-when invoking the method \textit{execute()} the implementation logic will be handled 
-by the concrete child classes.
+Moreover, the \textit{DelayFault} and \textit{ErrorFault} are both subclasses of 
+the abstract class Fault, which declares the abstract method \textit{execute()}. 
+Consequently, when the method \textit{execute()} is invoked, the corresponding execution logic is managed by the respective subclasses, either \textit{DelayFault} or \textit{ErrorFault}.

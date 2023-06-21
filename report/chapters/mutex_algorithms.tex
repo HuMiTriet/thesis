@@ -2,41 +2,30 @@
 \label{chap:algorithms}
 
 \section{Safety and Liveness properties}
-When building distributed system two fundamental concepts of computer science 
-frequently appears: Safety and Liveness. Therefore, the understanding of these concepts 
-has proven useful in testing and developing the different mutex algorithms.
+While constructing distributed systems, two fundamental concepts of computer science—Safety and Liveness—often emerge. Thus, understanding these principles has been instrumental in the development and testing of various mutex algorithms.
+
 
 % \subsection{Safety}
 A safety property guarantees that something bad will never happen. It's a 
 property that states that the system will not reach a bad or undesirable state. 
 
-During the development of the algorithms this is why fuzzy testing technique has 
-been used in \ref{subsubsec:basic_hypothesis_tests} and \ref{subsubsec:stateful_testing}
-in order to assure that there is no race condition where two clients can be in
-the critical section at the same time.
+As part of our algorithm development process, we employed fuzzy testing techniques, as described in Sections \ref{subsubsec:basic_hypothesis_tests} and \ref{subsubsec:stateful_testing}. This approach helped us ensure the absence of race conditions, where two clients could access the critical section simultaneously—a scenario that would violate the safety property.
 
 % \subsection{Liveness}
- A liveness property guarantees that something good will eventually happen. 
- This means that the system will eventually reach a desirable or good state.
+A liveness property guarantees that something good will eventually happen. 
+This means that the system will eventually reach a desirable or good state.
 
-While working on the development of the prototype, we encountered an issue where 
-simultaneous requests were made by two clients to access the same critical section. 
-To ensure system liveness and preempt a potential deadlock situation, we implemented 
-a strategy that used the clients' IDs as a deciding factor, or 'tiebreaker', to 
-determine which request would be processed first.
- 
+During the prototype development phase, we came across a situation where two clients made concurrent requests to access the same critical section. To maintain system liveness and prevent potential deadlock scenarios, we devised a strategy that utilized the clients' IDs as a deciding factor, or 'tiebreaker'. This mechanism determined which request would receive priority, thus ensuring that some progress would be made, aligning with the liveness property.
+
 \section{Token Ring}
-Token ring initially is a computer networking technology introduced by IBM 
-to build local area network \cite{wiki_token_ring}. The token ring can be used 
-to describe the physical or logical topology, in this specific project since 
-the nodes are all just different process running on local host, the term will be
-used to describe the logical topology.
+Token ring, initially introduced by IBM, is a computer networking technology 
+employed to construct local area networks \cite{wiki_token_ring}. The term "token ring" 
+can be used to describe either physical or logical topology. However, in the 
+context of this specific project—where all nodes represent different processes 
+running on a local host—we will use "token ring" to refer to the logical topology.
 
 \subsection{Topology of the token ring}
-The token ring algorithm is the simplest conceptually of the three since it works 
-by first arranging the node in a circular ring and then a random node is given a 
-token. This token is continuously pass around the ring in one direction as shown in
-\ref{fig:token_ring_top}
+The token ring algorithm, arguably the most straightforward concept among the three under discussion, operates by first positioning the nodes in a circular arrangement, forming a 'ring'. Initially, a token is randomly assigned to one node. This token is then continuously passed around the ring in one specific direction, as depicted in figure \ref{fig:token_ring_top}.
 
 \begin{figure}[htbp]
   \centering
@@ -46,19 +35,21 @@ token. This token is continuously pass around the ring in one direction as shown
 \end{figure}
 
 \subsection{How the algorithm works}
-In the prototype's implementation of token ring, when the client wants to enter 
-the critical section it first changes its internal state from its DEFAULT state to 
-REQUESTING.
+In our prototype's implementation of the token ring, when a client wishes to enter the critical section, it first transitions its internal state from the DEFAULT state to REQUESTING. 
 
-Then there are three scenarios:
+Following this, three possible scenarios may unfold:
 
 \begin{itemize}
-  \item Client does not have token, do nothing and wait.
-  \item Client does have the token but is not interested in entering the critical section, pass the token to the next client in the ring.
-  \item Client does have the token and is also interested in entering the critical section, keep the token and enter the critical section.
+  \item If the client does not possess the token, it will remain idle and wait.
+  \item If the client does possess the token, but is not interested in entering the critical section, it will pass the token to the next client in the ring.
+  \item If the client has the token and is also interested in entering the critical section, it will retain the token and proceed to enter the critical section.
 \end{itemize}
 
-While the token ring concept is relatively straightforward to grasp among the three algorithms we implemented in this prototype, it proved to be the most challenging in terms of practical implementation. Initially, we struggled to devise a method that allowed for the token to be passed without impeding the process responsible for its transmission. We managed to overcome this hurdle by creating a separate event loop tasked exclusively with handling the token-passing process.
+While the token ring concept is relatively straightforward to grasp among the 
+three algorithms we implemented in this prototype, it proved to be the most 
+challenging in terms of practical implementation. Initially, we struggled to 
+devise a method that allowed for the token to be passed without hanging/freezing the 
+process that is currently holding the token. We managed to overcome this hurdle by creating a separate event loop tasked exclusively with handling the token-passing process.
 
 \section{Ricart Agrawala}
 The Ricart-Agrawala Algorithm is a permission-based method for ensuring mutual 
@@ -94,10 +85,8 @@ exclusion is governed by timestamps.
 In the prototype implementation the logical clock is a counter variable that updates
 every time a message is sent or received.
 \subsection{How the algorithm works}
-If a process wants to enter a critical section, it will first ask every other 
-process with a Request message, the other node if some certain conditions are fulfilled
-will send a Reply. Once the process that sent the Request message has enough Replied
-it will enter the critical section.
+
+If a process seeks to enter a critical section, it first sends a Request message to all other processes in the system. The recipient processes, under certain conditions, will send back a Reply. Once the initiating process has received enough Replies, it will proceed to enter the critical section.
 
 In Ricart Agrawala, a process that has received a Request from another process will only 
 reply in either:

@@ -48,8 +48,6 @@ def fault_factory():
 
                 managerState.faults[name] = delay_fault
 
-                print(f"delay fault {delay_fault} added")
-
                 # return 'fault type "Delay" added', 200
             case "error":
                 status_code = data["metadata"]["status_code"]
@@ -64,12 +62,9 @@ def fault_factory():
 
                 managerState.faults[name] = error_fault
 
-                print(f"error fault {error_fault} added")
-
                 # return 'fault type "Error" added', 200
             case _:
-                # return f'fault type {data["type"]} unknown', 406
-                print(f'fault type {data["type"]} unknown')
+                return f'fault type {data["type"]} unknown', 406
     return "ok", 200
 
     # condition = data["condition"]
@@ -91,29 +86,10 @@ def update_injections():
         data = request.get_json()
 
         managerState.faults_currently_injected = data["fault"]
-
-        # print(
-        #     f"currently now using {managerState.faults_currently_injected}
-        # with full {managerState.faults}"
-        # )
-
         return f"New injects {data} loaded", 200
 
-    except Exception as error:  # pylint: disable=broad-exception-caught
+    except Exception as error:
         return str(error.__repr__), 504
-
-
-# @bp.route("/inject", methods=["POST"])
-# def append_injections():
-#     try:
-#         data = request.get_json()
-
-#         print(f"appending {data}")
-#         managerState.faults_currently_injected.append(data["fault_name"])
-
-#         return f"New injects {data} loaded", 200
-#     except Exception as e:
-#         return e.__repr__(), 504
 
 
 @bp.route("/is_alive", methods=["GET"])

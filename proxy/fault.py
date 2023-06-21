@@ -23,19 +23,11 @@ class Fault:
 class DelayFault(Fault):
     duration: float
 
-    async def execute(self, request: Request, url: str):  # pyright: ignore
-        # print(
-        #     f"""
-        #     2 (actual) method {request.method}, url  {url}, origin
-        #     {request.get_json()['origin']}
-        #     """
-        # )
-
-        # print(
-        #     f""" 3 (cond) EVAL FOR DELAY {self.condition}
-        #     and result is {eval(self.condition)}"
-        #     """
-        # )
+    async def execute(
+        self,
+        request: Request,
+        url: str,
+    ):  # pyright: ignore
         # pylint: disable=eval-used
         if eval(self.condition):
             await asyncio.sleep(self.duration)
