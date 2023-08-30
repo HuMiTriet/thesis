@@ -48,7 +48,7 @@ def fault_factory():
 
                 managerState.faults[name] = delay_fault
 
-                # return 'fault type "Delay" added', 200
+                return 'fault type "Delay" added', 200
             case "error":
                 status_code = data["metadata"]["status_code"]
                 text = data["metadata"]["text"]
@@ -62,7 +62,7 @@ def fault_factory():
 
                 managerState.faults[name] = error_fault
 
-                # return 'fault type "Error" added', 200
+                return 'fault type "Error" added', 200
             case _:
                 return f'fault type {data["type"]} unknown', 406
     return "ok", 200

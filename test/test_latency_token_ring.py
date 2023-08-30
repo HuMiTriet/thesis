@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from aiohttp import request
 from hypothesis import given, strategies as st
 import requests
 import pytest
@@ -23,6 +24,8 @@ async def test_client_with_delay(
     # setup_four_token_and_load_faults,
     # load_faults_into_proxy,
 ):
+    requests.put("http://127.0.0.1:5002/A/token")
+
     for _ in range(10):
         await client_request_with_delay("0.0")
         await client_request_with_delay("0.01")
@@ -45,19 +48,20 @@ async def test_client_with_delay(
         await client_request_with_delay("0.18")
         await client_request_with_delay("0.19")
         await client_request_with_delay("0.2")
-    with open(
-        os.path.join("token_ring_median.json"), "w", encoding="utf-8"
-    ) as file:
+
+    with open(os.path.join("token_ring.json"), "w", encoding="utf-8") as file:
         file.write(json.dumps(x))
 
 
 async def client_request_with_delay(delay_time: str):
     client_request(5002, delay_time)
+    # await asyncio.sleep(0.4)
     client_request(5003, delay_time)
+    # await asyncio.sleep(0.4)
     client_request(5004, delay_time)
+    # await asyncio.sleep(0.4)
     client_request(5005, delay_time)
-
-    await asyncio.sleep(3)
+    # await asyncio.sleep(0.4)
 
     resp = requests.get("http://127.0.0.1:3000/stat")
 

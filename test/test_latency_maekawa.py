@@ -43,9 +43,7 @@ def test_client_with_delay(
         client_request_with_delay("0.19")
         client_request_with_delay("0.2")
 
-    with open(
-        os.path.join("maekawa_median.json"), "w", encoding="utf-8"
-    ) as file:
+    with open(os.path.join("maekawa.json"), "w", encoding="utf-8") as file:
         file.write(json.dumps(x))
 
 

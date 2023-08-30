@@ -48,76 +48,78 @@ async def test_client_with_delay(
         await client_request_with_delay("0.2")
 
     with open(
-        os.path.join("ricart_agrawala_median.json"),
+        # os.path.join("ricart_agrawala_median.json"), "w", encoding="utf-8"
+        os.path.join("ricart_agrawala.json"),
         "w",
-        encoding="utf-8"
-        # os.path.join("ricart_agrawala.json"), "w", encoding="utf-8",
+        encoding="utf-8",
     ) as file:
         file.write(json.dumps(x))
 
 
 async def client_request_with_delay(delay_time: str):
     # fault.inject([f"{delay_time}"])
-    command = [
-        "gunicorn",
-        "--reload",
-        "-w",
-        "5",
-        "-b",
-        "127.0.0.1:5001",
-        "proxy:create_app()",
-    ]
-    server = subprocess.Popen(command)
+    # command = [
+    #     "gunicorn",
+    #     "--reload",
+    #     "-w",
+    #     "5",
+    #     "-b",
+    #     "127.0.0.1:5001",
+    #     "proxy:create_app()",
+    # ]
+    # server = subprocess.Popen(command)
     await asyncio.sleep(2)
 
-    try:
-        client_request(5002, delay_time)  # start A
-        requests.delete(
-            "http://127.0.0.1:5002/A/lock",
-            json={
-                "delay_time": delay_time,
-            },
-        )
+    # try:
+    client_request(5002, delay_time)  # start A
+    requests.delete(
+        "http://127.0.0.1:5002/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-        client_request(5003, delay_time)
-        requests.delete(
-            "http://127.0.0.1:5003/A/lock",
-            json={
-                "delay_time": delay_time,
-            },
-        )
+    client_request(5003, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5003/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-        client_request(5004, delay_time)
-        requests.delete(
-            "http://127.0.0.1:5004/A/lock",
-            json={
-                "delay_time": delay_time,
-            },
-        )
+    client_request(5004, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5004/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-        client_request(5005, delay_time)
-        requests.delete(
-            "http://127.0.0.1:5005/A/lock",
-            json={
-                "delay_time": delay_time,
-            },
-        )
+    client_request(5005, delay_time)
+    requests.delete(
+        "http://127.0.0.1:5005/A/lock",
+        json={
+            "delay_time": delay_time,
+        },
+    )
 
-        resp = requests.get("http://127.0.0.1:3000/stat")
-        # resp = requests.get("http://127.0.0.1:3000/stat_median")
-        # resp = requests.get("http://127.0.0.1:3000/stat_mean")
+    resp = requests.get("http://127.0.0.1:3000/stat")
+    # resp = requests.get("http://127.0.0.1:3000/stat_median")
+    # resp = requests.get("http://127.0.0.1:3000/stat_mean")
 
-        data = resp.json()
-        # result = {
-        #     "latency": data["latency"],
-        #     "delay_time": data["delay_time"],
-        # }
+    data = resp.json()
+    # result = {
+    #     "latency": data["latency"],
+    #     "delay_time": data["delay_time"],
+    # }
 
-        x.extend(data)
-    # fault.reset()
-    finally:
-        server.send_signal(signal.SIGINT)
-        server.wait()
+    x.extend(data)
+
+
+# fault.reset()
+# finally:
+#     server.send_signal(signal.SIGINT)
+#     server.wait()
 
 
 def client_request(port: int, delay_time: str):

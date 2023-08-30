@@ -40,7 +40,6 @@ class MutexLocking(RuleBasedStateMachine):
         resource_id: str,
         client_port: int,
     ):
-
         requests.post(
             f"http://127.0.0.1:{client_port}/{resource_id}/request",
             timeout=10,

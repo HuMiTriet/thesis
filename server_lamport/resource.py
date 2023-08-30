@@ -75,6 +75,7 @@ def lock(resource_id: str):
                 "client_url": data["origin"],
                 "time": time(),
                 "delay_time": data["delay_time"],
+                "client_no": data["client_no"],
             },
             timeout=REQUEST_TIMEOUT,
         )

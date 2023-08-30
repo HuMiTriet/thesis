@@ -25,7 +25,8 @@ Each client is equipped with a RESTful API layer that facilitates communication 
 
 Given that the entire prototype operates on a single localhost, each client is effectively an individual process executing concurrently with others.
 
-Each client features an HTTP endpoint responding to specific HTTP verbs such as GET, PUT, or POST. In Flask, this is referred to as a view:
+Each client features an HTTP endpoint responding to specific HTTP verbs such as
+GET, PUT, or POST, etc. In Flask, this is referred to as a view:
 
 \begin{listing}[!ht]
   \begin{minted}{python}
@@ -41,7 +42,11 @@ Each client features an HTTP endpoint responding to specific HTTP verbs such as 
 
 As visible from code snippet \ref{code:signature}, each view is prefaced by the 'async' keyword, signifying that it's an asynchronous function. 
 
-The 'async' keyword is leveraged to enable the use of 'await' for handling scenarios where multiple messages need to be dispatched. If this were to be performed without concurrency, the entire process would become unresponsive and forced to wait until the HTTP request has been sent and acknowledged, leading to significant delays.
+The 'async' keyword  enable the usage of 'await' for handling
+scenarios where multiple messages need to be sent at the same time. 
+If this were to be performed without concurrency, then the process has to send 
+requests sequentially one after another resulting in higher delay.
+
 
 \begin{listing}[!ht]
 \begin{minted}{python}
@@ -70,11 +75,15 @@ As evident in the \ref{code:multiple_requests} snippet, there is the line \texti
 
 The integration of this option in sending HTTP requests allows for fault injection. For additional information on fault injection and its significance, please refer to \ref{subsec:fault_injection}.
 
-In its early stages, the proxy was executed using the Flask default development server \cite{flask_dev_server}. However, with the aim of acquiring accurate data points, this approach exhibited a significant bottleneck due to the proxy.
+In its early stages, the proxy was executed using the Flask default development server \cite{flask_dev_server}.
 
-The clients were communicating using aiohttp, sending all messages asynchronously, essentially dispatching requests more or less simultaneously. In contrast, the initial proxy, operating on Flask's development server, was single-threaded. Consequently, requests were sent sequentially, one after another, due to the proxy's inability to handle concurrent requests.
+However, the clients were communicating using aiohttp, sending all messages asynchronously, essentially dispatching requests more or less simultaneously. 
+In contrast, the initial proxy, operating on Flask's development server, was single-threaded. 
+Consequently, requests were sent sequentially, one after another, due to the proxy's inability to handle concurrent requests. 
+The proxy has become a bottleneck that affected the correctness of the result.
 
-To overcome this issue, we transitioned from the development server to Gunicorn, facilitating the use of multiple workers concurrently for the proxy.
+To overcome this issue, we transitioned from the development server to Gunicorn,
+which allow for the use of multiple workers concurrently for the proxy.
 
 \begin{listing}[!ht]
   \begin{minted}{bash}
@@ -83,7 +92,8 @@ gunicorn --reload -w 4 -b 127.0.0.1:5001 "proxy:create_app()"
   \caption{Execution of Gunicorn with 4 workers}
 \end{listing}
 
-Now, with the proxy being served by at least four workers, one for each client, each client's HTTP request is dispatched concurrently, aligning with the initial intention.
+Now, with the proxy being served by at least four workers, one for each client, 
+each client's HTTP request is being sent concurrently, aligning with the initial intention.
 
 \subsubsection{Logger}
 
@@ -91,7 +101,7 @@ The logger is a continuously running process, essential for data acquisition. Th
 
 The first endpoint is the log endpoint:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
   \begin{minted}{python}
   @app.route("/<string:resource_id>/log", methods=["PUT"])
   def log(resource_id: str):
@@ -148,7 +158,7 @@ def unlock(resource_id: str):
 In addition, there is also another endpoint to check whether a race condition 
 has occurred:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
   \begin{minted}{python}
 @bp.route("/<string:resource_id>/is_lock", methods=["GET"])
 def check_locking_status(resource_id: str):

@@ -35,6 +35,7 @@ logger.setLevel(logging.DEBUG)
 async def request_resource(resource_id: str) -> tuple[str, int]:
     data = request.get_json()
     delay_time: str = data["delay_time"]
+    client_no: str = data["client_no"]
 
     if resource_id in client_state.resource_states.keys():
         return (
@@ -56,6 +57,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                     "client_url": request.host_url,
                     "time": time(),
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 timeout=TIMEOUT,
             )
@@ -69,6 +71,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
                         "delay_time": delay_time,
+                        "client_no": client_no,
                     },
                     proxy=PROXY_URL,
                 )
@@ -87,6 +90,7 @@ async def resource_status(resource_id: str):
         data = request.get_json()
         timestamp = data["timestamp"]
         origin = data["origin"]
+        client_no: str = data["client_no"]
         delay_time: str = data["delay_time"]
 
         client_state.lamport_clock.update(timestamp)
@@ -102,6 +106,7 @@ async def resource_status(resource_id: str):
                     "origin": request.host_url,
                     "timestamp": client_state.lamport_clock.get_time(),
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 proxy=PROXY_URL,
             ) as response:
@@ -118,6 +123,7 @@ async def resource_status(resource_id: str):
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
                         "delay_time": delay_time,
+                        "client_no": client_no,
                     },
                     proxy=PROXY_URL,
                 ) as response:
@@ -140,6 +146,7 @@ async def resource_status(resource_id: str):
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
                 "delay_time": delay_time,
+                "client_no": client_no,
             },
             proxy=PROXY_URL,
         ) as response:
@@ -173,6 +180,7 @@ async def receive_reply(resource_id: str):
 
     timestamp = data["timestamp"]
     delay_time = data["delay_time"]
+    client_no: str = data["client_no"]
     client_state.lamport_clock.update(timestamp)
 
     # await asyncio.sleep(0.01)
@@ -181,7 +189,7 @@ async def receive_reply(resource_id: str):
         interested_resource.approvals = 0
         interested_resource.current_state = State.EXECUTING
 
-        text, code = await lock_resource(resource_id, delay_time)
+        text, code = await lock_resource(resource_id, delay_time, client_no)
 
         return text, code
 
@@ -192,7 +200,9 @@ async def receive_reply(resource_id: str):
     )
 
 
-async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
+async def lock_resource(
+    resource_id: str, delay_time: str, client_no: str
+) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         # print(f"client {request.host_url} put lock on {resource_id}")
         async with session.put(
@@ -201,6 +211,7 @@ async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
                 "delay_time": delay_time,
+                "client_no": client_no,
             },
             proxy=PROXY_URL,
         ) as response:
@@ -210,6 +221,9 @@ async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
 
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def revoke_lock(resource_id: str):
+    # print(
+    #     f"client  at {request.host_url} with {request.get_json()['client_no']}"
+    # )
     if client_state.resource_states.get(resource_id) is None:
         return "resource not held", 200
 
@@ -226,6 +240,7 @@ async def revoke_lock(resource_id: str):
                 "origin": request.host_url,
                 "timestamp": client_state.lamport_clock.get_time(),
                 "delay_time": request.get_json()["delay_time"],
+                "client_no": request.get_json()["client_no"],
             },
             proxy=PROXY_URL,
         ) as response:
@@ -244,6 +259,7 @@ async def revoke_lock(resource_id: str):
                         "origin": request.host_url,
                         "timestamp": client_state.lamport_clock.get_time(),
                         "delay_time": request.get_json()["delay_time"],
+                        "client_no": request.get_json()["client_no"],
                     },
                     proxy=PROXY_URL,
                 ) as response:

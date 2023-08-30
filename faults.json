@@ -1,11 +1,19 @@
 [
   {
     "type": "delay",
+    "name": "0",
+    "condition": "True",
+    "metadata": 0
+  },
+  {
+    "type": "delay",
     "name": "0.01",
     "condition": "True",
     "metadata": 0.01
   },
-  { "type": "delay", "name": "0.02",
+  {
+    "type": "delay",
+    "name": "0.02",
     "condition": "True",
     "metadata": 0.02
   },

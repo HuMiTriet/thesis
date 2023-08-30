@@ -13,8 +13,10 @@ def log(resource_id: str):
     data = request.get_json()
     client_url: str = data["client_url"]
     log_type: str = data["type"]
+    print(f"request from {client_url} with type {log_type}")
     delay_time: str = data["delay_time"]
-    key = f"{client_url}-{resource_id}-{delay_time}"
+    client_no: str = data["client_no"]
+    key = f"{client_url}-{client_no}-{delay_time}"
     time: float = data["time"]
 
     if log_type == "start":
@@ -40,6 +42,7 @@ def log(resource_id: str):
                 {
                     "latency": latency,
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 }
             )
 

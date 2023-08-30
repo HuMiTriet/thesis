@@ -77,6 +77,7 @@ def lock(resource_id: str):
     data = request.get_json()
     client_url: str = data["origin"]
     delay_time: str = data["delay_time"]
+    print(f"client {client_url} locked on {resource_id}")
     requests.put(
         f"{LOGGER_URL}{resource_id}/log",
         json={

@@ -6,9 +6,14 @@ Upon completing the implementation of the algorithms mentioned in \ref{chap:algo
 
 However, before delving into Hypothesis, it's worth providing a brief historical overview of fuzzy testing. First introduced in \cite{OG_fuzzy_testing}, researchers used fuzzy testing to bombard Unix utilities like awk, grep, etc., with an abundance of random inputs to identify any instances of system crashes or undefined behavior.
 
-Over time, fuzzy testing evolved and matured, leading to the development of a more advanced technique known as property-based testing, exemplified by \textit{Quickcheck} \cite{quickcheck}. This approach still involved generating random input for the program under test, but instead of merely searching for crashes, it tested whether certain properties or invariants held throughout the runtime. Additionally, once an invariant was violated, it could be shrunk to a minimal failing example, which is the smallest test case that would produce the same behavior.
+Over time, fuzzy testing evolved and matured, leading to the development of a
+more advanced technique known as property-based testing, exemplified by
+\textit{Quickcheck} \cite{quickcheck}. This approach still involved generating
+random input for the program under test, but instead of merely searching for
+crashes, it tested whether certain properties or invariants are held throughout the runtime. Additionally, once an invariant was violated, it could be shrunk to a minimal failing example, which is the smallest test case that would produce the same behavior.
 
-In this project, we used \textit{Hypothesis}, a Python implementation of \textit{Quickcheck}. Hypothesis includes features beyond those of Quickcheck, such as caching previous errors and stateful testing.
+In this project, we used \textit{Hypothesis}, a Python implementation of \textit{Quickcheck}.
+Hypothesis includes features in addition to those of Quickcheck, such as caching previous errors and stateful testing.
 
 \subsubsection{Basic Hypothesis Tests}
 \label{subsubsec:basic_hypothesis_tests}
@@ -47,7 +52,10 @@ def test_one_client_lock_and_delete(
 In the function signature for the test case, as shown in listing
 \ref{code:test_case_signature}, the parameters \textit{resource\_id} and
 \textit{client\_port} are provided by the Hypothesis decorator from listing \ref{code:hypothesis_decorator}. 
-The parameter \textit{setup\_ricart\_agrawala} is a pytest fixture, which prepares the clients, proxy, logger, and resource manager at the start and conclusion of each test. This ensures a clean slate and a test environment unaffected by previous runs.
+The parameter \textit{setup\_ricart\_agrawala} is a pytest fixture, which
+prepares the clients, proxy, logger, and resource manager at the start and kill
+all the processes at the 
+conclusion of each test. This ensures a clean slate and a test environment unaffected by previous runs.
 
 
 \begin{listing}[!ht]
@@ -137,5 +145,9 @@ Each of the rules in listing \ref{code:rule} will be run in an arbitrary order b
   \label{code:invariant}
 \end{listing}
 
-In the example provided in listing \ref{code:invariant}, we have set an invariant named \textit{test\_no\_race\_condition}. This invariant ensures that no race condition ever occurs on the resource manager, as explained in \ref{subsubsec:resource_manager}. The invariant is executed after each rule is applied to verify whether the invariant condition has been violated.
+In the example provided in listing \ref{code:invariant}, we have set an
+invariant named\\ \textit{test\_no\_race\_condition}. This invariant ensures that
+no race condition ever occurs on the resource manager, as explained in
+\ref{subsubsec:resource_manager}. The invariant is executed after each rule is
+applied to verify whether the invariant condition has been violated.
 

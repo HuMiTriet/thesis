@@ -1,3 +1,4 @@
+import asyncio
 from collections import defaultdict
 from enum import Enum
 import os
@@ -19,12 +20,15 @@ class State(Enum):
     EXECUTING = 2
 
 
-@dataclass()
+@dataclass
 class ClientState:
     current_state: defaultdict[str, State] = field(
         default_factory=lambda: defaultdict(lambda: State.DEFAULT)
     )
     delay_time: str | None = None
+    # state_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
+    token_received_event: asyncio.Event = field(default_factory=asyncio.Event)
+    # lock_queue: asyncio.Queue = field(default_factory=asyncio.Queue)
 
     def get_next_client_url(self) -> str | None:
         port_number = sys.argv[5]
