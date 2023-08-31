@@ -39,14 +39,13 @@ class ClientState:
         return self._queued_request[resource_id]
 
     def _get_url_matrix(self) -> list[list[None]]:
-        all_urls_str = os.getenv(
-            "CLIENT_URL",
-            """http://127.0.0.1:5002/ http://127.0.0.1:5003/
-                   http://127.0.0.1:5004/ http://127.0.0.1:5005/
-                   """,
-        )
+        all_urls_str: str
+        with open("client_urls.txt", "r") as file:
+            all_urls_str = file.read()
 
-        # Split the string into a list of URLs
+        if all_urls_str is None:
+            raise RuntimeError("Client url env var is not set")
+
         all_urls = all_urls_str.split()
 
         # Calculate k and create a 2D list of size k x k

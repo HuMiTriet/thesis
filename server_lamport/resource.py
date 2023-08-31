@@ -68,6 +68,7 @@ def lock(resource_id: str):
 
         server_state.resource[resource_id] = True
         data = request.get_json()
+
         requests.put(
             f"{LOGGER_URL}{resource_id}/log",
             json={

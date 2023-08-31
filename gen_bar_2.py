@@ -1,10 +1,9 @@
+import os
 import argparse
 from collections import defaultdict
 import json
 import statistics
-from matplotlib import pprint
 import matplotlib.pyplot as plt
-import os
 
 
 parser = argparse.ArgumentParser(

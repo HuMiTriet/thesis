@@ -9,7 +9,7 @@ import aiohttp
 from . import ClientRequest, client_state
 
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
+TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 
@@ -49,17 +49,11 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             )
         )
 
-    # print(
-    #     f"we are going to compare {resource_queue[0].url} and {request.host_url}"
-    # )
-
-    # print(
-    #     f"client current queue {[resource.url for resource in resource_queue]}"
-    # )
-
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
 
-    delay_time = request.get_json()["delay_time"]
+    data = request.get_json()
+    delay_time = data["delay_time"]
+    client_no = data["client_no"]
 
     async with aiohttp.ClientSession() as session:
         coroutines = []
@@ -72,6 +66,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                     "client_url": request.host_url,
                     "time": time(),
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 timeout=TIMEOUT,
             )
@@ -87,6 +82,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
                 json={
                     "origin": request.host_url,
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -110,6 +106,7 @@ async def resource_status(resource_id: str):
     json_data = request.get_json()
     original_url = json_data["origin"]
     delay_time = json_data["delay_time"]
+    client_no = json_data["client_no"]
 
     client_state.get_request_queue(resource_id).append(
         ClientRequest(
@@ -125,6 +122,7 @@ async def resource_status(resource_id: str):
                     "approve_url": original_url,
                     "origin": request.host_url,
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -148,6 +146,7 @@ async def receive_reply(resource_id: str):
     approve_url = data["approve_url"]
     approver_url = data["origin"]
     delay_time = data["delay_time"]
+    client_no = data["client_no"]
 
     for i in range(len(client_state.get_request_queue(resource_id))):
         current_request: ClientRequest = client_state.get_request_queue(
@@ -170,19 +169,22 @@ async def receive_reply(resource_id: str):
                 == request.host_url
             ):
                 # print(f"HERE CLIENT locking {resource_id}")
-                await lock_resource(resource_id, delay_time)
+                await lock_resource(resource_id, delay_time, client_no)
                 return f"Client locked {resource_id}", 200
 
     return "client did not receive enough approval", 403
 
 
-async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
+async def lock_resource(
+    resource_id: str, delay_time: str, client_no: str
+) -> tuple[str, int]:
     async with aiohttp.ClientSession() as session:
         async with session.put(
             f"{SERVER_URL}{resource_id}/lock",
             json={
                 "origin": request.host_url,
                 "delay_time": delay_time,
+                "client_no": client_no,
             },
             proxy=PROXY_URL,
         ) as response:
@@ -192,7 +194,9 @@ async def lock_resource(resource_id: str, delay_time: str) -> tuple[str, int]:
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 async def delete_request(resource_id: str):
     # resource_queue = client_state.get_request_queue(resource_id)
-    delay_time = request.get_json()["delay_time"]
+    data = request.get_json()
+    delay_time = data["delay_time"]
+    client_no = data["client_no"]
 
     if (
         len(client_state.get_request_queue(resource_id)) != 0
@@ -213,6 +217,7 @@ async def delete_request(resource_id: str):
                 json={
                     "origin": current_request.url,
                     "delay_time": delay_time,
+                    "client_no": client_no,
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,
@@ -226,6 +231,7 @@ async def delete_request(resource_id: str):
                     json={
                         "origin": current_request.url,
                         "delay_time": delay_time,
+                        "client_no": client_no,
                     },
                     proxy=PROXY_URL,
                     timeout=TIMEOUT,
@@ -251,6 +257,7 @@ async def release_resource(resource_id: str):
     data = request.get_json()
     original_url = data["origin"]
     delay_time = data["delay_time"]
+    client_no = data["client_no"]
 
     # Get the resource queue for the specified resource_id
     # resource_queue = client_state.get_request_queue(resource_id)
@@ -271,7 +278,9 @@ async def release_resource(resource_id: str):
                 client_state.get_broadcast_urls(request.host_url)
             ):
                 # print(f"HERE CLIENT locking {resource_id}")
-                resp, status = await lock_resource(resource_id, delay_time)
+                resp, status = await lock_resource(
+                    resource_id, delay_time, client_no
+                )
                 return resp, status
 
             # Try to acquire the resource again
@@ -281,6 +290,7 @@ async def release_resource(resource_id: str):
                     f"{request.host_url}{resource_id}/request",
                     json={
                         "delay_time": delay_time,
+                        "client_no": client_no,
                     },
                     proxy=PROXY_URL,
                     timeout=TIMEOUT,

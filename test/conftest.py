@@ -484,6 +484,39 @@ def setup_ricart_scale(
     kill_process(client_ports_number)
 
 
+@pytest.fixture(scope="function")
+def setup_maekawa_scale(
+    request: pytest.FixtureRequest,
+    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_maekawa_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    num_clients: int = request.param
+
+    client_ports_number: list[int] = list((range(5002, 5002 + num_clients)))
+
+    with open("client_urls.txt", "w") as file:
+        file.write(
+            " ".join(
+                "http://127.0.0.1:" + str(port) + "/"
+                for port in client_ports_number
+            )
+        )
+
+    client_processes: list[Process] = []
+
+    for port in client_ports_number:
+        process = Process(target=client_maekawa_app.run, kwargs={"port": port})
+        client_processes.append(process)
+        process.start()
+
+    yield {"client_ports_number": client_ports_number}
+
+    for process in client_processes:
+        process.terminate()
+
+    kill_process(client_ports_number)
+
+
 @pytest.fixture(scope="session")
 def result_aggregator():
     # Step 1: Create a dictionary to hold test results
@@ -492,5 +525,5 @@ def result_aggregator():
     yield results  # Step 2: Yield the dictionary so tests can modify it
 
     # Step 3: Write the results to a JSON file after all tests are done
-    with open("scalling_ricart.json", "w", encoding="utf-8") as f:
+    with open("scalling_maekawa.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)

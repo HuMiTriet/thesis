@@ -13,11 +13,11 @@ def log(resource_id: str):
     data = request.get_json()
     client_url: str = data["client_url"]
     log_type: str = data["type"]
-    print(f"request from {client_url} with type {log_type}")
     delay_time: str = data["delay_time"]
     client_no: str = data["client_no"]
     key = f"{client_url}-{client_no}-{delay_time}"
     time: float = data["time"]
+    # print(f"request from {client_url} with type {log_type}")
 
     if log_type == "start":
         # redis_connection.set(key, time)
@@ -25,9 +25,9 @@ def log(resource_id: str):
         latency_dict[key] = time
 
     elif log_type == "end":
-        print(f"end {key}")
         # start_time = redis_connection.get(key)
         start_time = latency_dict.get(key)
+        print(f"end {key}")
         if start_time is None:
             print(f"Warning: No start time for key: {key}")
             # Optionally handle this case further, e.g., return an error status
