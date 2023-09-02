@@ -59,6 +59,7 @@ def create_app():
                 case "DELETE":
                     async with session.delete(
                         f"{request.url}",
+                        json=request.json,
                     ) as res:
                         return await res.text(), res.status
 

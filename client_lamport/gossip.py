@@ -233,14 +233,16 @@ async def revoke_lock(resource_id: str):
     ):
         return "resource held but not executing", 200
 
+    data = request.get_json()
     async with aiohttp.ClientSession() as session:
         async with session.delete(
             f"{SERVER_URL}{resource_id}/lock",
             json={
-                "origin": request.host_url,
-                "timestamp": client_state.lamport_clock.get_time(),
-                "delay_time": request.get_json()["delay_time"],
-                "client_no": request.get_json()["client_no"],
+                "type": "end",
+                "client_url": request.host_url,
+                "time": time(),
+                "delay_time": data["delay_time"],
+                "client_no": data["client_no"],
             },
             proxy=PROXY_URL,
         ) as response:

@@ -7,7 +7,7 @@ import aiohttp
 from . import resource_currently_using
 
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "2"))
+TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 
@@ -41,7 +41,6 @@ def register():
 
 @bp.route("/<string:resource_id>/lock", methods=["POST"])
 async def lock(resource_id: str) -> tuple[str, int]:
-
     resource_currently_using.add(resource_id)
 
     try:
@@ -56,7 +55,6 @@ async def lock(resource_id: str) -> tuple[str, int]:
             )
 
         if response.status == 200:
-
             lock_resource(resource_id, request.host_url)
             return (
                 f"""resource {resource_id} is being
@@ -119,7 +117,6 @@ def revoke_lock(resource_id: str):
 # implement stateful client
 @bp.route("/<string:resource_id>/resource_status", methods=["GET"])
 def resource_status(resource_id: str):
-
     print(f"client {request.root_url} being asked {resource_id}")
 
     if resource_id not in resource_currently_using:

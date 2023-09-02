@@ -9,7 +9,7 @@ import aiohttp
 from . import ClientRequest, client_state
 
 
-TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
+TIMEOUT = 100000000000000000000000000000
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 
@@ -50,6 +50,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         )
 
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
+    print(broadcast_urls)
 
     data = request.get_json()
     delay_time = data["delay_time"]
@@ -89,10 +90,12 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             )
             coroutines.append(coroutine)
 
+        print("here before broad")
         try:
             await asyncio.wait_for(
                 asyncio.gather(*coroutines), timeout=TIMEOUT
             )
+            print("after broad")
         except asyncio.TimeoutError:
             # Handle the timeout, e.g., by aborting the request and trying again later
             client_state.get_request_queue(resource_id).pop(0)

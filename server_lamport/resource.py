@@ -67,19 +67,6 @@ def lock(resource_id: str):
             )
 
         server_state.resource[resource_id] = True
-        data = request.get_json()
-
-        requests.put(
-            f"{LOGGER_URL}{resource_id}/log",
-            json={
-                "type": "end",
-                "client_url": data["origin"],
-                "time": time(),
-                "delay_time": data["delay_time"],
-                "client_no": data["client_no"],
-            },
-            timeout=REQUEST_TIMEOUT,
-        )
         # logging.warning(
         #     f"{request.get_json()['origin']} {resource_id}",
         # )
@@ -92,11 +79,25 @@ def lock(resource_id: str):
 # explicitly release a lock on a resource
 @bp.route("/<string:resource_id>/lock", methods=["DELETE"])
 def unlock(resource_id: str):
-    try:
+    if resource_id in server_state.resource.keys():
         server_state.resource[resource_id] = False
+
+        data = request.get_json()
+
+        requests.put(
+            f"{LOGGER_URL}{resource_id}/log",
+            json={
+                "type": "end",
+                "client_url": data["client_url"],
+                "time": time(),
+                "delay_time": data["delay_time"],
+                "client_no": data["client_no"],
+            },
+            timeout=REQUEST_TIMEOUT,
+        )
+
         return f"sucessfully unlocked {resource_id}", 200
-    except KeyError:
-        return "Resource not found", 404
+    return "Resource not found", 404
 
 
 @bp.route("/reset", methods=["POST"])

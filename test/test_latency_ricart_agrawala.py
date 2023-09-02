@@ -1,12 +1,8 @@
-import asyncio
-import signal
-import subprocess
 import json
 import os
 
 import pytest
 import requests
-from .stratergies import RuleBaseInjectibleFault
 
 SERVER_URL: str = os.getenv("SERVER_URL", "http://127.0.0.1:5000/")
 TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
@@ -18,7 +14,7 @@ pytest_plugins = ("asyncio",)
 
 @pytest.mark.asyncio
 async def test_client_with_delay(
-    setup_ricart_agrawala_four_client,
+    # setup_ricart_agrawala_four_client,
     # setup_ricart_agrawala_four_client_and_load_faults,
     # setup_maekawa_four_client_and_load_faults,
     # setup_four_token_and_load_faults,
@@ -68,7 +64,7 @@ async def client_request_with_delay(delay_time: str):
     #     "proxy:create_app()",
     # ]
     # server = subprocess.Popen(command)
-    await asyncio.sleep(2)
+    # await asyncio.sleep(2)
 
     # try:
     client_request(5002, delay_time)  # start A
@@ -76,6 +72,7 @@ async def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5002/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -84,6 +81,7 @@ async def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5003/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -92,6 +90,7 @@ async def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5004/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -100,18 +99,14 @@ async def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5005/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
     resp = requests.get("http://127.0.0.1:3000/stat")
-    # resp = requests.get("http://127.0.0.1:3000/stat_median")
-    # resp = requests.get("http://127.0.0.1:3000/stat_mean")
 
     data = resp.json()
-    # result = {
-    #     "latency": data["latency"],
-    #     "delay_time": data["delay_time"],
-    # }
+    # print(data)
 
     x.extend(data)
 
@@ -127,9 +122,10 @@ def client_request(port: int, delay_time: str):
         f"http://127.0.0.1:{port}/A/request",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
-    requests.post(
-        f"{SERVER_URL}reset",
-    )
+    # requests.post(
+    #     f"{SERVER_URL}reset",
+    # )

@@ -3,9 +3,9 @@ import pytest
 import requests
 
 
-# scalling_clients: list[int] = list(range(4, 5))
-scalling_clients: list[int] = [4]
-TIMEOUT = 10
+# scalling_clients: list[int] = list(range(4, 21))
+scalling_clients: list[int] = [10]
+TIMEOUT = 100000
 
 
 # uuu@pytest.mark.parametrize("setup_ricart_scale", scalling_clients, indirect=True)
@@ -73,5 +73,4 @@ def test_maekawa(setup_maekawa_scale, result_aggregator):
         timeout=TIMEOUT,
     )
 
-    print(resp.json())
     result_aggregator.extend(resp.json())

@@ -493,6 +493,7 @@ def setup_maekawa_scale(
     num_clients: int = request.param
 
     client_ports_number: list[int] = list((range(5002, 5002 + num_clients)))
+    kill_process(client_ports_number)
 
     with open("client_urls.txt", "w") as file:
         file.write(
