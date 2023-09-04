@@ -1,6 +1,7 @@
 import os
 import asyncio
 from time import time
+import requests
 
 from flask import Blueprint, request
 import aiohttp
@@ -50,7 +51,7 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
         )
 
     broadcast_urls = client_state.get_broadcast_urls(request.host_url)
-    print(broadcast_urls)
+    print(f"client {request.host_url} broadcast urls: {broadcast_urls}")
 
     data = request.get_json()
     delay_time = data["delay_time"]
@@ -90,12 +91,12 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             )
             coroutines.append(coroutine)
 
-        print("here before broad")
+        # print("here before broad")
         try:
             await asyncio.wait_for(
                 asyncio.gather(*coroutines), timeout=TIMEOUT
             )
-            print("after broad")
+            # print("after broad")
         except asyncio.TimeoutError:
             # Handle the timeout, e.g., by aborting the request and trying again later
             client_state.get_request_queue(resource_id).pop(0)
@@ -218,9 +219,11 @@ async def delete_request(resource_id: str):
             server_delete_coroutine = session.delete(
                 f"{SERVER_URL}{resource_id}/lock",
                 json={
-                    "origin": current_request.url,
-                    "delay_time": delay_time,
-                    "client_no": client_no,
+                    "type": "end",
+                    "client_url": request.host_url,
+                    "time": time(),
+                    "delay_time": data["delay_time"],
+                    "client_no": data["client_no"],
                 },
                 proxy=PROXY_URL,
                 timeout=TIMEOUT,

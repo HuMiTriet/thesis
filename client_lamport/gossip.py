@@ -6,6 +6,7 @@ from time import time
 from flask import Blueprint, request
 
 import aiohttp
+import requests
 
 from . import ResourceState, State, client_state
 
@@ -43,25 +44,24 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             200,
         )
 
+    requests.put(
+        f"{LOGGER_URL}{resource_id}/log",
+        json={
+            "type": "start",
+            "client_url": request.host_url,
+            "time": time(),
+            "delay_time": delay_time,
+            "client_no": client_no,
+        },
+        timeout=TIMEOUT,
+    )
+
     async with aiohttp.ClientSession() as session:
         client_state.resource_states[resource_id] = ResourceState(
             current_state=State.REQUESTING,
             approvals=0,
         )
         coroutines = []
-        coroutines.append(
-            session.put(
-                f"{LOGGER_URL}{resource_id}/log",
-                json={
-                    "type": "start",
-                    "client_url": request.host_url,
-                    "time": time(),
-                    "delay_time": delay_time,
-                    "client_no": client_no,
-                },
-                timeout=TIMEOUT,
-            )
-        )
 
         for target_url in CLIENT_URL.split():
             if target_url != request.host_url:

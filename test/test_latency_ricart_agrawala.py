@@ -14,7 +14,7 @@ pytest_plugins = ("asyncio",)
 
 @pytest.mark.asyncio
 async def test_client_with_delay(
-    # setup_ricart_agrawala_four_client,
+    setup_ricart_agrawala_four_client,
     # setup_ricart_agrawala_four_client_and_load_faults,
     # setup_maekawa_four_client_and_load_faults,
     # setup_four_token_and_load_faults,

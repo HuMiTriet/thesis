@@ -53,6 +53,7 @@ def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5002/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -61,6 +62,7 @@ def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5003/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -69,6 +71,7 @@ def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5004/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -77,6 +80,7 @@ def client_request_with_delay(delay_time: str):
         "http://127.0.0.1:5005/A/lock",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
@@ -89,6 +93,7 @@ def client_request_with_delay(delay_time: str):
     #     "delay_time": data["delay_time"],
     # }
 
+    # print(data)
     x.extend(data)
 
 
@@ -97,9 +102,10 @@ def client_request(port: int, delay_time: str):
         f"http://127.0.0.1:{port}/A/request",
         json={
             "delay_time": delay_time,
+            "client_no": "4",
         },
     )
 
-    requests.post(
-        f"{SERVER_URL}reset",
-    )
+    # requests.post(
+    #     f"{SERVER_URL}reset",
+    # )

@@ -526,5 +526,5 @@ def result_aggregator():
     yield results  # Step 2: Yield the dictionary so tests can modify it
 
     # Step 3: Write the results to a JSON file after all tests are done
-    with open("scalling_maekawa.json", "w", encoding="utf-8") as f:
+    with open("scalling_ricart.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)

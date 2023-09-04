@@ -1,1 +1,52 @@
-[]
+[
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.05081820487976074
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.059511423110961914
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.059560537338256836
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.05388283729553223
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.06306695938110352
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.06415295600891113
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.05481529235839844
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.06379294395446777
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.06461167335510254
+    },
+    {
+        "client_no": "10",
+        "delay_time": "0.0",
+        "latency": 0.060054779052734375
+    }
+]

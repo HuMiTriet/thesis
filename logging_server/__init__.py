@@ -17,6 +17,7 @@ def log(resource_id: str):
     client_no: str = data["client_no"]
     key = f"{client_url}-{client_no}-{delay_time}"
     time: float = data["time"]
+    # print(f"from logger time {time}")
     # print(f"request from {client_url} with type {log_type}")
 
     if log_type == "start":
