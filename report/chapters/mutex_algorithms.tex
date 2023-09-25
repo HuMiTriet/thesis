@@ -100,7 +100,10 @@ every time an event has occurred.
 
 \subsection{How the algorithm works}
 
-If a process seeks to enter a critical section, it first sends a Request message to all other processes in the system. The recipient processes, under certain conditions, will send back a Reply. Once the initiating process has received enough Replies, it will proceed to enter the critical section.
+If a process seeks to enter a critical section, it first sends a Request message
+to all other processes in the system. The recipient processes, under certain
+conditions, will send back a Reply. Once the initiating process has received
+enough Replies, it will proceed to enter the critical section.
 
 In Ricart Agrawala, a process that has received a Request from another process will only 
 reply in either:

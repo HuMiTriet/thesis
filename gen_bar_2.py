@@ -4,6 +4,7 @@ from collections import defaultdict
 import json
 import statistics
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 parser = argparse.ArgumentParser(
@@ -46,6 +47,12 @@ if PARSED_DATA is not None:
     labels = list(average_latency_per_group.keys())
     values = list(average_latency_per_group.values())
     std_devs = list(std_dev_latency_per_group.values())
+    np_labels = np.array(list(map(float, labels)))
+    np_values = np.array(values)
+
+    # Calculate the correlation coefficient
+    corr_coefficient = np.corrcoef(np_labels, np_values)[0, 1]
+    coeff_determination = corr_coefficient**2
 
     plt.figure(figsize=(14, 9))
     plt.bar(
@@ -68,6 +75,15 @@ if PARSED_DATA is not None:
     FONTSIZE = 12
     plt.tick_params(axis="both", which="major", labelsize=FONTSIZE)
     plt.xticks(rotation=45)
+    plt.text(
+        0.05,
+        0.95,
+        f"Coefficient of Correlation: {corr_coefficient:.2f}\nCoefficient of Determination: {coeff_determination:.2f}",
+        horizontalalignment="left",
+        verticalalignment="center",
+        transform=plt.gca().transAxes,
+        fontsize=12,
+    )
     # plt.show()
     plt.savefig(f"{algorithm_name}.svg", format="svg")
     # plt.savefig("token_ring.svg", format="svg")

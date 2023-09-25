@@ -30,7 +30,7 @@ def plot_scatter_and_slope(ax, x, y, label, color):
     ax.plot(
         x,
         slope * np.array(x) + intercept,
-        label=f"{label} (Slope): {slope:.2f}",
+        label=f"{label} (Slope): {slope:.2f}\n bias: {intercept:.2f}",
         color=color,
         linestyle="--",
     )
@@ -87,7 +87,7 @@ def main():
     FONTSIZE = 12
     plt.tick_params(axis="both", which="major", labelsize=FONTSIZE)
 
-    plt.savefig("all_scater.svg", format="svg")
+    plt.savefig("all_scatter.svg", format="svg")
     plt.show()
 
 

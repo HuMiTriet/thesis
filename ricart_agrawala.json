@@ -1,1 +1,4202 @@
-[{"client_no": "4", "delay_time": "0.0", "latency": 0.04881548881530762}, {"client_no": "4", "delay_time": "0.0", "latency": 0.06285858154296875}, {"client_no": "4", "delay_time": "0.0", "latency": 0.05778861045837402}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03766322135925293}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09818243980407715}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10309386253356934}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09827041625976562}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0987081527709961}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15163159370422363}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15248918533325195}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15024423599243164}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15276360511779785}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20157527923583984}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20244479179382324}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20194673538208008}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20202088356018066}, {"client_no": "4", "delay_time": "0.04", "latency": 0.251345157623291}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2517518997192383}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2545166015625}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25212812423706055}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30388855934143066}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30165600776672363}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30352210998535156}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30539703369140625}, {"client_no": "4", "delay_time": "0.06", "latency": 0.354738712310791}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3531332015991211}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35063886642456055}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35106444358825684}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4004640579223633}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40311503410339355}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40208005905151367}, {"client_no": "4", "delay_time": "0.07", "latency": 0.403989315032959}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4529109001159668}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45162415504455566}, {"client_no": "4", "delay_time": "0.08", "latency": 0.453566312789917}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4543576240539551}, {"client_no": "4", "delay_time": "0.09", "latency": 0.503371000289917}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5038766860961914}, {"client_no": "4", "delay_time": "0.09", "latency": 0.4987664222717285}, {"client_no": "4", "delay_time": "0.09", "latency": 0.501427412033081}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5497314929962158}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5528371334075928}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5535249710083008}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5525064468383789}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6023776531219482}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6010928153991699}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6008603572845459}, {"client_no": "4", "delay_time": "0.11", "latency": 0.601792573928833}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6516604423522949}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6539449691772461}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6534276008605957}, {"client_no": "4", "delay_time": "0.12", "latency": 0.653963565826416}, {"client_no": "4", "delay_time": "0.13", "latency": 0.703453540802002}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7009201049804688}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7026364803314209}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7033157348632812}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7517440319061279}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7543621063232422}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7520992755889893}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7527332305908203}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8032081127166748}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8006246089935303}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8011066913604736}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8032727241516113}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8530139923095703}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8504555225372314}, {"client_no": "4", "delay_time": "0.16", "latency": 0.850940465927124}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8543493747711182}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9032764434814453}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9037446975708008}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9025194644927979}, {"client_no": "4", "delay_time": "0.17", "latency": 0.900076150894165}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9536447525024414}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9521880149841309}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9536533355712891}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9546325206756592}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0045456886291504}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0026118755340576}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0063738822937012}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0032198429107666}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0554509162902832}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0513238906860352}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0527687072753906}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0532853603363037}, {"client_no": "4", "delay_time": "0.0", "latency": 0.04732489585876465}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03748655319213867}, {"client_no": "4", "delay_time": "0.0", "latency": 0.026932477951049805}, {"client_no": "4", "delay_time": "0.0", "latency": 0.025209903717041016}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09524416923522949}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09865093231201172}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09847259521484375}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09749007225036621}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15520310401916504}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1514420509338379}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15269207954406738}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15085697174072266}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2021493911743164}, {"client_no": "4", "delay_time": "0.03", "latency": 0.19982552528381348}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2022416591644287}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20138311386108398}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25222277641296387}, {"client_no": "4", "delay_time": "0.04", "latency": 0.24979734420776367}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2531437873840332}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2502768039703369}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3016965389251709}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30101490020751953}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30240607261657715}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3019595146179199}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3509857654571533}, {"client_no": "4", "delay_time": "0.06", "latency": 0.351712703704834}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3521077632904053}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3519587516784668}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4027979373931885}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4021580219268799}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40087056159973145}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40357184410095215}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4543898105621338}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45401811599731445}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45269060134887695}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45171117782592773}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5016636848449707}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5032556056976318}, {"client_no": "4", "delay_time": "0.09", "latency": 0.502551794052124}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5014512538909912}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5533797740936279}, {"client_no": "4", "delay_time": "0.1", "latency": 0.554396390914917}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5533764362335205}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5546631813049316}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6025893688201904}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6013250350952148}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6033082008361816}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6047468185424805}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6508424282073975}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6509802341461182}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6527681350708008}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6543610095977783}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7031126022338867}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7042279243469238}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7024147510528564}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7004878520965576}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7543926239013672}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7523765563964844}, {"client_no": "4", "delay_time": "0.14", "latency": 0.750734806060791}, {"client_no": "4", "delay_time": "0.14", "latency": 0.750206708908081}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8017876148223877}, {"client_no": "4", "delay_time": "0.15", "latency": 0.802515983581543}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8004422187805176}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8010210990905762}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8546953201293945}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8518335819244385}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8539865016937256}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8543567657470703}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9033927917480469}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9004042148590088}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9031188488006592}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9021656513214111}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9511289596557617}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9525158405303955}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9505174160003662}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9509909152984619}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0041089057922363}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0024545192718506}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0030198097229004}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0007829666137695}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0529181957244873}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0539326667785645}, {"client_no": "4", "delay_time": "0.2", "latency": 1.053100347518921}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0507616996765137}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03898763656616211}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03289604187011719}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03578996658325195}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03489851951599121}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09859299659729004}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10077810287475586}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09839081764221191}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10114669799804688}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15173768997192383}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1512296199798584}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15223193168640137}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15068531036376953}, {"client_no": "4", "delay_time": "0.03", "latency": 0.19953489303588867}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20298099517822266}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2030773162841797}, {"client_no": "4", "delay_time": "0.03", "latency": 0.19954442977905273}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25093698501586914}, {"client_no": "4", "delay_time": "0.04", "latency": 0.24895405769348145}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2521321773529053}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25368762016296387}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3037276268005371}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30302858352661133}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3044731616973877}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3019735813140869}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3499758243560791}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35174560546875}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3525269031524658}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3524012565612793}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40210747718811035}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40117430686950684}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4017624855041504}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40198540687561035}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45226049423217773}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4553647041320801}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45442795753479004}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45029425621032715}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5021638870239258}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5013635158538818}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5005373954772949}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5031540393829346}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5521013736724854}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5523483753204346}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5516774654388428}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5537114143371582}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6016013622283936}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6016116142272949}, {"client_no": "4", "delay_time": "0.11", "latency": 0.603729248046875}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6030757427215576}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6540043354034424}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6555826663970947}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6550869941711426}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6535313129425049}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7029294967651367}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7029790878295898}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7036116123199463}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7045810222625732}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7517058849334717}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7536613941192627}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7547800540924072}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7513830661773682}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8083763122558594}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8022036552429199}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8036179542541504}, {"client_no": "4", "delay_time": "0.15", "latency": 0.803635835647583}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8535141944885254}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8521974086761475}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8533289432525635}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8511407375335693}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9037988185882568}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9026572704315186}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9027836322784424}, {"client_no": "4", "delay_time": "0.17", "latency": 0.904465913772583}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9536526203155518}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9540562629699707}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9546291828155518}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9554541110992432}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0019736289978027}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0035839080810547}, {"client_no": "4", "delay_time": "0.19", "latency": 1.004173755645752}, {"client_no": "4", "delay_time": "0.19", "latency": 1.004418134689331}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0538949966430664}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0538134574890137}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0519766807556152}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0534613132476807}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03767657279968262}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027114152908325195}, {"client_no": "4", "delay_time": "0.0", "latency": 0.026005268096923828}, {"client_no": "4", "delay_time": "0.0", "latency": 0.030933380126953125}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0982050895690918}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09968709945678711}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10146331787109375}, {"client_no": "4", "delay_time": "0.01", "latency": 0.100433349609375}, {"client_no": "4", "delay_time": "0.02", "latency": 0.14971518516540527}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15038251876831055}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1530134677886963}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15166282653808594}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20266199111938477}, {"client_no": "4", "delay_time": "0.03", "latency": 0.201524019241333}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2012171745300293}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20004558563232422}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25249719619750977}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2504262924194336}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25086045265197754}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25133776664733887}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3035008907318115}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3030049800872803}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30174970626831055}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30353856086730957}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35057544708251953}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35308027267456055}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3517725467681885}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3525664806365967}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40238237380981445}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4029242992401123}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4038236141204834}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40361833572387695}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45017337799072266}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45403552055358887}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45382046699523926}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45088624954223633}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5012578964233398}, {"client_no": "4", "delay_time": "0.09", "latency": 0.502833366394043}, {"client_no": "4", "delay_time": "0.09", "latency": 0.502805233001709}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5055806636810303}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5516855716705322}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5526158809661865}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5531048774719238}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5526654720306396}, {"client_no": "4", "delay_time": "0.11", "latency": 0.600600004196167}, {"client_no": "4", "delay_time": "0.11", "latency": 0.604205846786499}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6039478778839111}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6058213710784912}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6532790660858154}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6545534133911133}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6520030498504639}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6541357040405273}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7030227184295654}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7030782699584961}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7045466899871826}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7053816318511963}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7523667812347412}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7519021034240723}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7530314922332764}, {"client_no": "4", "delay_time": "0.14", "latency": 0.752723217010498}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8061027526855469}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8033969402313232}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8092172145843506}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8039615154266357}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8516273498535156}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8538544178009033}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8514909744262695}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8574144840240479}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9019536972045898}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9033260345458984}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9047610759735107}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9023473262786865}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9498429298400879}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9511377811431885}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9531614780426025}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9506571292877197}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0001568794250488}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0032424926757812}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0020513534545898}, {"client_no": "4", "delay_time": "0.19", "latency": 1.003781795501709}, {"client_no": "4", "delay_time": "0.2", "latency": 1.054638147354126}, {"client_no": "4", "delay_time": "0.2", "latency": 1.053753137588501}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0549814701080322}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0523159503936768}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03838014602661133}, {"client_no": "4", "delay_time": "0.0", "latency": 0.029093503952026367}, {"client_no": "4", "delay_time": "0.0", "latency": 0.02597188949584961}, {"client_no": "4", "delay_time": "0.0", "latency": 0.02604842185974121}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0963892936706543}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09785962104797363}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10070085525512695}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09788370132446289}, {"client_no": "4", "delay_time": "0.02", "latency": 0.14976882934570312}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15306615829467773}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1534128189086914}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1512458324432373}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20264029502868652}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20345640182495117}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20393085479736328}, {"client_no": "4", "delay_time": "0.03", "latency": 0.1996016502380371}, {"client_no": "4", "delay_time": "0.04", "latency": 0.251079797744751}, {"client_no": "4", "delay_time": "0.04", "latency": 0.24892783164978027}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2535743713378906}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2515444755554199}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30356454849243164}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30487537384033203}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30359721183776855}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30129337310791016}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3504343032836914}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3506028652191162}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35376501083374023}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3552703857421875}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40188074111938477}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4035658836364746}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40276384353637695}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4037470817565918}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4528465270996094}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45351457595825195}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45407819747924805}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4511749744415283}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5017774105072021}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5034835338592529}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5024740695953369}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5018911361694336}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5535321235656738}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5550441741943359}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5503654479980469}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5528552532196045}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6031816005706787}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6033873558044434}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6014811992645264}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6028323173522949}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6513612270355225}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6520416736602783}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6529824733734131}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6554222106933594}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7011120319366455}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7054543495178223}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7036221027374268}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7053329944610596}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7550010681152344}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7518417835235596}, {"client_no": "4", "delay_time": "0.14", "latency": 0.752324104309082}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7525112628936768}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8026952743530273}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8034265041351318}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8037583827972412}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8024511337280273}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8520183563232422}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8514382839202881}, {"client_no": "4", "delay_time": "0.16", "latency": 0.852959156036377}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8540670871734619}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9027776718139648}, {"client_no": "4", "delay_time": "0.17", "latency": 0.901526689529419}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9045350551605225}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9011659622192383}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9528007507324219}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9527468681335449}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9993765354156494}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9561569690704346}, {"client_no": "4", "delay_time": "0.19", "latency": 1.002345085144043}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0025134086608887}, {"client_no": "4", "delay_time": "0.19", "latency": 1.001657247543335}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0062451362609863}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0553410053253174}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0532331466674805}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0526914596557617}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0539464950561523}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03877758979797363}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03687644004821777}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027595996856689453}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03952217102050781}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10060453414916992}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09991908073425293}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09791445732116699}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09772324562072754}, {"client_no": "4", "delay_time": "0.02", "latency": 0.14937591552734375}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15095853805541992}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15160393714904785}, {"client_no": "4", "delay_time": "0.02", "latency": 0.19808292388916016}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20190191268920898}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20133614540100098}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20047616958618164}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20389819145202637}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25017833709716797}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2512247562408447}, {"client_no": "4", "delay_time": "0.04", "latency": 0.24771356582641602}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2531583309173584}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30158281326293945}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3018183708190918}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3012387752532959}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30144381523132324}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3517899513244629}, {"client_no": "4", "delay_time": "0.06", "latency": 0.396930456161499}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3518099784851074}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35242462158203125}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4484586715698242}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4042520523071289}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40496063232421875}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4005758762359619}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4535074234008789}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45421671867370605}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45207691192626953}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45150136947631836}, {"client_no": "4", "delay_time": "0.09", "latency": 0.49690985679626465}, {"client_no": "4", "delay_time": "0.09", "latency": 0.501349687576294}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5018515586853027}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5015125274658203}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5530338287353516}, {"client_no": "4", "delay_time": "0.1", "latency": 0.553297758102417}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5533003807067871}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5523924827575684}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6018223762512207}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6031737327575684}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6021616458892822}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6022298336029053}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6548326015472412}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6503298282623291}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6508970260620117}, {"client_no": "4", "delay_time": "0.12", "latency": 0.655146598815918}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7032778263092041}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7037088871002197}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7037136554718018}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7017743587493896}, {"client_no": "4", "delay_time": "0.14", "latency": 0.75240159034729}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7534277439117432}, {"client_no": "4", "delay_time": "0.14", "latency": 0.751227617263794}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7530171871185303}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8036627769470215}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8012204170227051}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8016178607940674}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8045015335083008}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8520302772521973}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8536624908447266}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8527975082397461}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8532371520996094}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9026625156402588}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9012410640716553}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9027822017669678}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9064908027648926}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9550871849060059}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9525082111358643}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9531784057617188}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9537293910980225}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0037827491760254}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0041437149047852}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0020029544830322}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0041484832763672}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0522470474243164}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0543653964996338}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0535342693328857}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0544097423553467}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03738856315612793}, {"client_no": "4", "delay_time": "0.0", "latency": 0.02620530128479004}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027280330657958984}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027482032775878906}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10835552215576172}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09952020645141602}, {"client_no": "4", "delay_time": "0.01", "latency": 0.1004328727722168}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09932494163513184}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1500225067138672}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15397047996520996}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15343713760375977}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1507573127746582}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20217180252075195}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20184326171875}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20378756523132324}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20215153694152832}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2515907287597656}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25193119049072266}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25255465507507324}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25252771377563477}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30272841453552246}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30140066146850586}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3030073642730713}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30276036262512207}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35239648818969727}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35164594650268555}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3511219024658203}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35330796241760254}, {"client_no": "4", "delay_time": "0.07", "latency": 0.3993692398071289}, {"client_no": "4", "delay_time": "0.07", "latency": 0.39990663528442383}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4019284248352051}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40475010871887207}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45168352127075195}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45337510108947754}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4560203552246094}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4524378776550293}, {"client_no": "4", "delay_time": "0.09", "latency": 0.503178596496582}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5039911270141602}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5008141994476318}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5041027069091797}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5539035797119141}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5541973114013672}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5555384159088135}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5514194965362549}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6042163372039795}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6014730930328369}, {"client_no": "4", "delay_time": "0.11", "latency": 0.601323127746582}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6007444858551025}, {"client_no": "4", "delay_time": "0.12", "latency": 0.654883623123169}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6542189121246338}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6546218395233154}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6534867286682129}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7012877464294434}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7023184299468994}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7022273540496826}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7040297985076904}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7531888484954834}, {"client_no": "4", "delay_time": "0.14", "latency": 0.753972053527832}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7584171295166016}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7541778087615967}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8047821521759033}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8047237396240234}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8029055595397949}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8045761585235596}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8535282611846924}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8517589569091797}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8529291152954102}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8513703346252441}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9031345844268799}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9041953086853027}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9022130966186523}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9030425548553467}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9521880149841309}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9531404972076416}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9529201984405518}, {"client_no": "4", "delay_time": "0.18", "latency": 0.955756425857544}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0047950744628906}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0053308010101318}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0026686191558838}, {"client_no": "4", "delay_time": "0.19", "latency": 1.003659725189209}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0530433654785156}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0528666973114014}, {"client_no": "4", "delay_time": "0.2", "latency": 1.05470871925354}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0517346858978271}, {"client_no": "4", "delay_time": "0.0", "latency": 0.045287132263183594}, {"client_no": "4", "delay_time": "0.0", "latency": 0.04846048355102539}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03851461410522461}, {"client_no": "4", "delay_time": "0.0", "latency": 0.0344696044921875}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09462618827819824}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09850907325744629}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10120725631713867}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09978842735290527}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15224838256835938}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15140485763549805}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15514302253723145}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1531980037689209}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20351386070251465}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20508360862731934}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20205307006835938}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20222830772399902}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2511746883392334}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2504582405090332}, {"client_no": "4", "delay_time": "0.04", "latency": 0.251314640045166}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2495415210723877}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3029489517211914}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3004312515258789}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30284857749938965}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3016641139984131}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35154151916503906}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35054707527160645}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35096001625061035}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35172510147094727}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40134477615356445}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4066333770751953}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4007985591888428}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40349245071411133}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4537932872772217}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4558296203613281}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45171093940734863}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4522531032562256}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5016663074493408}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5038013458251953}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5033140182495117}, {"client_no": "4", "delay_time": "0.09", "latency": 0.502117395401001}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5545375347137451}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5520815849304199}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5512349605560303}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5498800277709961}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6045358180999756}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6042380332946777}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6012494564056396}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6008801460266113}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6522533893585205}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6531717777252197}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6547517776489258}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6543173789978027}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7045395374298096}, {"client_no": "4", "delay_time": "0.13", "latency": 0.703984260559082}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7024013996124268}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7034211158752441}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7526586055755615}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7525155544281006}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7523410320281982}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7538087368011475}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8043060302734375}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8036332130432129}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8021018505096436}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8028862476348877}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8537299633026123}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8541219234466553}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8513169288635254}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8566386699676514}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9067206382751465}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9023046493530273}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9050014019012451}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9059221744537354}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9531314373016357}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9536228179931641}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9519391059875488}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9533534049987793}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0033924579620361}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0039994716644287}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0048480033874512}, {"client_no": "4", "delay_time": "0.19", "latency": 1.003171443939209}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0543458461761475}, {"client_no": "4", "delay_time": "0.2", "latency": 1.054264783859253}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0555086135864258}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0548315048217773}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03548455238342285}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027911901473999023}, {"client_no": "4", "delay_time": "0.0", "latency": 0.026808738708496094}, {"client_no": "4", "delay_time": "0.0", "latency": 0.027136802673339844}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09540295600891113}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09839248657226562}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09856486320495605}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0993959903717041}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1511671543121338}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1523449420928955}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1514279842376709}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1527259349822998}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20078229904174805}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20127105712890625}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20204377174377441}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2035820484161377}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25232839584350586}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2529022693634033}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25165772438049316}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2495877742767334}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3023397922515869}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3016667366027832}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3035144805908203}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3002595901489258}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35278749465942383}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35430049896240234}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3546786308288574}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3523283004760742}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40165042877197266}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40212321281433105}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4025716781616211}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4015498161315918}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4520683288574219}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4547886848449707}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4513843059539795}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45324063301086426}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5016539096832275}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5007138252258301}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5035800933837891}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5028271675109863}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5502922534942627}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5526072978973389}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5535235404968262}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5533108711242676}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6033153533935547}, {"client_no": "4", "delay_time": "0.11", "latency": 0.602550745010376}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6014049053192139}, {"client_no": "4", "delay_time": "0.11", "latency": 0.602592945098877}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6521837711334229}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6534912586212158}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6534814834594727}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6535336971282959}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7048604488372803}, {"client_no": "4", "delay_time": "0.13", "latency": 0.70284104347229}, {"client_no": "4", "delay_time": "0.13", "latency": 0.704416036605835}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7024366855621338}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7548220157623291}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7530310153961182}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7549107074737549}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7549021244049072}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8032214641571045}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8037147521972656}, {"client_no": "4", "delay_time": "0.15", "latency": 0.7998907566070557}, {"client_no": "4", "delay_time": "0.15", "latency": 0.803699254989624}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8510396480560303}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8534116744995117}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8540019989013672}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8534150123596191}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9040334224700928}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9046518802642822}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9009454250335693}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9023773670196533}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9518477916717529}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9533312320709229}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9530589580535889}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9534800052642822}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0055079460144043}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0016543865203857}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0009276866912842}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0044605731964111}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0538303852081299}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0526082515716553}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0522394180297852}, {"client_no": "4", "delay_time": "0.2", "latency": 1.053884506225586}, {"client_no": "4", "delay_time": "0.0", "latency": 0.04993605613708496}, {"client_no": "4", "delay_time": "0.0", "latency": 0.03485107421875}, {"client_no": "4", "delay_time": "0.0", "latency": 0.023610353469848633}, {"client_no": "4", "delay_time": "0.0", "latency": 0.025872230529785156}, {"client_no": "4", "delay_time": "0.01", "latency": 0.09496569633483887}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0991830825805664}, {"client_no": "4", "delay_time": "0.01", "latency": 0.10036945343017578}, {"client_no": "4", "delay_time": "0.01", "latency": 0.0988914966583252}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15167999267578125}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15130901336669922}, {"client_no": "4", "delay_time": "0.02", "latency": 0.1509840488433838}, {"client_no": "4", "delay_time": "0.02", "latency": 0.15314936637878418}, {"client_no": "4", "delay_time": "0.03", "latency": 0.19972014427185059}, {"client_no": "4", "delay_time": "0.03", "latency": 0.2029428482055664}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20247411727905273}, {"client_no": "4", "delay_time": "0.03", "latency": 0.20267844200134277}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2541041374206543}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2520277500152588}, {"client_no": "4", "delay_time": "0.04", "latency": 0.2527618408203125}, {"client_no": "4", "delay_time": "0.04", "latency": 0.25098180770874023}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3023338317871094}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3011820316314697}, {"client_no": "4", "delay_time": "0.05", "latency": 0.3022022247314453}, {"client_no": "4", "delay_time": "0.05", "latency": 0.30417799949645996}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3540194034576416}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3497650623321533}, {"client_no": "4", "delay_time": "0.06", "latency": 0.3524336814880371}, {"client_no": "4", "delay_time": "0.06", "latency": 0.35262012481689453}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40511512756347656}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4051516056060791}, {"client_no": "4", "delay_time": "0.07", "latency": 0.4030938148498535}, {"client_no": "4", "delay_time": "0.07", "latency": 0.40368103981018066}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4531588554382324}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4542388916015625}, {"client_no": "4", "delay_time": "0.08", "latency": 0.4527101516723633}, {"client_no": "4", "delay_time": "0.08", "latency": 0.45320796966552734}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5042333602905273}, {"client_no": "4", "delay_time": "0.09", "latency": 0.502932071685791}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5041849613189697}, {"client_no": "4", "delay_time": "0.09", "latency": 0.5033128261566162}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5522058010101318}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5549566745758057}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5514645576477051}, {"client_no": "4", "delay_time": "0.1", "latency": 0.5529463291168213}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6019253730773926}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6036331653594971}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6020104885101318}, {"client_no": "4", "delay_time": "0.11", "latency": 0.6018664836883545}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6552402973175049}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6552562713623047}, {"client_no": "4", "delay_time": "0.12", "latency": 0.6538834571838379}, {"client_no": "4", "delay_time": "0.12", "latency": 0.651336669921875}, {"client_no": "4", "delay_time": "0.13", "latency": 0.702648401260376}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7040205001831055}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7035460472106934}, {"client_no": "4", "delay_time": "0.13", "latency": 0.7035057544708252}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7526464462280273}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7548003196716309}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7534804344177246}, {"client_no": "4", "delay_time": "0.14", "latency": 0.7548477649688721}, {"client_no": "4", "delay_time": "0.15", "latency": 0.801257848739624}, {"client_no": "4", "delay_time": "0.15", "latency": 0.803321123123169}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8026676177978516}, {"client_no": "4", "delay_time": "0.15", "latency": 0.8042306900024414}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8527059555053711}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8527464866638184}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8544480800628662}, {"client_no": "4", "delay_time": "0.16", "latency": 0.8551383018493652}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9067153930664062}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9012143611907959}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9034066200256348}, {"client_no": "4", "delay_time": "0.17", "latency": 0.9045116901397705}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9504992961883545}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9544930458068848}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9535226821899414}, {"client_no": "4", "delay_time": "0.18", "latency": 0.9526665210723877}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0022306442260742}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0063061714172363}, {"client_no": "4", "delay_time": "0.19", "latency": 1.0044033527374268}, {"client_no": "4", "delay_time": "0.19", "latency": 1.003230094909668}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0532660484313965}, {"client_no": "4", "delay_time": "0.2", "latency": 1.054321527481079}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0529329776763916}, {"client_no": "4", "delay_time": "0.2", "latency": 1.0543701648712158}]
+[
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04881548881530762
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.06285858154296875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.05778861045837402
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03766322135925293
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09818243980407715
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10309386253356934
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09827041625976562
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0987081527709961
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15163159370422363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15248918533325195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15024423599243164
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15276360511779785
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20157527923583984
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20244479179382324
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20194673538208008
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20202088356018066
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.251345157623291
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2517518997192383
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2545166015625
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25212812423706055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30388855934143066
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30165600776672363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30352210998535156
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30539703369140625
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.354738712310791
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3531332015991211
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35063886642456055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35106444358825684
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4004640579223633
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40311503410339355
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40208005905151367
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.403989315032959
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4529109001159668
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45162415504455566
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.453566312789917
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4543576240539551
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.503371000289917
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5038766860961914
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.4987664222717285
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.501427412033081
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5497314929962158
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5528371334075928
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5535249710083008
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5525064468383789
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6023776531219482
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6010928153991699
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6008603572845459
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.601792573928833
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6516604423522949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6539449691772461
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6534276008605957
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.653963565826416
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.703453540802002
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7009201049804688
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7026364803314209
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7033157348632812
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7517440319061279
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7543621063232422
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7520992755889893
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7527332305908203
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8032081127166748
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8006246089935303
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8011066913604736
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8032727241516113
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8530139923095703
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8504555225372314
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.850940465927124
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8543493747711182
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9032764434814453
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9037446975708008
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9025194644927979
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.900076150894165
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9536447525024414
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9521880149841309
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9536533355712891
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9546325206756592
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0045456886291504
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0026118755340576
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0063738822937012
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0032198429107666
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0554509162902832
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0513238906860352
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0527687072753906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0532853603363037
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04732489585876465
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03748655319213867
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.026932477951049805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.025209903717041016
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09524416923522949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09865093231201172
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09847259521484375
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09749007225036621
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15520310401916504
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1514420509338379
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15269207954406738
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15085697174072266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2021493911743164
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.19982552528381348
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2022416591644287
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20138311386108398
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25222277641296387
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.24979734420776367
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2531437873840332
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2502768039703369
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3016965389251709
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30101490020751953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30240607261657715
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3019595146179199
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3509857654571533
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.351712703704834
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3521077632904053
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3519587516784668
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4027979373931885
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4021580219268799
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40087056159973145
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40357184410095215
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4543898105621338
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45401811599731445
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45269060134887695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45171117782592773
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5016636848449707
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5032556056976318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.502551794052124
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5014512538909912
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5533797740936279
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.554396390914917
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5533764362335205
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5546631813049316
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6025893688201904
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6013250350952148
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6033082008361816
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6047468185424805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6508424282073975
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6509802341461182
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6527681350708008
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6543610095977783
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7031126022338867
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7042279243469238
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7024147510528564
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7004878520965576
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7543926239013672
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7523765563964844
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.750734806060791
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.750206708908081
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8017876148223877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.802515983581543
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8004422187805176
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8010210990905762
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8546953201293945
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8518335819244385
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8539865016937256
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8543567657470703
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9033927917480469
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9004042148590088
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9031188488006592
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9021656513214111
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9511289596557617
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9525158405303955
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9505174160003662
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9509909152984619
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0041089057922363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0024545192718506
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0030198097229004
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0007829666137695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0529181957244873
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0539326667785645
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.053100347518921
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0507616996765137
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03898763656616211
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03289604187011719
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03578996658325195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03489851951599121
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09859299659729004
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10077810287475586
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09839081764221191
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10114669799804688
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15173768997192383
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1512296199798584
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15223193168640137
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15068531036376953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.19953489303588867
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20298099517822266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2030773162841797
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.19954442977905273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25093698501586914
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.24895405769348145
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2521321773529053
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25368762016296387
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3037276268005371
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30302858352661133
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3044731616973877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3019735813140869
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3499758243560791
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35174560546875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3525269031524658
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3524012565612793
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40210747718811035
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40117430686950684
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4017624855041504
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40198540687561035
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45226049423217773
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4553647041320801
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45442795753479004
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45029425621032715
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5021638870239258
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5013635158538818
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5005373954772949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5031540393829346
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5521013736724854
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5523483753204346
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5516774654388428
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5537114143371582
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6016013622283936
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6016116142272949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.603729248046875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6030757427215576
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6540043354034424
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6555826663970947
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6550869941711426
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6535313129425049
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7029294967651367
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7029790878295898
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7036116123199463
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7045810222625732
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7517058849334717
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7536613941192627
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7547800540924072
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7513830661773682
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8083763122558594
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8022036552429199
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8036179542541504
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.803635835647583
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8535141944885254
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8521974086761475
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8533289432525635
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8511407375335693
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9037988185882568
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9026572704315186
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9027836322784424
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.904465913772583
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9536526203155518
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9540562629699707
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9546291828155518
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9554541110992432
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0019736289978027
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0035839080810547
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.004173755645752
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.004418134689331
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0538949966430664
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0538134574890137
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0519766807556152
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0534613132476807
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03767657279968262
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027114152908325195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.026005268096923828
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.030933380126953125
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0982050895690918
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09968709945678711
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10146331787109375
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.100433349609375
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.14971518516540527
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15038251876831055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1530134677886963
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15166282653808594
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20266199111938477
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.201524019241333
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2012171745300293
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20004558563232422
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25249719619750977
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2504262924194336
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25086045265197754
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25133776664733887
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3035008907318115
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3030049800872803
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30174970626831055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30353856086730957
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35057544708251953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35308027267456055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3517725467681885
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3525664806365967
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40238237380981445
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4029242992401123
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4038236141204834
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40361833572387695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45017337799072266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45403552055358887
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45382046699523926
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45088624954223633
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5012578964233398
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.502833366394043
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.502805233001709
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5055806636810303
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5516855716705322
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5526158809661865
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5531048774719238
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5526654720306396
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.600600004196167
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.604205846786499
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6039478778839111
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6058213710784912
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6532790660858154
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6545534133911133
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6520030498504639
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6541357040405273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7030227184295654
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7030782699584961
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7045466899871826
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7053816318511963
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7523667812347412
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7519021034240723
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7530314922332764
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.752723217010498
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8061027526855469
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8033969402313232
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8092172145843506
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8039615154266357
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8516273498535156
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8538544178009033
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8514909744262695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8574144840240479
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9019536972045898
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9033260345458984
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9047610759735107
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9023473262786865
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9498429298400879
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9511377811431885
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9531614780426025
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9506571292877197
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0001568794250488
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0032424926757812
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0020513534545898
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.003781795501709
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.054638147354126
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.053753137588501
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0549814701080322
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0523159503936768
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03838014602661133
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.029093503952026367
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.02597188949584961
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.02604842185974121
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0963892936706543
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09785962104797363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10070085525512695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09788370132446289
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.14976882934570312
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15306615829467773
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1534128189086914
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1512458324432373
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20264029502868652
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20345640182495117
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20393085479736328
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.1996016502380371
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.251079797744751
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.24892783164978027
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2535743713378906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2515444755554199
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30356454849243164
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30487537384033203
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30359721183776855
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30129337310791016
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3504343032836914
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3506028652191162
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35376501083374023
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3552703857421875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40188074111938477
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4035658836364746
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40276384353637695
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4037470817565918
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4528465270996094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45351457595825195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45407819747924805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4511749744415283
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5017774105072021
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5034835338592529
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5024740695953369
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5018911361694336
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5535321235656738
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5550441741943359
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5503654479980469
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5528552532196045
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6031816005706787
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6033873558044434
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6014811992645264
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6028323173522949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6513612270355225
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6520416736602783
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6529824733734131
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6554222106933594
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7011120319366455
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7054543495178223
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7036221027374268
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7053329944610596
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7550010681152344
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7518417835235596
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.752324104309082
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7525112628936768
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8026952743530273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8034265041351318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8037583827972412
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8024511337280273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8520183563232422
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8514382839202881
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.852959156036377
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8540670871734619
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9027776718139648
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.901526689529419
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9045350551605225
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9011659622192383
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9528007507324219
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9527468681335449
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9993765354156494
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9561569690704346
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.002345085144043
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0025134086608887
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.001657247543335
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0062451362609863
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0553410053253174
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0532331466674805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0526914596557617
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0539464950561523
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03877758979797363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03687644004821777
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027595996856689453
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03952217102050781
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10060453414916992
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09991908073425293
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09791445732116699
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09772324562072754
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.14937591552734375
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15095853805541992
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15160393714904785
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.19808292388916016
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20190191268920898
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20133614540100098
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20047616958618164
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20389819145202637
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25017833709716797
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2512247562408447
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.24771356582641602
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2531583309173584
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30158281326293945
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3018183708190918
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3012387752532959
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30144381523132324
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3517899513244629
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.396930456161499
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3518099784851074
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35242462158203125
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4484586715698242
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4042520523071289
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40496063232421875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4005758762359619
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4535074234008789
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45421671867370605
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45207691192626953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45150136947631836
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.49690985679626465
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.501349687576294
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5018515586853027
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5015125274658203
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5530338287353516
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.553297758102417
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5533003807067871
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5523924827575684
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6018223762512207
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6031737327575684
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6021616458892822
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6022298336029053
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6548326015472412
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6503298282623291
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6508970260620117
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.655146598815918
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7032778263092041
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7037088871002197
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7037136554718018
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7017743587493896
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.75240159034729
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7534277439117432
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.751227617263794
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7530171871185303
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8036627769470215
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8012204170227051
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8016178607940674
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8045015335083008
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8520302772521973
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8536624908447266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8527975082397461
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8532371520996094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9026625156402588
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9012410640716553
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9027822017669678
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9064908027648926
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9550871849060059
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9525082111358643
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9531784057617188
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9537293910980225
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0037827491760254
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0041437149047852
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0020029544830322
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0041484832763672
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0522470474243164
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0543653964996338
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0535342693328857
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0544097423553467
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03738856315612793
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.02620530128479004
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027280330657958984
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027482032775878906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10835552215576172
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09952020645141602
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.1004328727722168
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09932494163513184
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1500225067138672
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15397047996520996
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15343713760375977
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1507573127746582
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20217180252075195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20184326171875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20378756523132324
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20215153694152832
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2515907287597656
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25193119049072266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25255465507507324
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25252771377563477
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30272841453552246
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30140066146850586
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3030073642730713
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30276036262512207
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35239648818969727
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35164594650268555
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3511219024658203
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35330796241760254
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.3993692398071289
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.39990663528442383
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4019284248352051
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40475010871887207
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45168352127075195
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45337510108947754
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4560203552246094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4524378776550293
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.503178596496582
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5039911270141602
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5008141994476318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5041027069091797
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5539035797119141
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5541973114013672
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5555384159088135
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5514194965362549
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6042163372039795
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6014730930328369
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.601323127746582
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6007444858551025
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.654883623123169
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6542189121246338
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6546218395233154
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6534867286682129
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7012877464294434
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7023184299468994
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7022273540496826
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7040297985076904
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7531888484954834
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.753972053527832
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7584171295166016
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7541778087615967
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8047821521759033
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8047237396240234
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8029055595397949
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8045761585235596
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8535282611846924
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8517589569091797
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8529291152954102
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8513703346252441
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9031345844268799
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9041953086853027
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9022130966186523
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9030425548553467
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9521880149841309
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9531404972076416
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9529201984405518
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.955756425857544
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0047950744628906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0053308010101318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0026686191558838
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.003659725189209
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0530433654785156
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0528666973114014
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.05470871925354
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0517346858978271
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.045287132263183594
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04846048355102539
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03851461410522461
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.0344696044921875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09462618827819824
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09850907325744629
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10120725631713867
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09978842735290527
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15224838256835938
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15140485763549805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15514302253723145
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1531980037689209
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20351386070251465
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20508360862731934
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20205307006835938
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20222830772399902
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2511746883392334
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2504582405090332
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.251314640045166
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2495415210723877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3029489517211914
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3004312515258789
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30284857749938965
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3016641139984131
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35154151916503906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35054707527160645
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35096001625061035
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35172510147094727
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40134477615356445
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4066333770751953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4007985591888428
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40349245071411133
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4537932872772217
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4558296203613281
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45171093940734863
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4522531032562256
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5016663074493408
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5038013458251953
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5033140182495117
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.502117395401001
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5545375347137451
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5520815849304199
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5512349605560303
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5498800277709961
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6045358180999756
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6042380332946777
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6012494564056396
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6008801460266113
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6522533893585205
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6531717777252197
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6547517776489258
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6543173789978027
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7045395374298096
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.703984260559082
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7024013996124268
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7034211158752441
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7526586055755615
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7525155544281006
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7523410320281982
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7538087368011475
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8043060302734375
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8036332130432129
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8021018505096436
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8028862476348877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8537299633026123
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8541219234466553
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8513169288635254
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8566386699676514
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9067206382751465
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9023046493530273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9050014019012451
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9059221744537354
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9531314373016357
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9536228179931641
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9519391059875488
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9533534049987793
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0033924579620361
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0039994716644287
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0048480033874512
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.003171443939209
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0543458461761475
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.054264783859253
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0555086135864258
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0548315048217773
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03548455238342285
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027911901473999023
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.026808738708496094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.027136802673339844
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09540295600891113
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09839248657226562
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09856486320495605
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0993959903717041
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1511671543121338
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1523449420928955
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1514279842376709
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1527259349822998
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20078229904174805
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20127105712890625
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20204377174377441
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2035820484161377
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25232839584350586
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2529022693634033
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25165772438049316
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2495877742767334
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3023397922515869
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3016667366027832
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3035144805908203
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3002595901489258
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35278749465942383
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35430049896240234
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3546786308288574
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3523283004760742
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40165042877197266
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40212321281433105
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4025716781616211
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4015498161315918
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4520683288574219
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4547886848449707
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4513843059539795
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45324063301086426
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5016539096832275
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5007138252258301
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5035800933837891
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5028271675109863
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5502922534942627
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5526072978973389
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5535235404968262
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5533108711242676
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6033153533935547
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.602550745010376
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6014049053192139
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.602592945098877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6521837711334229
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6534912586212158
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6534814834594727
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6535336971282959
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7048604488372803
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.70284104347229
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.704416036605835
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7024366855621338
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7548220157623291
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7530310153961182
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7549107074737549
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7549021244049072
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8032214641571045
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8037147521972656
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.7998907566070557
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.803699254989624
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8510396480560303
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8534116744995117
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8540019989013672
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8534150123596191
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9040334224700928
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9046518802642822
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9009454250335693
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9023773670196533
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9518477916717529
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9533312320709229
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9530589580535889
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9534800052642822
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0055079460144043
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0016543865203857
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0009276866912842
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0044605731964111
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0538303852081299
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0526082515716553
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0522394180297852
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.053884506225586
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04993605613708496
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.03485107421875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.023610353469848633
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.025872230529785156
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.09496569633483887
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0991830825805664
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.10036945343017578
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.01",
+    "latency": 0.0988914966583252
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15167999267578125
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15130901336669922
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.1509840488433838
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.02",
+    "latency": 0.15314936637878418
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.19972014427185059
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.2029428482055664
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20247411727905273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.03",
+    "latency": 0.20267844200134277
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2541041374206543
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2520277500152588
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.2527618408203125
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.04",
+    "latency": 0.25098180770874023
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3023338317871094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3011820316314697
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.3022022247314453
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.05",
+    "latency": 0.30417799949645996
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3540194034576416
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3497650623321533
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.3524336814880371
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.06",
+    "latency": 0.35262012481689453
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40511512756347656
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4051516056060791
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.4030938148498535
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.07",
+    "latency": 0.40368103981018066
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4531588554382324
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4542388916015625
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.4527101516723633
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.08",
+    "latency": 0.45320796966552734
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5042333602905273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.502932071685791
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5041849613189697
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.09",
+    "latency": 0.5033128261566162
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5522058010101318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5549566745758057
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5514645576477051
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.1",
+    "latency": 0.5529463291168213
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6019253730773926
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6036331653594971
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6020104885101318
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.11",
+    "latency": 0.6018664836883545
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6552402973175049
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6552562713623047
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.6538834571838379
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.12",
+    "latency": 0.651336669921875
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.702648401260376
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7040205001831055
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7035460472106934
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.13",
+    "latency": 0.7035057544708252
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7526464462280273
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7548003196716309
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7534804344177246
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.14",
+    "latency": 0.7548477649688721
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.801257848739624
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.803321123123169
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8026676177978516
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.15",
+    "latency": 0.8042306900024414
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8527059555053711
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8527464866638184
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8544480800628662
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.16",
+    "latency": 0.8551383018493652
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9067153930664062
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9012143611907959
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9034066200256348
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.17",
+    "latency": 0.9045116901397705
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9504992961883545
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9544930458068848
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9535226821899414
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.18",
+    "latency": 0.9526665210723877
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0022306442260742
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0063061714172363
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.0044033527374268
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.19",
+    "latency": 1.003230094909668
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0532660484313965
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.054321527481079
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0529329776763916
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.2",
+    "latency": 1.0543701648712158
+  }
+]

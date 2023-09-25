@@ -18,6 +18,7 @@ class State(Enum):
     DEFAULT = 0
     REQUESTING = 1
     EXECUTING = 2
+    NOT_INTERESTED = 3
 
 
 @dataclass
@@ -26,8 +27,9 @@ class ClientState:
         default_factory=lambda: defaultdict(lambda: State.DEFAULT)
     )
     delay_time: str | None = None
+    host_url: str = ""
     # state_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
-    token_received_event: asyncio.Event = field(default_factory=asyncio.Event)
+    # token_received_event: asyncio.Event = field(default_factory=asyncio.Event)
     # lock_queue: asyncio.Queue = field(default_factory=asyncio.Queue)
 
     def get_next_client_url(self) -> str | None:

@@ -1,7 +1,6 @@
 import os
 import asyncio
 from time import time
-import requests
 
 from flask import Blueprint, request
 import aiohttp
@@ -91,18 +90,20 @@ async def request_resource(resource_id: str) -> tuple[str, int]:
             )
             coroutines.append(coroutine)
 
-        # print("here before broad")
-        try:
-            await asyncio.wait_for(
-                asyncio.gather(*coroutines), timeout=TIMEOUT
-            )
-            # print("after broad")
-        except asyncio.TimeoutError:
-            # Handle the timeout, e.g., by aborting the request and trying again later
-            client_state.get_request_queue(resource_id).pop(0)
-            return "Request timed out. Please retry later.", 408
+        print("HERE before")
+        await asyncio.gather(*coroutines)
+        print("HERE after")
 
-    return f"client {request.host_url} is requesting {resource_id}", 200
+        return f"client {request.host_url} is requesting {resource_id}", 200
+
+        # print("here before broad")
+    # try:
+    #     await asyncio.wait_for(asyncio.gather(*coroutines), timeout=TIMEOUT)
+    #     # print("after broad")
+    # except asyncio.TimeoutError:
+    #     # Handle the timeout, e.g., by aborting the request and trying again later
+    #     client_state.get_request_queue(resource_id).pop(0)
+    #     return "Request timed out. Please retry later.", 408
 
 
 @bp.route("/<string:resource_id>/resource_status", methods=["POST"])
@@ -139,7 +140,7 @@ async def resource_status(resource_id: str):
 
     return (
         f"client {request.host_url} does not grant client {original_url} access of {resource_id}",
-        403,
+        123,
     )
 
 
@@ -152,27 +153,17 @@ async def receive_reply(resource_id: str):
     delay_time = data["delay_time"]
     client_no = data["client_no"]
 
-    for i in range(len(client_state.get_request_queue(resource_id))):
-        current_request: ClientRequest = client_state.get_request_queue(
-            resource_id
-        )[i]
-        # print(f"current {current_request} and recv {received_request}")
+    request_queue = client_state.get_request_queue(resource_id)
+    for current_request in request_queue:
         if current_request.url == approve_url:
-            # if datetime.now() >= current_request.expiration_time:
-            #     # Request has expired, remove it from the queue and handle the expiration
-            #     client_state.get_request_queue(resource_id).pop(i)
-            #     return "Request expired.", 410
-
             current_request.approvals += 1
             current_request.already_given_approvals.add(approver_url)
 
             if (
                 current_request.approvals
                 == (len(client_state.get_broadcast_urls(request.host_url)))
-                and client_state.get_request_queue(resource_id)[0].url
-                == request.host_url
+                and request_queue[0].url == request.host_url
             ):
-                # print(f"HERE CLIENT locking {resource_id}")
                 await lock_resource(resource_id, delay_time, client_no)
                 return f"Client locked {resource_id}", 200
 

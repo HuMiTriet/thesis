@@ -57,23 +57,23 @@ def check_locking_status(resource_id: str):
 # accquire a temporary lock on a resource that will expirce after 2s
 @bp.route("/<string:resource_id>/lock", methods=["PUT"])
 def lock(resource_id: str):
-    potential_state = server_state.resource.get(resource_id)
-    if potential_state is not None:
-        if potential_state is True:
-            server_state.race_condition = True
-            return (
-                f"Race condition: {resource_id} currently locked",
-                423,
-            )
+    data = request.get_json()
 
-        server_state.resource[resource_id] = True
-        # logging.warning(
-        #     f"{request.get_json()['origin']} {resource_id}",
-        # )
-        # os.environ["END_TIME"] = str(time())
-        return f"sucessfully locked {resource_id}", 200
+    print(f"received lock from {data['client_url']}")
 
-    return "Resource not found", 404
+    requests.put(
+        f"{LOGGER_URL}{resource_id}/log",
+        json={
+            "type": "end",
+            "time": time(),
+            "delay_time": data["delay_time"],
+            "client_no": data["client_no"],
+            "client_url": data["client_url"],
+        },
+        timeout=REQUEST_TIMEOUT,
+    )
+
+    return "Resource locked", 200
 
 
 # explicitly release a lock on a resource

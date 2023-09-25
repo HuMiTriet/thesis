@@ -47,4 +47,5 @@ if PARSED_DATA is not None:
         "Latency Variability Across Different number of Clients", fontsize=12
     )
 
+    plt.show()
     plt.savefig("scalling_ricart.svg", format="svg")

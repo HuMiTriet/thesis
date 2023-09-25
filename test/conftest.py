@@ -518,6 +518,32 @@ def setup_maekawa_scale(
     kill_process(client_ports_number)
 
 
+@pytest.fixture(scope="function")
+def setup_token_ring_scale(
+    request: pytest.FixtureRequest,
+    setup_server_and_proxy,  # pyright: ignore  # pylint: disable=unused-argument,redefined-outer-name
+    client_token_app: Flask,  # pylint: disable=redefined-outer-name
+):
+    num_clients: int = request.param
+
+    client_ports_number: list[int] = list((range(5002, 5002 + num_clients)))
+    kill_process(client_ports_number)
+
+    client_processes: list[Process] = []
+
+    for port in client_ports_number:
+        process = Process(target=client_token_app.run, kwargs={"port": port})
+        client_processes.append(process)
+        process.start()
+
+    yield {"client_ports_number": client_ports_number}
+
+    for process in client_processes:
+        process.terminate()
+
+    kill_process(client_ports_number)
+
+
 @pytest.fixture(scope="session")
 def result_aggregator():
     # Step 1: Create a dictionary to hold test results
@@ -526,5 +552,10 @@ def result_aggregator():
     yield results  # Step 2: Yield the dictionary so tests can modify it
 
     # Step 3: Write the results to a JSON file after all tests are done
-    with open("scalling_ricart.json", "w", encoding="utf-8") as f:
+    with open("scalling_token_ring.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def generate_graphs():
+    pass

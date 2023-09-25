@@ -22,7 +22,7 @@ def log(resource_id: str):
 
     if log_type == "start":
         # redis_connection.set(key, time)
-        print(f"start {key}")
+        print(f"start {key} and time{time}")
         latency_dict[key] = time
 
     elif log_type == "end":

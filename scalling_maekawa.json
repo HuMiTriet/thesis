@@ -1,52 +1,77 @@
 [
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.05081820487976074
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.059511423110961914
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.059560537338256836
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.05388283729553223
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.06306695938110352
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.06415295600891113
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.05481529235839844
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.06379294395446777
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.06461167335510254
-    },
-    {
-        "client_no": "10",
-        "delay_time": "0.0",
-        "latency": 0.060054779052734375
-    }
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.047196388244628906
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.040500144958496094
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04742574691772461
+  },
+  {
+    "client_no": "4",
+    "delay_time": "0.0",
+    "latency": 0.04233121871948242
+  },
+  {
+    "client_no": "5",
+    "delay_time": "0.0",
+    "latency": 0.04240894317626953
+  },
+  {
+    "client_no": "5",
+    "delay_time": "0.0",
+    "latency": 0.041052589416503906
+  },
+  {
+    "client_no": "5",
+    "delay_time": "0.0",
+    "latency": 0.04007054328918457
+  },
+  {
+    "client_no": "5",
+    "delay_time": "0.0",
+    "latency": 0.047438154220581055
+  },
+  {
+    "client_no": "5",
+    "delay_time": "0.0",
+    "latency": 0.047815799713134766
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.049552927017211914
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.04197884559631348
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.04546236991882324
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.04015326499938965
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.040418853759765625
+  },
+  {
+    "client_no": "6",
+    "delay_time": "0.0",
+    "latency": 0.04021095275878906
+  }
 ]

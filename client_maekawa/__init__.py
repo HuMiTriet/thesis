@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 from math import sqrt, ceil
 
@@ -26,16 +27,13 @@ class ClientRequest:
 @dataclass
 class ClientState:
     # queued_request: Queue[ClientRequest] = field(default_factory=Queue)
-    _queued_request: dict[str, list[ClientRequest]] = field(
-        default_factory=dict[str, list[ClientRequest]]
+    _queued_request: defaultdict[str, list[ClientRequest]] = field(
+        default_factory=lambda: defaultdict(list)
     )
 
     _quorum_urls: list[str] = field(default_factory=list)
 
     def get_request_queue(self, resource_id: str) -> list[ClientRequest]:
-        if self._queued_request.get(resource_id) is None:
-            self._queued_request[resource_id] = []
-
         return self._queued_request[resource_id]
 
     def _get_url_matrix(self) -> list[list[None]]:

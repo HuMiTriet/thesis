@@ -7,7 +7,7 @@ from hypothesis.stateful import (
     initialize,
     invariant,
     rule,
-    # precondition,
+    precondition,
 )
 
 import requests
@@ -24,7 +24,7 @@ TESTING_TIMEOUT: float = float(os.getenv("TESTING_TIMEOUT", "100"))
 
 
 class MutexLocking(RuleBasedStateMachine):
-    # just_ran_invariant = False
+    just_ran_invariant = False
     # last_operation = None
     fault = RuleBaseInjectibleFault()
 
@@ -115,10 +115,9 @@ class MutexLocking(RuleBasedStateMachine):
             timeout=10,
         )
 
-    # @precondition(lambda self: self.just_ran_invariant is False)
+    @precondition(lambda self: self.just_ran_invariant is False)
     @invariant()
     def test_no_race_server(self):
-
         response = requests.get(
             f"{SERVER_URL}race",
             timeout=TESTING_TIMEOUT,
